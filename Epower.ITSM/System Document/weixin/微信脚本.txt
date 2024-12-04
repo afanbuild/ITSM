@@ -1,0 +1,6 @@
+create table br_weixin_param
+(
+  guid nvarchar2(100),
+  content nvarchar2(2000),
+  addTime date
+)

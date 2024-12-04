@@ -1,0 +1,252 @@
+
+--修复全年服务满意度分析数据错误问题 2013-05-14 廖世进
+create or replace procedure PROC_RPT_Satisfaction(nYear            in varchar2,
+                                              lngServiceTypeID in varchar2,
+                                              lngWTTypeID        in varchar2,
+                                              lngDeptID  in varchar2,
+                                              lngMastCustomer  in varchar2,
+                                              p_cursor         out GetDataSet.GETCUR) AS
+  sFullID varchar2(200);
+  STRSQL  varchar2(4000);
+begin
+  begin
+    select FullID
+      into sFullID
+      from Es_Catalog
+     where CatalogID = lngServiceTypeID;
+  exception
+    when no_data_found then
+      sFullID := ' ';
+  end;
+  STRSQL:='SELECT ''年度'||nYear||''' as 年度,
+              sum(case  when c.months=1 then c.sqtyRate else 0 end) 一月,
+              sum(case  when c.months=2 then c.sqtyRate else 0 end) 二月,
+              sum(case  when c.months=3 then c.sqtyRate else 0 end) 三月,
+              sum(case  when c.months=4 then c.sqtyRate else 0 end) 四月,
+              sum(case  when c.months=5 then c.sqtyRate else 0 end) 五月,
+              sum(case  when c.months=6 then c.sqtyRate else 0 end) 六月,
+              sum(case  when c.months=7 then c.sqtyRate else 0 end) 七月,
+              sum(case  when c.months=8 then c.sqtyRate else 0 end) 八月,
+              sum(case  when c.months=9 then c.sqtyRate else 0 end) 九月,
+              sum(case  when c.months=10 then c.sqtyRate else 0 end) 十月,
+              sum(case  when c.months=11 then c.sqtyRate else 0 end) 十一月,
+              sum(case  when c.months=12 then c.sqtyRate else 0 end) 十二月
+            FROM (SELECT   datepart(''month'',b.RegSysDate) as months,
+                           round(to_number(sum(case when a.feedback != 3  then 1 else 0 end)) / (sum(case when nvl(a.feedback,0) = 0 then 0 else 1 end))*100,2)  as sqtyRate
+                  FROM EA_Issues_FeedBack a,cst_issues b,Es_Catalog c
+                  WHERE a.flowid = b.flowid And servicetypeid=CatalogID AND a.appid=1026 AND  datepart(''year'',b.regsysdate)  = '|| nYear;
+
+                  STRSQL :=STRSQL || ' AND NOT exists (SELECT SUBFLOWID FROM  Pro_ProblemRel d WHERE d.SUBFLOWID=a.FLOWID ) ';
+                  STRSQL :=STRSQL || ' AND exists (SELECT FLOWID FROM  ES_MESSAGE m WHERE m.FLOWID=a.FLOWID and not (m.senderid=0 and m.status=20) GROUP BY FLOWID HAVING COUNT(*)>=1 ) ';
+
+                 -- IF lngWTTypeID NOT IN (0,-1) THEN
+                  --   STRSQL:=STRSQL||' AND b.ServiceLevelID ='||lngWTTypeID;
+                 -- END IF;
+                  IF lngDeptID NOT IN (0, -1) THEN
+                     STRSQL:=STRSQL||' AND b.orgid ='||lngDeptID;
+                  END IF;
+                  IF lngMastCustomer !=0 THEN
+                     STRSQL:=STRSQL||' And nvl(CustID,0) In (select ID from Br_ECustomer where MastCustID='||lngMastCustomer||')';
+                  END IF;
+                  IF lngServiceTypeID !=1001 THEN
+                     --STRSQL:=STRSQL||' AND substr(c.FullID,0,length('||sFullID||')+1)='||sFullID;
+                     STRSQL:=STRSQL|| ' AND c.fullID like ''' || sFullID ||'%''';
+                  END IF ;
+                   STRSQL:=STRSQL||' GROUP BY datepart(''month'',b.RegSysDate)  ) c';
+                  OPEN p_cursor FOR STRSQL;
+                   dbms_output.put_line(STRSQL);
+                   --STRSQL := STRSQL || 'zz';
+                  --open p_cursor FOR select sysdate from dual;
+
+end;
+
+
+
+--删除历史数据 廖世进 2013-05-16
+--先备份
+create table EA_DefineLanguage_BackUp as select * from EA_DefineLanguage;
+delete from EA_DefineLanguage;
+commit;
+
+--添加唯一健 廖世进 2013-05-16
+alter table EA_DEFINELANGUAGE add constraint IX_NAME unique (KEYNAME);
+
+-- 创建标识列  廖世进 2013-05-16
+create sequence EA_DEFINELANGUAGEID
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 20
+order;
+
+--基本信息 廖世进 2013-05-16
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustName','客户名称','事件单','CustName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustAddress','客户地址','事件单','CustAddress',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustContract','联 系 人','事件单','Contact',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustPhone','联系人电话','事件单','CTel',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustDeptName','客户部门','事件单','CustDeptName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustEmail','电子邮件','事件单','Email',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustMastName','服务单位','事件单','MastCust',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustJob','职位','事件单','Job',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_EquName','资产名称','事件单','EquipmentName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_RegUserName','登单人','事件单','RegSysUser',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_RegTime','登记时间','事件单','RegSysDate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ServiceNO','事件单号','事件单','ServiceNO',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ServiceType','事件类别','事件单','ServiceType',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CustTime','发生时间','事件单','CustTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ReportingTime','报告时间','事件单','ReportingTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_InstancyName','紧急度','事件单','InstancyName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_EffectName','影响度','事件单','EffectName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ServiceKind','事件性质','事件单','ServiceKind',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_Subject','摘要','事件单','Subject',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_Content','需求描述','事件单','Content',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ServiceLevel','服务级别','事件单','ServiceLevel',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CloseReasonName','关闭理由','事件单','CloseReasonName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ReSouseName','事件来源','事件单','ReSouseName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_DealStatus','事件状态','事件单','DealStatus',0);
+--处理信息 
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_Outtime','派出时间','事件单','Outtime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ServiceTime','上门时间','事件单','ServiceTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_Sjwxr','执行人','事件单','Sjwxr',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_FinishedTime','处理完成时间','事件单','FinishedTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_DealContent','措施及结果','事件单','DealContent',0);
+--资产
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_EquList','资产目录','事件单','',0);
+
+--费用 
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_TotalAmount','总计金额','事件单','TotalAmount',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_TotalHours','合计工时','事件单','TotalHours',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ExpectedTime','处理时限','事件单','ExpectedTime',0);
+commit;
+
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_ResponseTime','响应时效','事件单','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_OperaTime','处理时效','事件单','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'CST_CurrentOpUser','当前处理人','事件单','',0);
+commit;
+
+ 
+--添加问题单自定义信息项名称  廖世进 2013-05-16
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_ProblemNo','问题单号','问题单','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_RegUserName','登单人','问题单','RegUserName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_RegDeptName','登单人部门','问题单','RegDeptName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_RegTime','登单时间','问题单','RegTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_EquList','资产目录','问题单','ListName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_ProblemTypeName','问题类别','问题单','Problem_TypeName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_ProblemLevelName','问题级别','问题单','Problem_LevelName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_EffectName','影响度','问题单','EffectName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_InstancyName','紧急度','问题单','InstancyName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_EquName','资产名称','问题单','EquName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_StateName','问题状态','问题单','StateName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_Title','摘要','问题单','Problem_Title',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_Subject','问题描述','问题单','Problem_Subject',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_Remark','解决方案','问题单','Remark',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'PRO_DealContent','原因分析','问题单','DealContent',0);
+commit;
+
+
+--添加变更单自定义信息项名称 余向前 2013-05-17
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustName','客户名称','变更单','CustName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustAddress','客户地址','变更单','CustAddress',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustContract','联系人','变更单','Contact',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustPhone','联系人电话','变更单','CTel',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustDeptName','客户部门','变更单','CustDeptName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustEmail','电子邮件','变更单','Email',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustMastName','服务单位','变更单','MastCust',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_CustJob','职位','变更单','Job',0);
+
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_ChangeNo','变更单号','变更单','ChangeNo',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_RegTime','登记时间','变更单','RegTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_ChangeTypeName','变更类别','变更单','ChangeTypeName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_ChangeTime','变更时间','变更单','ChangeTime',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_Subject','摘要','变更单','Subject',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_Content','请求内容','变更单','Content',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_EffectName','影响度','变更单','EffectName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_InstancyName','紧急度','变更单','InstancyName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_LevelName','变更级别','变更单','LevelName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_DealStatus','变更状态','变更单','DealStatus',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_ChangeAnalyses','变更分析','变更单','ChangeAnalyses',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_ChangeAnalysesResult','分析结果','变更单','ChangeAnalysesResult',0);
+commit;
+
+--添加资产自定义信息项名称 余向前 2013-05-17
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_ListName','资产目录','资产','ListName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_CatalogName','资产类别','资产','CatalogName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_DeskName','资产名称','资产','Name',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_Code','资产编号','资产','Code',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_MastCust','服务单位','资产','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_CostomName','所属客户','资产','CostomName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_SerialNumber','SN','资产','SerialNumber',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_Breed','品牌','资产','Breed',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_Model','型号','资产','Model',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_ItemCode','条形码','资产','ItemCode',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_Positions','位置','资产','Positions',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_PartBankName','维护机构','资产','PartBankName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_PartBranchName','维护部门','资产','PartBranchName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_EquStatusName','资产状态','资产','EquStatusName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Equ_ServiceTime','保修期','资产','',0);
+commit;
+
+--添加客户自定义信息项名称  余向前 2013-05-17
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_User','对应用户','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_MastCustName','服务单位','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustDeptName','部门','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustName','客户名称','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustomCode','客户代码','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_FullName','英文名称','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustEmail','电子邮箱','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustomerType','客户类型','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_Contact','联系人','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_Job','职位','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CTel','联系电话','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_CustAddress','联系地址','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_Rights','权限','客户','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Custom_Remark','备注','客户','',0);
+commit;
+
+--添加进出操作间自定义信息项名称 余向前 2013-05-17
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_ITILNO','ITIL号','进出操作间','ITILNO',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_IsBudan','补单标志','进出操作间','IsBudan',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_CreateByName','ITIL录入人','进出操作间','CreateByName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_CJRByPhone','录入人电话','进出操作间','CJRByPhone',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_createbydeptname','录入人部门(室)','进出操作间','createbydeptname',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_createdate','录入时间','进出操作间','createdate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_comeindate','预计进入日期、时间','进出操作间','comeindate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_outdate','预计离开日期、时间','进出操作间','outdate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_execbyname','申请人','进出操作间','execbyname',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_execbydeptname','申请人部门(室)','进出操作间','execbydeptname',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_execbyno','申请人工牌号','进出操作间','execbyno',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_execbyphone','申请人电话','进出操作间','execbyphone',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_Address','申请人进入地址','进出操作间','Address',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_ActionTypeID','操作分类','进出操作间','ActionTypeID',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_sqdescr','申请事由','进出操作间','sqdescr',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_qtexecbyname','其他申请进入人','进出操作间','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_hangwuser','行外人员','进出操作间','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_squserpwd','申请用户密码','进出操作间','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_txjzis','是否携带介质','进出操作间','txjzis',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_isokscan','是否安全扫描','进出操作间','isokscan',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_zgflowdate','室主管审批(日期\时间)','进出操作间','zgflowdate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Quest_SZSZGflowDate','操作室主管审批(日期\时间)','进出操作间','SZSZGflowDate',0);
+commit;
+
+
+--添加知识库 自定义信息项名称 余向前 2013-05-20
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_Title','主题','知识','Title',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_PKey','关键字','知识','PKey',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_Tags','摘要','知识','Tags',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_TypeName','知识类别','知识','TypeName',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_Content','知识内容','知识','Content',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'info_IsInKB','同意入库','知识','IsInKB',0);
+commit;
+
+--添加公告 自定义信息项名称 余向前 2013-05-20
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_Title','信息题目','公告','Title',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_TypeName','信息类别','公告','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_DispFlag','是否显示','公告','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_IsAlert','是否弹出','公告','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_Writer','发布人','公告','Writer',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_PubDate','发布时间','公告','PubDate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_OutDate','截止时间','公告','OutDate',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_ISINNER','显示范围','公告','',0);
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'OA_Content','具体内容','公告','Content',0);
+commit;

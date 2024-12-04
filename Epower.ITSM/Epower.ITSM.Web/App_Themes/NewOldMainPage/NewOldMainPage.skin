@@ -1,0 +1,41 @@
+﻿<asp:Datagrid runat="server" GridLines="Vertical" AutoGenerateColumns="False" cellSpacing=1 cellPadding=1 rules=all border=0 class="listContent">
+    <AlternatingItemStyle BackColor="#F7FAFD"></AlternatingItemStyle>
+    <ItemStyle cssClass="listTitleNoAlign" BackColor="White"  height="25" HorizontalAlign="Center"></ItemStyle>
+    <HeaderStyle cssClass="listTitleNew_1" HorizontalAlign="Center"></HeaderStyle>
+    <FooterStyle BackColor="#CDE3F6"  HorizontalAlign="Center"></FooterStyle>
+</asp:Datagrid>
+<asp:Datagrid runat="server" GridLines="Vertical" AutoGenerateColumns="True" cellSpacing=1 cellPadding=1 rules=all border=0 class="listContent" SkinID="Skindg2">
+    <AlternatingItemStyle BackColor="#EEF5FB"></AlternatingItemStyle>
+    <ItemStyle height="25" cssClass="listTitle" BackColor="White"  HorizontalAlign="Center"></ItemStyle>
+    <HeaderStyle cssClass="listTitleNew_1"  HorizontalAlign="Center"></HeaderStyle>
+    <FooterStyle BackColor="#CDE3F6"  HorizontalAlign="Center"></FooterStyle>
+</asp:Datagrid>
+<asp:button runat="server" CssClass="btnClass"></asp:button>
+<asp:button runat="server" CssClass="btnClass1" SkinID="btnClass1"></asp:button>
+<asp:button runat="server" CssClass="btnClass2" SkinID="btnClass2"></asp:button>
+<asp:button runat="server" CssClass="btnClass3" SkinID="btnClass3"></asp:button>
+<asp:TextBox CssClass="bian"  runat="server"></asp:TextBox>
+<asp:DropDownList CssClass="WPAspFieldDrp"  runat="server"></asp:DropDownList>
+<asp:ImageButton SkinID="btnnew" ImageUrl="~/images/btn_new.gif" Width="55" Height="20px"  runat="server" />
+<asp:ImageButton  SkinID="btnedit" ImageUrl="~/images/Edit.gif" Width="55" Height="20px" runat="server"/>                  
+<asp:ImageButton  SkinID="btnsave"  ImageUrl="~/images/btn_save.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btndelete" ImageUrl="~/images/btn_delete.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnquery" ImageUrl="~/images/Query.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnstat"  ImageUrl="~/images/Stat.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnprint" ImageUrl="~/images/print.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnexportword" ImageUrl="~/images/ExportWord.gif" Width="55" Height="20px" runat="server" />          
+<asp:ImageButton  SkinID="btnexportexcel" ImageUrl="~/images/ExportExcel.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnexportpdf" ImageUrl="~/images/ExportPdf.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnback" ImageUrl="~/images/btn_back.gif" Width="55" Height="20px" runat="server" />
+<asp:ImageButton  SkinID="btnbackhome" ImageUrl="~/images/btn_back-home.gif" Width="75" Height="20px" runat="server" />
+<asp:imagebutton  SkinID="btnrefresh"  ImageUrl="~/images/btn_sx.gif" Width="55" Height="20px" runat="server" />
+<asp:imagebutton  SkinID="btnFirstPage" runat="server" ImageUrl="~/images/first.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnPrevPage" runat="server" ImageUrl="~/images/prev.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnNextPage" runat="server" ImageUrl="~/images/next.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnLastPage" runat="server" ImageUrl="~/images/last.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnsender" runat="server" ImageUrl="~/images/btn_sender.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnforward" runat="server" ImageUrl="~/images/btn_forward.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnreply" runat="server" ImageUrl="~/images/btn_reply.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnallreply" runat="server" ImageUrl="~/images/btn_allreply.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btntemporary" runat="server" ImageUrl="~/images/btn_temporary.gif"></asp:imagebutton>
+<asp:imagebutton  SkinID="btnreceive" runat="server" ImageUrl="~/images/btn_receive.gif"></asp:imagebutton>

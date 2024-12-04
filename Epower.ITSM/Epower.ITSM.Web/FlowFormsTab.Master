@@ -1,0 +1,669 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="FlowFormsTab.Master.cs"
+    Inherits="Epower.ITSM.Web.FlowFormsTab" %>
+
+<%@ Register Src="Controls/ctrDySubProcess.ascx" TagName="ctrDySubProcess" TagPrefix="uc2" %>
+<%@ Register TagPrefix="uc1" TagName="CtrImportance" Src="~/Controls/CtrImportance.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrFlowSpecRight" Src="~/Controls/CtrFlowSpecRight.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="ctrLinkFlows" Src="~/Controls/ctrLinkFlows.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrlProcess" Src="~/Controls/CtrlProcess.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrAttachment" Src="~/Controls/CtrAttachment.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrButtons" Src="~/Controls/CtrButtons.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrActions" Src="~/Controls/CtrActions.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="CtrTitle" Src="~/Controls/CtrTitle.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>无标题页</title>
+</head>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Common.js"> </script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Base.js"> </script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/JS/ows.js"></script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/JS/OWSBROWS.JS"></script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/Controls/Calendar/Popup.js"></script>
+
+<!--#include file="~/Js/tableSort.js" -->
+
+<script type="text/javascript" language="javascript">
+<!--
+
+       var xmlhttp = null;
+        function CreateXmlHttpObject()
+        {
+			try  
+			{  
+				xmlhttp = new ActiveXObject("MSXML2.XMLHTTP");  
+			}  
+			catch(e)  
+			{  
+				try  
+				{  
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  
+				}  
+				catch(e2){}  
+			}
+			return xmlhttp;
+        }
+        
+        //获取流程暂停记录展示
+
+        function GetFlowPauseShot(id)
+        {	
+                 //异步获取
+                    if(xmlhttp == null)
+                         xmlhttp = CreateXmlHttpObject();       
+                    if(xmlhttp != null)
+                    {
+                        try
+                        {	
+			                var newDateObj = new Date()
+	                        var sparamvalue =  newDateObj.getHours().toString() + newDateObj.getMinutes().toString() + newDateObj.getMilliseconds().toString();
+			                xmlhttp.open("GET", '<%=sApplicationUrl %>' +"/Forms/frmShowFlowPause.aspx?id=" + id + "&param=" + sparamvalue, true); 
+                            xmlhttp.setRequestHeader( "CONTENT-TYPE ", "application/x-www-form-urlencoded "); 
+			                xmlhttp.onreadystatechange = function() 
+										                { 
+            										        
+											                if ( xmlhttp.readyState==4 ) 
+											                {
+											                    var objecttr = document.all.<%=trShowPauseLog.ClientID%>;
+                                                                objecttr.style.display="";   
+                                                                
+											                    sXml = xmlhttp.responseText;
+    											                var objectDiv = document.getElementById("divShowPauseLog");
+                                                                objectDiv.innerHTML = sXml;
+                                                             }
+                                                        }   
+                              xmlhttp.send(null);   
+                         }
+                         catch(e3)
+                         {
+                         }
+                         
+                   }
+        }
+        
+       
+        //获取子流程处理过程展示
+
+        function GetSubProcessShot(id)
+        {	
+                 //异步获取
+                    if(xmlhttp == null)
+                         xmlhttp = CreateXmlHttpObject();       
+                    if(xmlhttp != null)
+                    {
+                        try
+                        {	
+			                var newDateObj = new Date()
+	                        var sparamvalue =  newDateObj.getHours().toString() + newDateObj.getMinutes().toString() + newDateObj.getMilliseconds().toString();
+			                xmlhttp.open("GET", '<%=sApplicationUrl %>' +"/Forms/frmShowSubProcess.aspx?id=" + id + "&param=" + sparamvalue, true); 
+                            xmlhttp.setRequestHeader( "CONTENT-TYPE ", "application/x-www-form-urlencoded "); 
+			                xmlhttp.onreadystatechange = function() 
+										                { 
+            										        
+											                if ( xmlhttp.readyState==4 ) 
+											                {   
+											                    var objecttr = document.all.<%=trShowSubProcess.ClientID%>;
+                                                                objecttr.style.display="";
+                                                                
+											                    sXml = xmlhttp.responseText;
+    											                var objectDiv = document.getElementById("divShowSubProcess");
+                                                                objectDiv.innerHTML = sXml;
+                                                             }
+                                                        }   
+                              xmlhttp.send(null);   
+                         }
+                         catch(e3)
+                         {
+                         }
+                         
+                   }
+        }
+        
+
+        function __doPostBackCustomize(eventTarget, eventArgument) {
+		   
+		    document.all.<%=hidTarget.ClientID%>.value = eventTarget;
+		    document.all.<%=hidPara.ClientID%>.value = eventArgument;
+		    document.forms[0].submit();
+	    }
+
+
+        function DoLeftReceive()
+	    {
+	        window.parent.header.ReceiveMessage();
+	    }
+	    
+	    //调度使用的脚本 (2007-09-14)
+	    function ProcessDoAttemperCtr(messageid)
+	    {
+		    document.all.<%=hidAttemperID.ClientID%>.value = messageid;
+	        document.all.<%=cmdAttemper.ClientID%>.click();
+		    //GetFieldValues(0);
+	    }
+	    
+	    
+      
+        function DoAddOpinion()
+        {
+        
+            var url='<%=sApplicationUrl %>' +"/forms/frmaddopinions.aspx?Opener_ClientId=<%=hidClientId_ForOpenerPage.ClientID %>";
+           window.open(url, 'E8OpenWin', 'resizable=1,scrollbars=1,status=no,toolbar=no,menu=no,width=420,height=268,left=150,top=50');
+        }
+        
+        
+        function DoButtosControlPause(iType)
+        {
+            document.all.<%=hidPauseType.ClientID%>.value = iType;
+            if(iType == 0)
+            {
+                //暂停
+                
+                var	value=window.showModalDialog('<%=sApplicationUrl %>' +"/forms/frmPauseFlow.aspx","","dialogHeight:268px;dialogWidth:420px");
+			    if(value != null && value !="")
+			    {
+				
+				    document.all.<%=hidPauseFlow.ClientID%>.value = value;
+				    document.all.<%=cmdPauseFlow.ClientID%>.click();
+			    }
+			}
+			else
+			{
+			     document.all.<%=cmdPauseFlow.ClientID%>.click();
+			}
+			
+        }
+  
+        function DoButtosControlDelete()
+        {
+            if (typeof(document.all.<%=cmdDeleteFlow.ClientID%>)!="undefined")
+	        {
+		        document.all.<%=cmdDeleteFlow.ClientID%>.click();
+	        }
+      
+        }
+        		
+        function GetFieldValues(lngActionID)
+        {
+	       
+	        window.parent.header.flowInfo.ActionID.value=lngActionID;
+        	
+        	
+        	 
+	       if (typeof(window.parent.main.document.all.<%=txtOpinion.ClientID%>)!="undefined")
+	        {
+		        window.parent.header.flowInfo.OpinionValue.value=document.all.<%=txtOpinion.ClientID%>.value;
+	        }
+	        else
+	        {
+		        window.parent.header.flowInfo.OpinionValue.value="";
+	        }
+        	
+        	
+        	
+	        document.all.<%=cmdHidden.ClientID%>.click();
+        }
+        		
+        function GetFieldValuesForSave(lngActionID)
+        {
+	       
+	        window.parent.header.flowInfo.ActionID.value=lngActionID;
+	        if (typeof(window.parent.main.document.all.<%=txtOpinion.ClientID%>)!="undefined")
+	        {
+		        window.parent.header.flowInfo.OpinionValue.value=document.all.<%=txtOpinion.ClientID%>.value;
+	        }
+	        else
+	        {
+		        window.parent.header.flowInfo.OpinionValue.value="";
+	        }
+        	if(typeof(TransferValue) != "undefined")
+        	{
+	            TransferValue();
+	        }
+	        document.all.<%=cmdHiddenSave.ClientID%>.click();
+        }
+                		
+        function AddOpinionContent()
+        {
+           
+	        var ddltemp =document.all.<%=ddlOpinions.ClientID%>;
+	        var i=ddltemp.selectedIndex;			
+	        var sContent = ddltemp.options(i).text;
+	        //alert(document.all.txtOpinion.value);
+	        if(document.all.<%=txtOpinion.ClientID%>.value.indexOf(sContent) < 0)
+	            document.all.<%=txtOpinion.ClientID%>.value += sContent;
+        }
+     
+
+
+		
+        function printdiv()
+        {
+
+            var headstr = "<html><head><title></title></head><body>";
+
+            var footstr = "</body>";
+
+            var newstr = document.all.<%=PrintArea.ClientID%>.innerHTML;
+            var oldstr = document.body.innerHTML;
+
+            document.body.innerHTML = headstr+newstr+footstr;
+            window.print();
+
+            document.body.innerHTML = oldstr;
+
+            return false;
+
+        }	
+        
+		function DoMessageCC(type,lngFlowID,lngMessageID)
+			{
+			  var value = window.showModalDialog('<%=sApplicationUrl %>' +"/AccountSelect/frmUsers.htm","","dialogWidth=800px; dialogHeight=600px;status=no; help=no;scroll=auto;resizable=no") ;
+				
+				
+				if(value != null)
+				{
+					if(value.length>1)
+					{	
+						arr=value.split("@");
+						//alert(arr[1]);
+                        MessageCC(type,lngFlowID,lngMessageID,arr[1],arr[0])
+					}
+				}
+			
+			  
+			}
+			
+		
+        
+        function MessageCC(type,lngFlowID,lngMessageID,strTo,strToName)
+        {
+            if(xmlhttp == null)
+                xmlhttp = CreateXmlHttpObject();       
+            if(xmlhttp != null)
+            {
+                try
+                {
+					xmlhttp.open("GET", '<%=sApplicationUrl %>' +"/Forms/frmMessageCC.aspx?type=" + type + "&MessageID=" + lngMessageID + "&Receivers=" + strTo, true); 
+                    xmlhttp.setRequestHeader( "CONTENT-TYPE ", "application/x-www-form-urlencoded "); 
+					xmlhttp.onreadystatechange = function() 
+												{ 
+													if ( xmlhttp.readyState==4 ) 
+													{ 
+													    var resp = xmlhttp.responseText;
+														if(resp=="0") //找到多个用户
+													    {
+													       if(type=="0")
+													       {
+													           alert("成功传阅给:" + strToName);
+													        }
+													        else
+													        {
+													            alert("成功邀请:" + strToName + "进行协办处理");
+													        }
+													       window.open('<%=sApplicationUrl %>' +"/Forms/frmIssueView.aspx?FlowID=" + lngFlowID,'MainFrame');
+													    }
+													    else  //找到唯一用户
+													    {
+													        alert(resp);
+													    }
+													} 
+												} 
+					xmlhttp.send(null); 
+				}catch(e3){}
+            }
+        }
+			
+        function OpenDefinePersonOp()
+		{
+		    var rdm=Math.random();
+		    var value = window.showModalDialog('<%=sApplicationUrl %>' + "/Common/frmEA_DefinePersonOpinionMain.aspx?type=1&rdm="+rdm+"");
+		    document.all.<%=hidChange.ClientID %>.value = "0"
+		}
+
+//-->
+</script>
+
+<script src="<%=sApplicationUrl %>/Js/jquery-1.3.1.js" type="text/javascript"></script>
+
+<script src="<%=sApplicationUrl %>/Js/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+            $(function() {
+                var nowDay = new Date();
+                var param = nowDay.getDate().toString() + nowDay.getMinutes().toString() + nowDay.getMilliseconds().toString();
+    	        var i = $.ajax({  url: '<%=sApplicationUrl %>'+ "/mydestop/frmXmlHttp.aspx?Tabs=-1&param=" + param,  async: false      }).responseText;
+    	        $("#tabs").tabs({ effect: 'ajax', cache: true, selected: i,
+    	            select: function(e, ui) {
+    	                var t = $(e.target);
+    	                var nowDay = new Date();
+                        var param = nowDay.getDate().toString() + nowDay.getMinutes().toString() + nowDay.getMilliseconds().toString();
+    	                $.ajax({  url: '<%=sApplicationUrl %>'+ "/mydestop/frmXmlHttp.aspx?Tabs=" + ui.index + "&param=" + param,  async: false      });
+    	            }
+    	        });
+    	    });
+</script>
+
+<body id="mybody">
+    <form id="frmFlowBase" runat="server">
+    <div id="PrintArea" runat="server">
+    </div>
+    <table width="100%" align="center" style="border: none;">
+        <tr>
+            <td valign="top" align="left" nowrap class="list" style="word-break: break-all">
+                <uc1:CtrTitle ID="CtrTitle1" runat="server"></uc1:CtrTitle>
+            </td>
+            <td align="right" width="70%" class="list">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width: 100%">
+                <input type="hidden" id="hidTabIndex" value="0" />
+                <div id="tabs">
+                    <ul>
+                        <div runat="server" id="divtab1">
+                            <li><a href="#tabs-1">
+                                <asp:Label ID="lblTab1" runat="server" Text="基本信息"></asp:Label></a></li></div>
+                        <div runat="server" id="divTab2" visible="false">
+                            <li><a href="#tabs-2">
+                                <asp:Label ID="lblTab2" runat="server" Text="审批内容"></asp:Label></a></li></div>
+                        <div runat="server" id="divTab3">
+                            <li><a href="#tabs-3">
+                                <asp:Label ID="lblTab3" runat="server" Text="审批流程"></asp:Label></a></li></div>
+                        <li>
+                            <uc1:CtrButtons ID="CtrButtons1" runat="server"></uc1:CtrButtons>
+                        </li>
+                    </ul>
+                    <div runat="server" id="divtabvalue1">
+                        <div id="tabs-1">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                    <div runat="server" id="divtabvalue2" visible="false">
+                        <div id="tabs-2">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                    <div runat="server" id="divtabvalue3">
+                        <div id="tabs-3">
+                            <table class="listContent" id="tabMain1" width="100%" align="center" border="0" cellSpacing="1" cellPadding="1">
+                                <tr>
+                                    <td nowrap align="center" width="11%" class="listTitle">
+                                        附&nbsp; 件
+                                    </td>
+                                    <td class="list" width="90%">
+                                        <uc1:CtrAttachment ID="CtrAttachment1" runat="server" width="100%"></uc1:CtrAttachment>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="ShowGC" runat="server" class="listContent" width="100%" align="center"
+                                cellpadding="0" border="0">
+                                <tr valign="top">
+                                    <td class="listTitle">
+                                        &nbsp;&nbsp;处理过程
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="list">
+                                        <uc1:CtrlProcess ID="CtrlProcess1" runat="server"></uc1:CtrlProcess>
+                                    </td>
+                                </tr>
+                                <tr runat="server" id="trMPList">
+                                    <td class="list">
+                                        <asp:Literal ID="litMPList" runat="server"></asp:Literal>
+                                    </td>
+                                </tr>
+                                <tr runat="server" id="trShowSubProcess" style="display: none">
+                                    <td class="list">
+                                        <div id='divShowSubProcess'>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="trShowPauseLog" runat="server" style="display: none">
+                                    <td class="list">
+                                        <div id='divShowPauseLog'>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table class="listContent" id="ShowCL" width="100%" align="center" runat="server" border="0" cellSpacing="1" cellPadding="1">
+                                <tr id="ShowOpinionEdit" runat="server">
+                                    <td width="11%" class="listTitle" nowrap style="height: 140px">
+                                        办理意见
+                                    </td>
+                                    <td valign="top" class="list" width="90%" style="height: 140px">
+                                        <asp:TextBox ID="txtOpinion" runat="server" Height="106px" Width="100%" MaxLength="500"
+                                            TextMode="MultiLine" EnableViewState="False"></asp:TextBox>
+                                        快速意见：<asp:DropDownList ID="ddlOpinions" runat="server" Width="300px">
+                                        </asp:DropDownList>
+                                        &nbsp;
+                                        <asp:LinkButton ID="lnkNew" runat="server" OnClientClick="OpenDefinePersonOp();">自定义...</asp:LinkButton>
+                                    </td>
+                                </tr>
+                                <tr id="ShowNotify" runat="server">
+                                    <td valign="top" class="listTitle" colspan="2" style="height: 22px">
+                                        <asp:CheckBox ID="chkNotify" runat="server" Text="是否短信通知"></asp:CheckBox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <asp:CheckBox ID="chkEmail" runat="server" Text="是否邮件通知" Checked="true"></asp:CheckBox>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table class="listContent" id="ShowFlowOP" width="100%" align="center" runat="server" border="0" cellSpacing="1" cellPadding="1">
+                                <tr>
+                                    <td valign="top" width="100%" class="list">
+                                        <table id="Table3" cellspacing="1" cellpadding="1" width="100%" border="0">
+                                            <tr id="ShowFlowOP1" runat="server">
+                                                <td width="10%" nowrap>
+                                                    重要级别：
+                                                </td>
+                                                <td width="90%" colspan="1" rowspan="1">
+                                                    <uc1:CtrImportance ID="CtrImportance1" runat="server"></uc1:CtrImportance>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" width="100%" class="list" colspan="2">
+                                                    <uc1:ctrLinkFlows ID="CtrLinkFlows1" runat="server"></uc1:ctrLinkFlows>
+                                                </td>
+                                            </tr>
+                                            <tr id="ShowFlowOP2" runat="server">
+                                                <td align="left" width="100%" class="list" colspan="2">
+                                                    <uc1:CtrFlowSpecRight ID="CtrFlowSpecRight1" runat="server"></uc1:CtrFlowSpecRight>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="ShowReceiveBtn" runat="server" width="100%" align="center" class="listContent">
+                                <tr>
+                                    <td align="center" colspan="2" class="list">
+                                        <input id="ctrcmdReceive" style="width: 68px; height: 24px" onclick="DoLeftReceive();"
+                                            class="btnClass" type="button" name="ctrcmdReceive" value="接收" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table width="100%" align="center">
+                                <tr>
+                                    <td style="width: 100%" align="center">
+                                        <uc1:CtrActions ID="CtrActions1" runat="server"></uc1:CtrActions>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="display: none;">
+        <asp:Button ID="cmdDeleteFlow" runat="server" Text="删除" Width="0px" OnClick="cmdDeleteFlow_Click1">
+        </asp:Button></div>
+    <div style="display: none;">
+        <asp:Button ID="cmdPauseFlow" runat="server" Text="暂停" Width="0px" OnClick="cmdPauseFlow_Click1">
+        </asp:Button></div>
+    <input id="txtTitleName" type="hidden" name="txtTitleName" runat="server" /><input
+        id="hidTarget" name="hidTarget" type="hidden" runat="server" />
+    <input id="hidPara" name="hidPara" type="hidden" runat="server" /><input id="hidFilesID"
+        type="hidden" name="hidFilesID" runat="server" />
+    <input id="hidFromFlowID" type="hidden" name="hidFromFlowID" runat="server" />&nbsp;
+    <input id="hidActionID" type="hidden" name="hidActionID" runat="server" />&nbsp;
+    <input id="hidAttemperID" type="hidden" name="hidAttemperID" runat="server" />&nbsp;
+    <input id="hidActionName" type="hidden" name="hidActionName" runat="server" />&nbsp;
+    <input id="hidAutoPass" type="hidden" name="hidAutoPass" runat="server" />&nbsp;
+    <input id="hidDefaultActionID" type="hidden" name="hidDefaultActionID" value="0"
+        runat="server" />&nbsp;
+    <input id="hisAutoPageBack" type="hidden" name="hisAutoPageBack" value="false" runat="server" />&nbsp;
+    <div style="display: none;">
+        <asp:Button ID="cmdMsgProcess" runat="server" Width="0px" Text="确定" OnClick="cmdMsgProcess_Click">
+        </asp:Button></div>
+    <input id="txtMsgProcess" type="hidden" runat="server" name="txtMsgProcess" />
+    <input id="hidClientId_ForOpenerPage"  type="hidden" runat="server" />
+    <input id="hidPauseFlow" type="hidden" runat="server" name="hidPauseFlow" />
+    <input id="hidPauseType" value="0" type="hidden" runat="server" name="hidPauseType" />
+    <input type="hidden" id="hidFormid" value="<%=hidActionID.ClientID %>" />
+    <input id="hidChange" type="hidden" name="hidChange" runat="server" />&nbsp;
+    <div style="display: none;">
+        <asp:Button ID="cmdHidden" TabIndex="1" runat="server" Text="Button" Height="0px"
+            Width="0px"></asp:Button></div>
+    <div style="display: none;">
+        <asp:Button ID="cmdHiddenSave" TabIndex="2" runat="server" Text="Button" Height="0px"
+            Width="0px"></asp:Button></div>
+    <div style="display: none;">
+        <asp:Button ID="cmdAttemper" TabIndex="3" runat="server" Text="Button" Height="0px"
+            Width="0px"></asp:Button></div>
+    <input type="hidden" id="hidarrvalidlist" runat="server" />
+    </form>
+
+    <script language="javascript" type="text/javascript">
+        if(typeof(sarrvalidlist)!="undefined")
+	    {
+	        document.all.<%=hidarrvalidlist.ClientID%>.value = sarrvalidlist[0];
+	    }
+        //必填项判断
+
+       function DoMasterPublicValidate(lngActionID,strActionName)
+		{
+            var t_ValidateList = document.all.<%=hidarrvalidlist.ClientID%>.value;
+                
+            if(t_ValidateList == "")
+            {
+			    return true;
+			}
+			else
+			{
+			    //开始验证
+                
+			    t_ValidateList = t_ValidateList.substring(1);
+			    var   t_sarray=new Array();   
+                t_sarray=t_ValidateList.split('|');
+                var t_nullControls;
+                t_nullControls = "";
+                var i;
+                for(i= 0;i<t_sarray.length;i++)
+                {
+                    
+                    t_nullControls += ValidateSubControls(t_sarray[i],i);
+                }
+                
+                if(t_nullControls != "")
+                {
+                    alert(t_nullControls + "不能为空,请录入");
+                    return false
+                }
+                else
+                {
+                   return true;
+                }   
+
+			}
+		}
+		
+        function ValidateSubControls(sControl,i)
+		{
+		   var   t_control=new   Array();   
+           t_control=sControl.split('>');
+           
+          var obj = document.getElementById(t_control[0]);
+          if(obj != null)
+          {
+              var strvalue = "";
+              if(t_control.length==3)   //DropDownList
+              {
+                  strvalue = t_control[2];
+              }
+              else if(t_control.length==4)  //RadioButtonList
+              {
+                    var itemlen=t_control[3]; 
+                    var sreturn = "false";
+                    for(var i=0;i<itemlen;i++)
+                    {
+                          var sID=obj.id + "_" + i;
+                          if(document.getElementById(sID).checked)
+                          {
+                                sreturn = "";
+                          }
+                    }
+                    if(sreturn=="")
+                    {
+                        return "";
+                    }
+                    else 
+                    {
+                        return t_control[1] + " ";
+                    }
+                    
+              }
+              if(obj.value == strvalue)
+              {
+                 if(i==0)
+                 {
+                    obj.focus();
+                 }
+                 return t_control[1] + " ";
+              }
+              else
+              {
+                 return "";
+              }
+          }
+          else
+          {
+             return "";
+          }       
+		}
+		
+		//页面加载完成后后判断是否为自动通过
+		if(document.all.<%=hidAutoPass.ClientID%>.value == "true" && document.all.<%=hisAutoPageBack.ClientID%>.value == "false")
+		{
+		    document.getElementById("ctrtabactions").style.display = "none";
+		    document.getElementById("ctrtabbuttons").style.display = "none";
+		    //不做验证 自动提交
+		    var tmpID = document.all.<%=hidDefaultActionID.ClientID%>.value;
+		    
+		    document.all.<%=hisAutoPageBack.ClientID%>.value = "true";
+		    
+		    if (typeof(window.parent.header.flowInfo.SpecRightType)!="undefined")
+		         window.parent.header.flowInfo.SpecRightType.value = '10';
+		   
+		    
+			GetFieldValues(tmpID);
+			
+			document.getElementById("ctrtabactions").style.display = "";
+		    document.getElementById("ctrtabbuttons").style.display = "";
+			
+		}
+		
+    </script>
+
+</body>
+</html>

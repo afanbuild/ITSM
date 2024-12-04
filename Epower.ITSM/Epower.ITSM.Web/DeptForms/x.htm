@@ -1,0 +1,48 @@
+<HTML>
+	<HEAD>
+		<TITLE>ISHOP</TITLE>
+		<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+		<STYLE> .navPoint {FONT-SIZE: 12px; CURSOR: hand; COLOR: white; FONT-FAMILY: Webdings}
+	</STYLE>
+		<SCRIPT language="JavaScript">
+function switchSysBar(){
+	if (switchPoint.alt == "隐藏部门树"){				
+		switchPoint.src ="../Images/Open.gif";
+		switchPoint.alt = "显示部门树";
+		window.parent.UserMain.cols="0,10,*";
+	}
+	else{
+		switchPoint.src ="../Images/Close.gif";
+		switchPoint.alt = "隐藏部门树";		
+		window.parent.UserMain.cols="190,10,*";	
+	}
+}
+function mousemove(s)
+{
+	if (switchPoint.alt == "隐藏部门树")
+		{
+			if (s == "1")
+				switchPoint.src="../Images/close.gif";
+			else
+				switchPoint.src="../Images/hide.gif";
+		}
+		else
+		{
+			if (s == "1")
+				switchPoint.src="../Images/open.gif";
+			else
+				switchPoint.src="../Images/show.gif";
+		}
+}
+		</SCRIPT>
+		<META content="Microsoft FrontPage 5.0" name="GENERATOR">
+	</HEAD>
+	<BODY leftMargin="0" topMargin="0">
+		<TABLE height="100%" cellSpacing="1" cellPadding="0" border="0" >
+			<TR>
+				<TD align="center"><a onclick="switchSysBar()" href="#"><img id="switchPoint" name="switchPoint" alt="隐藏部门树" onmouseover='mousemove("1")' onmouseout='mousemove("2")'
+							src="../Images/hide.gif" border="0"></a></TD>
+			</TR>
+		</TABLE>
+	</BODY>
+</HTML>

@@ -1,0 +1,28 @@
+
+-- 问题管理, 更新问题表 dealcontent 字段的数据类型为 clob. - 2013-11-19 @孙绍棕
+update pro_problemdeal set dealcontent = '';
+commit;
+
+alter table pro_problemdeal modify dealcontent long;
+alter table pro_problemdeal modify dealcontent clob;
+
+alter session set skip_unusable_indexes=false; 
+alter index PRO_PROBLEMDEALID rebuild; 
+                     
+                     
+-- 流程控制台，事件应用，信息项中新增扩展项字段 - 2013-11-19 @孙绍棕                     
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(18500136,18601,'expr_property','扩展项',30,0,0,0);
+commit;                     
+
+
+-- 流程控制台，问题应用，信息项中新增扩展项字段 - 2013-11-19 @孙绍棕                     
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(2180111,2281,'pro_expr_property','扩展项',30,0,0,0);
+commit;        
+
+-- 流程控制台，变更应用，信息项中新增扩展项字段 - 2013-11-19 @孙绍棕                     
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(6380128,6481,'equ_expr_property','扩展项',30,0,0,0);
+commit;        
+

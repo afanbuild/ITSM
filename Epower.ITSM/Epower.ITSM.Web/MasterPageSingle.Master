@@ -1,0 +1,175 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPageSingle.Master.cs"
+    Inherits="Epower.ITSM.Web.MasterPageSingle" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>简单母页</title>
+    <base target="_self" />
+</head>
+    <link type="text/css" href="<%=sApplicationUrl %>/Js/css/ui-lightness/jquery-ui-1.8.20.custom.css"
+        rel="stylesheet" />
+    <link type="text/css" href="<%=sApplicationUrl %>/App_Themes/NewOldMainPage/css.css"
+        rel="stylesheet" />
+    <link type="text/css" href="<%=sApplicationUrl %>/JS/uploadify/uploadify.css" rel="stylesheet" />
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Controls/Calendar/Popup.js"></script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Common.js"> </script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Base.js"> </script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/jquery-1.7.2.min.js"> </script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/jquery-ui-1.8.20.custom.min.js"> </script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/jUtility.js"> </script>
+
+<script src="<%=sApplicationUrl %>/Js/epower.base.js" type="text/javascript"></script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/Controls/My97DatePicker/WdatePicker.js"></script>
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/js/lhgdialog.min.js?skin=blue"></script>
+
+<body style="margin: 0px;">
+    <form id="form1" runat="server">
+      <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+        <!---->
+        <tr>
+            <td valign="top" colspan="4">
+                <table width="100%" height="100%" valign="top" border="0" cellpadding="0" cellspacing="0">
+                    <tr runat="server" id="tbtop">
+                        <td valign="top" style="height: 10px">
+                            <table id="ctrtabbuttons" align="center" cellspacing="0" cellpadding="0" width="98%"
+                                border="0" class="dbt_xuxian">
+                                <tbody>
+                                    <tr runat="server" id="btlbutton">
+                                        <td class="dbt">
+                                            <span></span><span>
+                                                <asp:SiteMapPath ID="SiteMapPath1" ForeColor="#103F85" runat="server" PathSeparator=" >> "
+                                                    EnableTheming="False" Enabled="false">
+                                                </asp:SiteMapPath>
+                                            </span>
+                                        </td>
+                                        <td align="right">
+                                           
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="hidID" runat="server" />
+    <input type="hidden" id="hidarrvalidlist" runat="server" />
+    </form>
+
+    <script language="javascript" type="text/javascript">
+        
+        if(typeof(sarrvalidlist)!="undefined")
+	    {
+	        document.all.<%=hidarrvalidlist.ClientID%>.value = sarrvalidlist[0];
+	    }
+        //必填项判断
+       function DoMasterPublicValidate()
+		{
+            var t_ValidateList = document.all.<%=hidarrvalidlist.ClientID%>.value;
+            
+            if(t_ValidateList == "")
+            {
+			    return true;
+			}
+			else
+			{
+			    //开始验证
+                
+			    t_ValidateList = t_ValidateList.substring(1);
+			    var   t_sarray=new Array();   
+                t_sarray=t_ValidateList.split('|');
+                var t_nullControls;
+                t_nullControls = "";
+                var i;
+                for(i= 0;i<t_sarray.length;i++)
+                {
+                    
+                    t_nullControls += ValidateSubControls(t_sarray[i],i);
+                }
+                
+                if(t_nullControls != "")
+                {
+                    alert(t_nullControls + "不能为空,请录入");
+                    return false
+                }
+                else
+                {
+                   return true;
+                }   
+
+			}
+		}
+		
+		function ValidateSubControls(sControl,i)
+		{
+		   var   t_control=new   Array();   
+           t_control=sControl.split('>');
+           
+          var obj = document.getElementById(t_control[0]);
+          if(obj != null)
+          {
+              var strvalue = "";
+              if(t_control.length==3)   //DropDownList
+              {
+                  strvalue = t_control[2];
+              }
+              else if(t_control.length==4)  //RadioButtonList
+              {
+                    var itemlen=t_control[3]; 
+                    var sreturn = "false";
+                    for(var i=0;i<itemlen;i++)
+                    {
+                          var sID=obj.id + "_" + i;
+                          if(document.getElementById(sID).checked)
+                          {
+                                sreturn = "";
+                          }
+                    }
+                    if(sreturn=="")
+                    {
+                        return "";
+                    }
+                    else 
+                    {
+                        return t_control[1] + " ";
+                    }
+                    
+              }
+              if(obj.value == strvalue)
+              {
+                 if(i==0)
+                 {
+                    obj.focus();
+                 }
+                 return t_control[1] + " ";
+              }
+              else
+              {
+                 return "";
+              }
+          }
+          else
+          {
+             return "";
+          }       
+		}
+    </script>
+
+</body>
+</html>

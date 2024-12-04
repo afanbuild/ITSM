@@ -1,0 +1,89 @@
+--新增桌面项 余向前 2013-06-17
+insert into Ea_DefineMainPage (ID, IORDER, LEFTORRIGHT, TITLE, IMAGEURL, MOREURL, URL, IFRAMEHEIGHT, DELETED, DEFAULTVISIBLE, ITYPE, OPERATEID, USERID, QUERYXML, REGUSERID, REGUSERNAME, REGTIME)
+values (10003.00, 7, 0, '阅知事项', 'Images/dot3.gif', '../Forms/oa_messagequery.aspx', '../Forms/frmWaittingContent.aspx?TypeContent=ReadMsg', '200', 0, 1, 0, 0.00, 0.00, '', 1.00, 'sa', to_date('08-01-2013 16:10:46', 'dd-mm-yyyy hh24:mi:ss'));
+insert into Ea_DefineMainPage (ID, IORDER, LEFTORRIGHT, TITLE, IMAGEURL, MOREURL, URL, IFRAMEHEIGHT, DELETED, DEFAULTVISIBLE, ITYPE, OPERATEID, USERID, QUERYXML, REGUSERID, REGUSERNAME, REGTIME)
+values (10004.00, 8, 0, '关注事项', 'Images/dot3.gif', '../Forms/oa_messagequery.aspx', '../Forms/frmWaittingContent.aspx?TypeContent=Attention', '200', 0, 1, 0, 0.00, 0.00, '', 1.00, 'sa', to_date('08-01-2013 16:10:46', 'dd-mm-yyyy hh24:mi:ss'));
+commit;
+
+
+-- 变更单高级查询字段 - 2013-06-27 @孙绍棕
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3000, 'subject', '主题', 'CHAR', 'Equ_ChangeService', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3001, 'changeno', '变更单号', 'CHAR', 'Equ_ChangeService', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3002, 'content', '摘要', 'CHAR', 'Equ_ChangeService', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3003, 'mobile', '手机号码', 'CHAR', 'Equ_ChangeService', 0);
+commit;
+
+
+
+-- 事件单高级查询字段 - 2013-06-27 @孙绍棕
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3004, 'subject', '主题', 'CHAR', 'cst_issue', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3005, 'serviceno', '事件单号', 'CHAR', 'cst_issue', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3006, 'content', '摘要', 'CHAR', 'cst_issue', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(3007, 'email', '电邮', 'CHAR', 'cst_issue', 0);
+commit;
+
+
+
+
+-- 用于事件管理中高级查询时的Excel导出 - 2013-06-28 @孙绍棕
+CREATE OR REPLACE VIEW V_CST_ISSUE_For_Excel AS
+SELECT nvl(buildCode,'')||nvl(a.ServiceNo,'') ServiceNo,a.smsid,a.flowid,a.regsysdate,a.subject,a.email,a.reguserid,a.Content,a.DealContent,a.CustAddress,a.ServiceTypeID,a.ServiceType,a.Sjwxr,
+                      a.regusername,a.RegDeptID,a.RegDeptName,a.CustTime,a.CustName,a.contact,a.ctel,b.status,b.endtime,a.EquipmentCatalogName,a.EquipmentName,a.ReportingTime,a.FinishedTime,a.ServiceKind,
+                      a.ServiceLevel,a.EffectName,a.InstancyName,a.CloseReasonName,a.ReSouseName,a.Outtime,a.ServiceTime,
+                      datediff('Minute',sysdate,nvl(b.expectendtime,sysdate)) as FlowDiffMinute,a.dealstatus,a.ChangeProblemFlowID,
+                d.customcode,(case when nvl(a.MastCust,'')='' then d.MastCustName
+            else a.mastCust end ) as MastCustName    FROM es_flow b,Cst_Issues a left join br_ecustomer d on a.custid = d.id  WHERE a.FlowID = b.FlowID  
+
+         
+         
+         
+         
+-- 工程师管理中 新增 工程师时的休息类型 - 2013-07-03 @孙绍棕
+insert into gs_restcategory(restname, restvalue,seqnumber)
+values('周末双休','1,7',5);
+insert into gs_restcategory(restname, restvalue,seqnumber)
+values('周二三休','3,4',10);
+
+commit;         
+
+
+
+-- 知识表 新增 无格式的内容 的字段 - 2013-08-05 @孙绍棕
+alter table Inf_Information add PlainContent clob;
+
+
+
+
+-- 事件管理的高级查询字段 - 2013-09-25 @孙绍棕
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5000, 'SERVICENO', '事件单号', 'CHAR', 'cst_issue', 0);
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5001, 'SUBJECT', '主题', 'CHAR', 'cst_issue', 0);
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5002, 'CONTENT', '摘要', 'CHAR', 'cst_issue', 0);
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5003, 'REGUSERID', '登单人', 'USER', 'cst_issue', 0);
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5004, 'REGDEPTID', '登单人部门', 'DEPT', 'cst_issue', 0);
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5005, 'SERVICELEVEL', '服务级别', 'CHAR', 'cst_issue', 0); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5006, 'SERVICETYPEID', '事件类别', 'CATA', 'cst_issue', 1001); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5007, 'EFFECTID', '影响度', 'CATA', 'cst_issue', 1023); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5008, 'INSTANCYID', '紧急度', 'CATA', 'cst_issue', 1024); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5009, 'DEALSTATUSID', '事件状态', 'CATA', 'cst_issue', 1017); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5010, 'CUSTID', '客户名称', 'USER', 'cst_issue', 0); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5011, 'CTEL', '联系人电话', 'CHAR', 'cst_issue', 0); 
+commit;
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) VALUES(5012, 'EQUIPMENTNAME', '资产名称', 'CHAR', 'cst_issue', 0); 
+commit;
+
+
+-- 变更管理增加信息项 custinfo 来控制客户信息的可见与可编辑 - 2013-10-08 @孙绍棕
+insert into es_fields value(fieldid, formid, fieldname, cname, fieldtype,isset, refid, iskey)
+values(6380119,6481,'custinfo','客户信息',30,0,-3,0);
+commit;

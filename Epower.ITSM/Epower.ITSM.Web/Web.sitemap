@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <!--disenable为true表示显示全部菜单，如果没权限显示不可用，如果为false表示没有权限则移除-->
+  <siteMapNode title="主页" url="Newmain.aspx" target="_parent" disenable="true" startIndex="1"  AdminIndex="11">
+    <siteMapNode title="个人信息" img="../skins/2004/images/icon/home.gif"  menuIndex="1"  url ="~\1.aspx" DefaultUrl="../NewOldMainPage/NewmainDefine.aspx" LeftUrl="../CustManager/frmCustMenu.aspx">
+
+      <siteMapNode title="通用表单配置" resourceKey="108" url="~\AppForms\frmappfieldconfig.aspx" description="通用表单配置"/>
+      <siteMapNode title="通用流程2管理" resourceKey="5031" url="~\NormalQuery\frmNormalQuery.aspx?FlowModelID=10233&#38;OperateID=5031&#38;IsFirst=true" description="通用表单查询" />
+      <siteMapNode title="所有管理流程" resourceKey="1859" url="~\Forms\form_all_flowmodel.aspx" description="所有管理流程"/>
+      <siteMapNode title="短信邮件模板" resourceKey="1887"  url="~\MailAndMessageRule\MailMessageTemManager.aspx" description="短信邮件模板"/>
+      <siteMapNode title="短信邮件规则" resourceKey="1887"  url="~\MailAndMessageRule\MailAndMessageRuleManager.aspx" description="短信邮件规则"/>
+      
+      <siteMapNode title="我的事项" url="~\Forms\frmContent.aspx" description="我的事项"  targeturl="" />
+      <siteMapNode title="我登记事件" url="~\Forms\frmContent.aspx?TypeContent=MyReg" description="我登记事件"/>
+      <siteMapNode title="出差授权" url="~\Forms\FrmAgentSet.aspx" description="出差授权"/>
+      <siteMapNode title="修改密码" url="~\Forms\FrmModuser.aspx" description="修改密码"/>
+      <siteMapNode title="个人信息设置" url="~\Forms\frmmodSelf.aspx" description="个人信息设置"/>
+      <siteMapNode title="自定义桌面" resourceKey="1890" url="~\mydestop\frmDefineDeskMain.aspx" description="自定义桌面"/>
+      <siteMapNode title="统一监控运维平台"  url="~\Common\FormRefreshPageMain.aspx" description="统一监控运维平台"/>
+      <!--<siteMapNode title="知识搜索" url="~\InformationManager\frmInfSearch.aspx" description="知识搜索"/>-->
+      <siteMapNode title="所有功能" url="~\AppForms\DeskPage.aspx" description="所有功能"/>
+      <siteMapNode title="常用流程配置" url="~\Forms\form_flowmodel_set.aspx" description="常用流程配置"/>
+      <siteMapNode title="快速意见管理" url="~\Common\frmEA_DefinePersonOpinionMain.aspx" description="快速意见管理"/>
+      <siteMapNode title="地址簿" url="~\mydestop\frmUserQuery.aspx" description="地址簿" visible="false"/>
+      <siteMapNode title="我的消息" url="~\Forms\frmShowMessageList.aspx" description="我的消息" visible="false"/>
+
+      <!--siteMapNode title="弹出窗体范例" url="~\WindowOpenDeam\WebForm1.aspx" description="弹出窗体范例"/>
+      <siteMapNode title="弹出窗体范例3" url="~\WindowOpenDeam\WebForm3.aspx" description="弹出窗体范例2"/-->
+      <!--<siteMapNode title="自定义表单例子登记" url="~\Forms\oa_AddNew.aspx?flowmodelid=10047&#38;IsFirst=true" description="自定义表单例子登记" />
+      <siteMapNode title="通用表单查询" url="~\NormalQuery\frmNormalQuery.aspx?FlowModelID=10047&#38;OperateID=5001&#38;IsFirst=true" description="通用表单查询" />-->
+
+    </siteMapNode>
+    <siteMapNode title="事件管理" img ="../skins/2004/images/icon/sContacts.gif" menuIndex="2"  url ="~\2.aspx" DefaultUrl="../AppForms/CST_Issue_List.aspx" LeftUrl="../CustManager/frmCustMenu.aspx">
+      <siteMapNode title="事件管理" resourceKey="1811" url="~\AppForms\CST_Issue_List.aspx" description="事件管理"/>
+      <siteMapNode title="高级查询设置" resourceKey="1811" url="~\AppForms\CST_Issue_AdvancedConditionNew.aspx" description="高级查询设置" visible="false"/>
+
+      <!--<siteMapNode title="邮件报障" resourceKey="5005" url="~\AppForms\frm_EmailIssue.aspx" description="邮件报障"/>-->
+      <siteMapNode title="服务台批量接收" resourceKey="1944" url="~\AppForms\Cst_IssueBatchReceiver.aspx" description="服务台批量接收"/>
+      <!--<siteMapNode title="服务台批量指派" resourceKey="1945" url="~\AppForms\Cst_IssueBatchDeal.aspx" description="服务台批量指派"/>-->
+      <siteMapNode title="未回访事件" resourceKey="203" url="~\AppForms\CST_Issue_NoVisit.aspx?BookMark=7&#38;IsShortCut=0&#38;tblEmail=true" description="未回访事件" visible="false"/>
+      <siteMapNode title="服务级别管理" resourceKey="1882"  url="~\AppForms\frmCst_ServiceLevelMain.aspx" description="服务级别管理"/>
+      <siteMapNode title="服务级别"  url="~\AppForms\frmCst_ServicLevelSelect.aspx" description="服务级别" visible="false"/>
+      <!--<siteMapNode title="服务目录管理"  resourceKey="5023" url="~\AppForms\frm_Services_TemplateMain.aspx" description="服务目录管理"/>-->      
+      <siteMapNode title="事件请求模版" resourceKey="1886" url="~\AppForms\frm_Issue_TemplateMain.aspx" description="事件请求模版"/>
+      <siteMapNode title="事件请求模板编辑" url="~\AppForms\frm_Issue_Template.aspx" description="事件请求模板编辑" visible="false"/>
+      <siteMapNode title="工程师管理" resourceKey="1852" url="~\CustManager\frmCst_ServiceStaffMain.aspx" description="工程师管理"/>
+      <!--<siteMapNode title="事件请求" resourceKey="1924" url="~\AppForms\frmCstRequet.aspx" description="事件请求"/>-->      
+      
+      <siteMapNode title="推荐工程师规则编辑" url="~\RecommendRule\frmCst_RecommendRuleEdit.aspx" description="推荐工程师规则编辑" visible="false"/>
+      <siteMapNode title="邮件报障" resourceKey="1924" url="~\AppForms\frmPubCstRequest.aspx?type=menu" description="邮件报障" visible="false"/>
+      <siteMapNode title="系统系列号编辑"  url="~\DeptForms\frmTs_SequenceEdit.aspx" description="系统系列号编辑" visible="false"/>
+
+      <siteMapNode title="服务级别编辑" url="~\AppForms\frmCst_ServiceLevelEdit.aspx" description="服务级别编辑" visible="false"/>      
+      <siteMapNode title="工程师编辑" url="~\CustManager\frmCst_ServiceStaffEdit.aspx" description="工程师编辑" visible="false"/>
+      <siteMapNode title="由我处理" url="~\AppForms\CST_IssueListLog.aspx?param=isMeCheck" description="由我处理" visible="false"/>
+      <siteMapNode title="我参入处理" url="~\AppForms\CST_IssueListLog.aspx?param=isMePartakeCheck" description="我参入处理" visible="false"/>
+      <siteMapNode title="超时事件" url="~\AppForms\CST_IssueListLog.aspx?param=overtimeEvent" description="超时事件" visible="false"/>
+      <siteMapNode title="超时48小时事件" url="~\AppForms\CST_IssueListLog.aspx?param=overtime48Event" description="超时48小时事件" visible="false"/>
+      <siteMapNode title="超时完成" url="~\AppForms\CST_IssueListLog.aspx?param=overtimeEventfulfill" description="超时完成" visible="false"/>
+      <siteMapNode title="超时未完成" url="~\AppForms\CST_IssueListLog.aspx?param=overtimeEventNOfulfill" description="超时未完成" visible="false"/>
+      <siteMapNode title="未回访事件" url="~\AppForms\CST_IssueListLog.aspx?param=notReturnVisit" description="未回访事件" visible="false"/>
+      <siteMapNode title="客户邮箱选择" url="~\mydestop\frmCustEmailSelect.aspx" description="客户邮箱选择" visible="false"/>
+      <siteMapNode title="推荐工程师规则管理"  url="~\RecommendRule\frmCst_RecommendRuleMain.aspx" description="推荐工程师规则管理" visible="false"/>
+    </siteMapNode>      
+    
+    <siteMapNode title="问题管理" img="../skins/2004/images/icon/help.gif"  menuIndex="3"  url ="~\3.aspx" DefaultUrl="../ProbleForms/frmProblemMain.aspx">
+      <siteMapNode title="问题管理" resourceKey="902" url="~\ProbleForms\frmProblemMain.aspx" description="问题单查询"/>
+      <siteMapNode title="问题单高级查询" resourceKey="902" url="~\ProbleForms\frmProblem_AdvancedCondition.aspx" description="问题单高级查询" visible="false"/>
+      <siteMapNode title="问题按类别统计" resourceKey="5027" url="~\AnalsysForms\ProblemTypeNum.aspx" description="问题按类别统计"/>
+      <siteMapNode title="问题按完成总数统计" resourceKey="5027" url="~\AnalsysForms\ProblemCompleteTotal.aspx" description="问题按完成总数统计"/>
+      <siteMapNode title="问题选择" url="~\ProbleForms\frmPro_ProblemSelect.aspx" description="问题选择" visible="false"/>
+    </siteMapNode>
+    <siteMapNode title="变更发布" img="../skins/2004/images/icon/flow_modify.ico"  menuIndex="4"  url ="~\4.aspx" DefaultUrl="../EquipmentManager/frm_ChangeQuery.aspx">
+      <siteMapNode title="变更管理" resourceKey="1868" url="~\EquipmentManager\frm_ChangeQuery.aspx" description="变更管理"/>
+      <siteMapNode title="变更单高级查询" resourceKey="1868" url="~\EquipmentManager\frm_Change_AdvancedCondition.aspx" description="变更单高级查询" visible="false"/>
+      <!--<siteMapNode title="创建变更" resourceKey="1868" url="~\EquipmentManager\frm_ChangeBase.aspx?FlowModelID=10020&#38;MessageID=0" description="创建变更"/>-->
+      <siteMapNode title="紧急变更占比" resourceKey="5026" url="~\AnalsysForms\EmergencyDegree.aspx" description="紧急变更占比"/>
+      <siteMapNode title="变更受理数量统计" resourceKey="5026" url="~\AnalsysForms\ChangeAcceptedNumCounter.aspx" description="变更受理数量统计"/>
+      <siteMapNode title="变更类别占比" resourceKey="5026" url="~\AnalsysForms\ChangeTypePercentage.aspx" description="变更类别占比"/>
+      <siteMapNode title="变更影响度分析" url="~\EquipmentManager\frmEqu_ImpactAnalysis.aspx" description="变更影响度分析" visible="false"/>      
+    </siteMapNode>
+    <siteMapNode title="配置管理" img="../skins/2004/images/icon/sKms.gif"  menuIndex="5"  url ="~\5.aspx" DefaultUrl="../EquipmentManager/frmEqu_Main.htm">
+      <siteMapNode title="客户资料" url="~\Common\frmDRMUserSelectajax.aspx" description="客户资料" visible="false"/>
+      <!--<siteMapNode title="控件测试" resourceKey="1856" url="~\FromES_TBl\Frm_EsTBLFileslist.aspx" description="控件测试"/>-->
+      <!--<siteMapNode title="控件测试界面">
+        <siteMapNode title="自定义配置定义" resourceKey="1856" url="~\FromES_TBl\Frm_EsTBLlist.aspx" description="自定义配置定义"/>
+        <siteMapNode title="自定义配置项管理" resourceKey="1856" url="~\FromES_TBl\Frm_EsTBLFileslist.aspx" description="自定义配置项管理"/>
+      </siteMapNode>
+      <siteMapNode title="基础资料">-->
+      <siteMapNode title="服务目录管理"   resourceKey="5023" url="~\AppForms\frmServicesTemplate.htm" description="服务目录管理"/>
+      <siteMapNode title="资产管理"  resourceKey="1856" url="~\EquipmentManager\frmEqu_Main.htm" description="资产管理"/>
+      <siteMapNode title="资产类别管理" resourceKey="1857" url="~\EquipmentManager\frmSubject.htm" description="设备/产品分类管理"/>
+      <siteMapNode title="关联视角管理" resourceKey="6678" url="~\EquipmentManager\frmEqu_RelNamesMain.aspx" description="资产关联视角管理"/>
+      <!--<siteMapNode title="资产监控规则配置" resourceKey="6680" url="~\EquipmentManager\frmEqu_Monitoring_Rule_Main.aspx" description="资产监控规则配置"/>-->
+      <!--<siteMapNode title="手机远程消息管理" resourceKey="6679" url="~\forms\frm_remote_message_manager.aspx" description="手机远程消息管理"/>-->
+      <siteMapNode title="必填附件配置信息管理"  resourceKey="109" url="~\AttachmentManager\frmBR_Attachment_ConfigMain.aspx" description="必填附件配置信息管理"/>
+      <siteMapNode title="必填附件配置信息编辑"  resourceKey="109" url="~\AttachmentManager\frmBR_Attachment_ConfigEdit.aspx" description="必填附件配置信息编辑" visible="false"/>
+      <siteMapNode title="常用类别配置项管理"  resourceKey="209" url="~\Forms\frm_BR_CatalogSchemaItemsMain.aspx" description="常用类别配置项管理"/>
+      <siteMapNode title="常用类别配置项编辑"  resourceKey="209" url="~\Forms\frm_BR_CatalogSchemaItemsEdit.aspx" description="常用类别配置项编辑" visible="false"/>      
+      <!--<siteMapNode title="资产目录管理" resourceKey="5003" url="~\EquipmentManager\frmEqu_CateList.htm" description="资产目录管理"/>-->
+
+      <!--<siteMapNode title="供应商管理" resourceKey="1855" url="~\Provide\frmPro_ProvideManageMain.aspx" description="供应商管理"/>-->
+
+      <siteMapNode title="数据导入" resourceKey="5009" url="~\EquipmentManager\frmEqu_Insert.aspx" description="数据导入" />
+
+      <siteMapNode title="服务单位管理" resourceKey="1867" url="~\AppForms\frmBr_MastCustomerMain.aspx" description="服务单位管理"/>
+      <siteMapNode title="客户管理" resourceKey="1854" url="~\AppForms\frmBr_ECustomerMain.aspx" description="客户管理"/>
+
+      <siteMapNode title="电话语音人员管理" resourceKey="5004" url="~\AppForms\frmEa_SetdeskMain.aspx" description="电话语音人员管理"/>
+
+
+      <siteMapNode title="打印规则配置管理"  resourceKey="1887" url="~\Print\PrintRuleList.aspx" description="打印规则配置管理"/>
+      <siteMapNode title="打印规则配置编辑"  resourceKey="1887" url="~\Print\PrintRuleEdit.aspx" description="打印规则配置编辑" visible="false"/>
+      <siteMapNode title="自定义信息项名称" resourceKey="1887" url="~\FromES_TBl\Frm_DefineLanguageList.aspx" description="自定义信息项名称"/>
+      <siteMapNode title="桌面项管理" resourceKey="1887" url="~\mydestop\frmEa_DefineMainPageMain.aspx" description="桌面项管理"/>      
+      <!--siteMapNode title="文件导入" resourceKey="1885" url="~\ExcelTemplate\frmExcelInport.aspx" description="文件导入"/>
+      <siteMapNode title="文件导入设置" resourceKey="1888" url="~\ExcelTemplate\frmEA_ExcelInportMain.aspx" description="文件导入设置"/-->
+
+      <siteMapNode title="常用类别管理" resourceKey="104" url="~\Forms\frmCatalogMng.htm" description="常用类别管理"/>
+      <siteMapNode title="扩展项管理" resourceKey="5029" url="~\EquipmentManager\frm_Extensions.aspx" description="扩展项管理"/>
+      
+      <siteMapNode title="扩展项配置管理2" resourceKey="5032" url="~\EquipmentManager\frm_Extensions2.aspx" description="扩展项管理" />
+      <siteMapNode title="扩展项配置编辑" resourceKey="5032" url="~\EquipmentManager\frm_ExtensionsEdit2.aspx" description="扩展项编辑" visible="false"/>
+
+      <siteMapNode title="扩展项显示方式管理" resourceKey="5033" url="~\EquipmentManager\frm_ExtensionDisplayWay.aspx" description="扩展项显示方式管理" visible="false"/>
+      <siteMapNode title="扩展项显示方式编辑" resourceKey="5033" url="~\EquipmentManager\frm_ExtensionDisplayWayEdit.aspx" description="扩展项显示方式管理" visible="false"/>
+      
+
+      <siteMapNode title="扩展项编辑" visible="false" description="扩展项编辑" url="~\EquipmentManager\frm_ExtensionsEdit.aspx"/>
+
+      <siteMapNode title="扩展配置项管理" visible="false" url="~\EquipmentManager\Frm_ExtensionsMain.aspx" description="扩展配置项管理"/>-->
+      <siteMapNode title="资产配置项管理" resourceKey="1922" url="~\EquipmentManager\frmEqu_SchemaItemsMain.aspx" description="资产配置项管理"/>
+      <siteMapNode title="客户扩展项管理" resourceKey="1922" url="~\CustManager\frmBr_SchemaItemsMain.aspx" description="客户扩展项管理"/>
+      <siteMapNode title="客户扩展项模板" resourceKey="1886" url="~\CustManager\frmSubjectedit.aspx" description="客户扩展项模板"/>      
+      <siteMapNode title="桌面项编辑" url="~\mydestop\frmEa_DefineMainPageEdit.aspx" description="桌面项编辑" visible="false" />
+      <siteMapNode title="节假日管理" resourceKey="1887" url="~\AppForms\frmCalender.aspx" description="节假日管理"/>
+      <!--<siteMapNode title="节假日编辑" url="~\AppForms\frmCalenderEdit.aspx" description="节假日编辑" visible="false" />-->
+      <siteMapNode title="资产详情" url="~\EquipmentManager\frmEquRelMain.aspx" description="资产详情" visible="false"/>
+      <siteMapNode title="资产列表" url="~\EquipmentManager\frmEqu_RelSelect.aspx" description="资产列表" visible="false"/>
+      <siteMapNode title="关联资产选择" url="~\EquipmentManager\frmEqu_DeskMainImply.aspx" description="关联资产选择" visible="false"/>
+      <!--<siteMapNode title="资产目录管理" url="~\EquipmentManager\frmEqu_DeskCateList.aspx" description="资产目录管理" visible="false"/>
+      <siteMapNode title="资产目录编辑" url="~\EquipmentManager\frmEqu_DeskCateListEdit.aspx" description="资产目录编辑" visible="false"/>
+      <siteMapNode title="资产目录选择列表" url="~\EquipmentManager\frmEqu_DeskCateListSel.aspx" description="资产目录选择列表" visible="false"/>-->
+      <siteMapNode title="资产管理" url="~\EquipmentManager\frmEqu_DeskMain.aspx" description="资产管理" visible="false" />
+      <siteMapNode title="资产资料编辑" url="~\EquipmentManager\frmEqu_DeskEdit.aspx" description="资产资料编辑" visible="false" />
+      <siteMapNode title="资产配置项编辑" url="~\EquipmentManager\frmEqu_SchemaItemsEdit.aspx" description="资产配置项编辑" visible="false" />
+      <siteMapNode title="供应商编辑" url="~\Provide\frmPro_ProvideManageEdit.aspx" description="供应商编辑" visible="false" />
+      <siteMapNode title="服务单位编辑" url="~\AppForms\frmBr_MastCustomerEdit.aspx" description="服务单位编辑" visible="false" />
+      <siteMapNode title="客户资料编辑" url="~\AppForms\frmBr_ECustomerEdit.aspx" description="客户资料编辑" visible="false" />
+      <siteMapNode title="客户扩展项编辑" url="~\CustManager\frmBr_SchemaItemsEdit.aspx" description="客户扩展项编辑" visible="false" />
+      <siteMapNode title="客户选择" url="~\Common/frmDRMUserSelect.aspx" description="客户选择"  visible="false" />
+      <siteMapNode title="联系人管理" url="~\AppForms\frmBr_ContactMain.aspx" description="联系人管理" visible="false" />
+      <siteMapNode title="联系人编辑" url="~\AppForms\frmBr_ContactEdit.aspx" description="联系人编辑" visible="false" />
+      <siteMapNode title="资产列表" url="~\EquipmentManager\frmEqu_SameSchemaItem.aspx" description="资产列表" visible="false" />
+      <siteMapNode title="事件记录" url="~\AppForms/frmIssueList.aspx" description="事件记录" visible="false" />
+      <siteMapNode title="投诉历史" url="~\AppForms/frmBYTSList.aspx" description="投诉历史" visible="false" />
+      <siteMapNode title="电话语音人员编辑" resourceKey="5004" url="~\AppForms\frmEa_SetdeskEdit.aspx" description="电话语音人员编辑" visible="false"/>
+      <siteMapNode title="客户详细资料" url="~\Common\frmcusShow.aspx" description="客户详细资料" visible="false"/>
+      <siteMapNode title="服务项定义编辑"  resourceKey="5023" url="~\AppForms\frm_Services_Template.aspx" description="服务设计模板编辑" visible="false"/>
+      <siteMapNode title="短信邮件模板编辑" url="~\MailAndMessageRule\MailMessageTemEdit.aspx" description="短信邮件模板编辑" visible="false"/>
+      <siteMapNode title="短信邮件规则编辑" url="~\MailAndMessageRule\MailMessageRuleEdit.aspx" description="短信邮件规则编辑" visible="false"/>
+    </siteMapNode>
+    <siteMapNode title="综合管理" img="../skins/2004/images/icon/network.gif"  menuIndex="8"  url ="~\8.aspx" DefaultUrl="../EquipmentManager/frm_Equ_PatrolBaseQuery.aspx">
+      <!--<siteMapNode title="资产巡检单登记" resourceKey="1874" url="~\Forms\form_all_flowmodel.aspx?appid=410" description="巡检单登记"/>-->
+      <siteMapNode title="资产巡检单管理" resourceKey="1848" url="~\EquipmentManager\frm_Equ_PatrolBaseQuery.aspx" description="资产巡检单管理"/>
+      <siteMapNode title="资产巡检计划" resourceKey="1875" url="~\Common\frmEqu_PlanDetailMain.aspx?PlanType=0" description="资产巡检计划"/>
+      <siteMapNode title="通用流程计划" resourceKey="1876" url="~\Common\frmEqu_PlanDetailMain.aspx?PlanType=1" description="通用流程计划" visible="false"/>
+      <siteMapNode title="排班表查询" resourceKey="5008" url="~\CustManager\frmBr_OrderClassView.aspx" description="排班表查询" visible="false"/>
+      <siteMapNode title="排班表管理" resourceKey="5008" url="~\CustManager\frmBr_OrderClassMain.aspx" description="排班表管理" visible="false"/>
+      <siteMapNode title="班次管理" resourceKey="5008" url="~\CustManager\frmBr_OrderClassTypeMain.aspx" description="班次管理" visible="false"/>
+
+      <!--<siteMapNode title="会议室预定" resourceKey="6677" url="~\AppForms\frm_BR_MEETINGSCHEDULED_List.aspx" description="会议室预定"/>-->
+
+      <siteMapNode title="服务监控" resourceKey="1872" url="~\AnalsysForms\frmServiceMonitor.aspx" description="服务监控"/>
+      <siteMapNode title="进入操作间及机房" resourceKey="5028" url="~\QuestHouse\frmFlow_QuestHouseQuery.aspx" description="进入操作间及机房"/>
+      <siteMapNode title="报表周区间设置" resourceKey="1887" url="~\Reports\frmWeekSetting.aspx" description="报表周区间设置"></siteMapNode>
+      <siteMapNode title="报表月区间设置" resourceKey="1887" url="~\Reports\frmMonthSetting.aspx" description="报表月区间设置"></siteMapNode>
+      <siteMapNode title="数据库维护" resourceKey="105" url="~\ebsys\fceform\common\djframe.htm?djsn=fcs_edit_db&#38;djtype=ST" description="数据库维护" visible="false"/>
+      <siteMapNode title="传递表结构"  resourceKey="105" url="~\ebsys\fceform\common\djframe.htm?djsn=data_dbentity" description="传递表结构" visible="false"/>
+      <siteMapNode title="数据库表信息"  resourceKey="105" url="~\ebsys\fceform\common\djframe.htm?djsn=entityList&#38;djtype=ZK" description="数据库表信息" visible="false"/>
+      <siteMapNode title="自定义流程表单"  resourceKey="105" url="~\AppForms\frmFormList.aspx" description="流程自定义表单管理" visible="false"/>
+      <siteMapNode title="自定义非流程用户建表向导"  resourceKey="105" url="~\ebsys\zk\common\wizardmain.htm" description="非流程用户建表向导" visible="false"/>
+      <siteMapNode title="自定义非流程表单维护"  resourceKey="105" url="~\ebsys\fceform\common\djframe.htm?djsn=FormList&#38;djtype=ST" description="非流程表单维护" visible="false"/>
+      <siteMapNode title="自定义表单实例"  resourceKey="105" url="~\ebsys\index.htm" description="自定义表单实例" visible="false"></siteMapNode>
+      <siteMapNode title="排班表编辑"  url="~\CustManager\frmBr_OrderClassEdit.aspx" description="排班表编辑" visible="false"/>
+      <siteMapNode title="班次编辑"  url="~\CustManager\frmBr_OrderClassTypeEdit.aspx" description="班次编辑" visible="false"/>
+      <siteMapNode title="班次选择"  url="~\CustManager\frmBr_OrderClassTypeSel.aspx" description="班次选择" visible="false"/>
+      <siteMapNode title="新建通用流程计划" url="~\Common\frmCommom_PlanDetailEdit.aspx" description="新建通用流程计划" visible="false"/>
+      <siteMapNode title="新建资产巡检计划" url="~\Common\frmEqu_PlanDetailEdit.aspx" description="新建资产巡检计划" visible="false"/>
+      <siteMapNode title="计划运行目录" url="~\Common/frmEqu_PlanRunLog.aspx" description="计划运行目录" visible="false"/>
+    </siteMapNode>
+    <siteMapNode title="知识管理" img="../skins/2004/images/icon/sSchedule.gif"  menuIndex="6"  url ="~\6.aspx" DefaultUrl="../InformationManager/frmInf_Main.htm">
+      <siteMapNode title="知识类别维护" resourceKey="1884" url="~\InformationManager\frmSubject.htm" description="知识类别维护"/>
+      <siteMapNode title="知识管理" resourceKey="1878" url="~\InformationManager\frmInf_Main.htm" description="知识管理"/>
+      <siteMapNode title="知识单查询" resourceKey="1847"  url="~\InformationManager\frm_KBBaseQuery.aspx" description="知识单查询"/>
+      <siteMapNode title="知识高级搜索" url="~\InformationManager\frmInf_MainShow.htm" description="知识高级搜索"/>
+      <siteMapNode title="知识阅读排行榜" resourceKey="1863" url="~\InformationManager\frmOrderRead.aspx" description="知识阅读排行榜"/>
+      <siteMapNode title="知识评分排行榜" resourceKey="1863" url="~\InformationManager\frmOrderScore.aspx" description="知识评分排行榜"/>
+      <siteMapNode title="知识转移设置" resourceKey="3092" url="~\InformationManager\frmInf_Shift.aspx" description="知识转移设置"/>
+      <siteMapNode title="知识管理" url="~\InformationManager\frmInf_InformationMain.aspx" description="知识管理" visible="false" />
+      <siteMapNode title="知识编辑" url="~\InformationManager\frmInf_InformationEdit.aspx" description="知识编辑" visible="false" />
+      <siteMapNode title="关联知识" url="~\InformationManager\frmRelMain.aspx" description="关联知识" visible="false" />
+      <siteMapNode title="知识选择" url="~\InformationManager\frmInf_RelSelect.aspx" description="知识选择" visible="false" />
+    </siteMapNode>
+    <siteMapNode title="公告通知" img="../skins/2004/images/icon/info.gif"  menuIndex="7"  url ="~\7.aspx" DefaultUrl="../Forms/frmnews_list.aspx" >
+      <!--DefaultUrl="../Forms/inputnew.aspx"-->
+
+      <siteMapNode title="公告管理" resourceKey="102" url="~\Forms\frmnews_list.aspx" description="公告管理"/>
+      <!--<siteMapNode title="公告发布" resourceKey="102" url="~\Forms\inputnew.aspx" description="公告发布"/>-->
+      <!--<siteMapNode title="公告维护" resourceKey="102" url="~\Forms\FrmNews_Mng.aspx" description="公告维护"/>-->
+
+      <siteMapNode title="公告类别维护" resourceKey="101" url="~\Forms\NewsType_Mng.aspx" description="公告类别维护"/>
+      <siteMapNode title="更多" resourceKey="101" url="~\Forms\frmPane.aspx" description="更多" visible="false"/>
+
+      <siteMapNode title="排班班次管理" resourceKey="102" url="~\AppSchedules\fem_SchedulesArea_Base.aspx" description="排班班次管理" visible="false"/>
+      <siteMapNode title="排班班次编辑" url="~\AppSchedules\frm_SchedulesArea_BaseSet.aspx" description="排班班次编辑"  visible="false"/>
+
+      <siteMapNode title="排班管理" resourceKey="102" url="~\AppSchedules\frm_frm_SchedulesArea.aspx" description="排班管理" visible="false"/>
+      <siteMapNode title="排班条件设定" resourceKey="102" url="~\AppSchedules\frm_frm_SchedulesArea_Set.aspx" description="排班条件设定" visible="false" />
+
+      <siteMapNode title="查看排班(统计）" resourceKey="102" url="~\AppSchedules\frm_SchedulesArea_Summary.aspx" description="查看排班(统计）" visible="false" />
+      <siteMapNode title="查看排班(详细）" resourceKey="102" url="~\AppSchedules\frm_frm_SchedulesArea_View.aspx" description="查看排班(详细）" visible="false" />
+
+      <siteMapNode title="查看排班(天）" resourceKey="102" url="~\AppSchedules\frm_Schedules_Person_Edit.aspx" description="查看排班(天）" visible="false" />
+    </siteMapNode>
+    <siteMapNode title="统计分析" img="../skins/2004/images/icon/O_group.gif"  menuIndex="9"  url ="~\9.aspx" DefaultUrl="../AnalsysForms/frmzhcstservicetypeAnalysis.aspx">
+
+      <siteMapNode title="按天统计工程师工作量" resourceKey="1865" url="~\AnalsysForms\frmCst_IssuesDayCount.aspx"
+                   description="按天统计工程师工作量"/>
+      <!--siteMapNode title="事件分析"-->
+      <!--<siteMapNode title="flash控件报表列子" resourceKey="1865" url="~\FlashReoport\flsh.aspx" description="flash控件报表列子"/>
+      <siteMapNode title="flash报表控件导出" resourceKey="1865" url="~\FlashReoport\WebForm1.aspx" description="flash报表控件导出"/>-->
+      <siteMapNode title="服务量日报表" resourceKey="1865" url="~\AnalsysForms\Rpt_Event_DailySummary.aspx" description="服务量日报表"/>
+
+      <siteMapNode title="服务量分布分析(事件类别)" resourceKey="1865" url="~\AnalsysForms\frmzhcstservicetypeAnalysis.aspx" description="服务量分布分析(事件类别)"/>
+
+      <siteMapNode title="按优先级统计问题单数" resourceKey="5027" url="~\AnalsysForms\Rpt_Question_Priority.aspx" description="按优先级统计问题单数"/>
+
+      <siteMapNode title="按问题种类统计问题单数" resourceKey="5027" url="~\AnalsysForms\Rpt_Qust_Type.aspx" description="按问题种类统计问题单数"/>
+
+
+      <siteMapNode title="年度数据分析报表" resourceKey="1865" url="~\AnalsysForms\frmzhcstdirection.aspx" description="年度数据分析报表"/>
+
+      <siteMapNode title="全年服务量趋势分析(事件类别)" resourceKey="1865" url="~\AnalsysForms\frmzhcstservicetypesdirection.aspx" description="全年服务量趋势分析(事件类别)"/>
+
+      <siteMapNode title="全年服务满意度分析" resourceKey="1865" url="~\AnalsysForms\frmzhcststatisfied.aspx" description="全年服务满意度分析"/>
+      <!--<siteMapNode title="全年投诉趋势分析" resourceKey="1865" url="~\AnalsysForms\frmzhbytsdirection.aspx" description="全年投诉趋势分析"/>-->
+      <!--<siteMapNode title="事件超期（LSA）列表" resourceKey="1865" url="~\AnalsysForms\LSAOverTimeReport.aspx" description="事件超期（SLA）列表"/>
+      <siteMapNode title="SLA达标率" resourceKey="1865"  url="~\AnalsysForms\SLAMark.aspx" description="SLA达标率"/>
+      
+      <siteMapNode title="工程师工作情况分析" resourceKey="1865"  url="~\AnalsysForms\frmEngineerWork.aspx" description="工程师工作情况分析"/>
+      <siteMapNode title="工程师工作量统计" resourceKey="1865" url="~\AnalsysForms\frmzhCstWork.aspx" description="执行人工作量统计"/>-->
+      <!--<siteMapNode title="资产统计分析">-->
+      <!--<siteMapNode title="资产明细列表" resourceKey="1865"  url="~\AnalsysForms\RepEquList.aspx" description="资产明细列表"/>
+      <siteMapNode title ="资产盘点计划表" resourceKey="1865" url="~\AnalsysForms\frmCheckPlan.aspx" description="资产盘点计划表"/>
+      <siteMapNode title="资产统计表" resourceKey="1865" url="~\AnalsysForms\frmEquStatistics.aspx" description="资产统计表"/>-->
+      <siteMapNode title="事件首次解决" resourceKey="1865"  url="~\AnalsysForms\frmfirstRatio.aspx" description="事件首次解决"/>
+
+      <siteMapNode title="资产过期预警列表" resourceKey="1865"  url="~\AnalsysForms\OverTimeRepEquList.aspx" description="资产过期预警列表"/>
+
+      <siteMapNode title="资产可用率报告" resourceKey="1865" url="~\AnalsysForms\frm_AssetsAvailability.aspx"
+                   description="资产可用率报告"/>
+
+      <!--<siteMapNode title="资产故障发生率" resourceKey="1865"  url="~\AnalsysForms\frmEquFalseRatio.aspx" description="资产故障发生率"/>-->
+      <!--</siteMapNode>-->
+      <!--<siteMapNode title="流程绩效分析">-->-->
+      <!--<siteMapNode title="年度绩效考核" resourceKey="1865" url="~\AnalsysForms\form_RptMenu.aspx" description="年度绩效考核"/>
+      <siteMapNode title="平均办理周期分析" resourceKey="1865" url="~\AnalsysForms\frmAvgTime.aspx" description="平均办理周期分析"/>
+      <siteMapNode title="工作量及状态分析" resourceKey="1865"  url="~\AnalsysForms\frmAnalsisWorkLoad.aspx" description="工作量及状态分析"/>
+      <siteMapNode title="参与人员平均办理周期分析" resourceKey="1865" url="~\AnalsysForms\frmAvgTimeP.aspx" description="参与人员平均办理周期分析"/>-->
+      <!--</siteMapNode>-->
+    </siteMapNode>
+    <siteMapNode title="系统管理" img="../skins/2004/images/icon/system.gif"  menuIndex="11"  url ="~\11.aspx" DefaultUrl="../DeptForms/frmMain.htm">
+      <siteMapNode title="部门维护" url="~\DeptForms\frmMain.htm" description="部门维护"/>
+      <siteMapNode title="用户管理"  url="~\DeptForms\frmUsers.htm" description="用户管理"/>
+      <siteMapNode title="用户组管理" url="~\DeptForms\frmActorMain.htm" description="用户组管理"/>
+      <siteMapNode title="用户组成员"  url="~\DeptForms\frmActorMember.htm" description="用户组成员"/>
+      <siteMapNode title="条件人员" url="~\DeptForms\frmActorCondList.aspx" description="条件人员"/>
+      <siteMapNode title="权限管理" url="~\DeptForms\Right.htm" description="权限管理"/>
+      <siteMapNode title="修改密码" url="~\Forms\FrmModuser.aspx?user" description="修改密码"/>
+      <siteMapNode title="其它管理">
+        <siteMapNode title="操作项管理" visible="false" url="~\DeptForms\frmTs_OperatesMain.aspx" description="操作项管理"/>
+        <siteMapNode title="系统系列号管理" visible="false" url="~\DeptForms\frmTs_SequenceMain.aspx" description="系统系列号管理"/>
+
+        <siteMapNode title="所属专业管理" visible="false" url="~\DeptForms\frmTs_ProfessionalMain.aspx" description="所属专业管理">
+          <siteMapNode title="新增" visible="false" url="~\DeptForms\frmTs_ProfessionalEdit.aspx" description="新增"/>
+        </siteMapNode>
+
+        <siteMapNode title="常用类别管理"  visible="false" url="~\Forms\frmCatalogMng.htm?Cata" description="常用类别管理"/>
+        <siteMapNode title="用户还原管理" visible="false"  url="~\DeptForms\frmUserIsDel.aspx" description="用户还原管理"/>
+        <siteMapNode title="流程模型检查"  visible="false" url="~\AppForms\frmFlowModelCheck.aspx" description="流程模型检查"/>
+        <siteMapNode title="系统参数配置"  visible="false" url="~\Config\frmSystemMain.aspx" description="系统参数配置"/>
+        <siteMapNode title="日志查询"  visible="false" url="~\Log\frm_LogInfo.aspx" description="日志查询"/>
+        <siteMapNode title="流程删除日志查询"  visible="false" url="~\Log\frm_FlowDeleteLogInfo.aspx" description="日志查询"/>
+        <!--<siteMapNode title="邮件发送时间设置"  visible="false" url="~\AppForms\frm_EmailTimeSet.aspx" description="邮件发送时间设置"/>-->
+
+      </siteMapNode>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

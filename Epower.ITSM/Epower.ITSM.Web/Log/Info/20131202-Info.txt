@@ -1,0 +1,164 @@
+2013-12-02 09:58:15,433 [3] - EpCacheValidFlowModel==>false
+2013-12-02 11:00:48,519 [11] - EpCacheValidFlowModel==>false
+2013-12-02 11:16:50,353 [3] - EpCacheValidFlowModel==>false
+2013-12-02 11:28:44,333 [11] - EpCacheValidFlowModel==>false
+2013-12-02 11:42:00,407 [9] - EpCacheValidFlowModel==>false
+2013-12-02 11:52:18,686 [9] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：未知的服务器标记“uc1:ctrflowcatadroplist”。；对象：System.Web；方法：Void ProcessError(System.String)；其它：System.Web.HttpException: 未知的服务器标记“uc1:ctrflowcatadroplist”。
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 11:52:38,065 [3] - EpCacheValidFlowModel==>false
+2013-12-02 11:53:53,359 [10] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：未知的服务器标记“uc1:ctrflowcatadroplist”。；对象：System.Web；方法：Void ProcessError(System.String)；其它：System.Web.HttpException: 未知的服务器标记“uc1:ctrflowcatadroplist”。
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 11:54:21,904 [11] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：未知的服务器标记“uc3:ctrflownumeric”。；对象：System.Web；方法：Void ProcessError(System.String)；其它：System.Web.HttpException: 未知的服务器标记“uc3:ctrflownumeric”。
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 11:54:38,779 [11] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”；对象：System.Web；方法：System.Web.Compilation.BuildResult CompileWebFile(System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 11:54:53,796 [3] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”；对象：System.Web；方法：System.Web.Compilation.BuildResult CompileWebFile(System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 11:55:33,217 [3] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”；对象：System.Web；方法：System.Web.Compilation.BuildResult CompileWebFile(System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(98): error CS0103: 当前上下文中不存在名称“GetDefaulCheckValue”
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 11:58:11,501 [9] - EpCacheValidFlowModel==>false
+2013-12-02 12:05:01,300 [11] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：未知的服务器标记“uc3:ctrflownumeric”。；对象：System.Web；方法：Void ProcessError(System.String)；其它：System.Web.HttpException: 未知的服务器标记“uc3:ctrflownumeric”。
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 12:05:12,080 [9] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：未知的服务器标记“uc3:ctrflownumeric”。；对象：System.Web；方法：Void ProcessError(System.String)；其它：System.Web.HttpException: 未知的服务器标记“uc3:ctrflownumeric”。
+   在 System.Web.UI.TemplateParser.ProcessError(String message)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 12:05:48,120 [9] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(96): error CS0103: 当前上下文中不存在名称“GetDefaulControlState”；对象：System.Web；方法：System.Web.Compilation.BuildResult CompileWebFile(System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(96): error CS0103: 当前上下文中不存在名称“GetDefaulControlState”
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 13:04:14,182 [3] - ::1 | http://localhost/Product2/AshxHandler/MessageHandler.ashx | 0 |  | 实例：；错误信息：未能加载文件或程序集“AjaxControlToolkit”或它的某一个依赖项。无法验证强名称签名。此程序集可能已被篡改，或者已被延迟签名，但没有用正确的私钥进行完全签名。 (异常来自 HRESULT:0x80131045)；对象：；方法：；其它：System.IO.FileLoadException: 未能加载文件或程序集“AjaxControlToolkit”或它的某一个依赖项。无法验证强名称签名。此程序集可能已被篡改，或者已被延迟签名，但没有用正确的私钥进行完全签名。 (异常来自 HRESULT:0x80131045)
+文件名:“AjaxControlToolkit”
+
+警告: 程序集绑定日志记录被关闭。
+要启用程序集绑定失败日志记录，请将注册表值 [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD)设置为 1。
+注意: 会有一些与程序集绑定失败日志记录关联的性能损失。
+要关闭此功能，请移除注册表值 [HKLM\Software\Microsoft\Fusion!EnableLog]。
+
+2013-12-02 13:05:13,989 [9] - EpCacheValidFlowModel==>false
+2013-12-02 13:42:40,563 [9] - ::1 | http://localhost/Product2/NewOldMainPage/Index.aspx | 0 |  | 实例：；错误信息：未能加载文件或程序集“AjaxControlToolkit”或它的某一个依赖项。无法验证强名称签名。此程序集可能已被篡改，或者已被延迟签名，但没有用正确的私钥进行完全签名。 (异常来自 HRESULT:0x80131045)；对象：mscorlib；方法：System.Reflection.Assembly _nLoad(System.Reflection.AssemblyName, System.String, System.Security.Policy.Evidence, System.Reflection.Assembly, System.Threading.StackCrawlMark ByRef, Boolean, Boolean)；其它：System.IO.FileLoadException: 未能加载文件或程序集“AjaxControlToolkit”或它的某一个依赖项。无法验证强名称签名。此程序集可能已被篡改，或者已被延迟签名，但没有用正确的私钥进行完全签名。 (异常来自 HRESULT:0x80131045)
+文件名:“AjaxControlToolkit”
+   在 System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   在 System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   在 System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   在 System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection)
+   在 System.Reflection.Assembly.Load(String assemblyString)
+   在 System.Web.Configuration.CompilationSection.LoadAssemblyHelper(String assemblyName, Boolean starDirective)
+
+警告: 程序集绑定日志记录被关闭。
+要启用程序集绑定失败日志记录，请将注册表值 [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD)设置为 1。
+注意: 会有一些与程序集绑定失败日志记录关联的性能损失。
+要关闭此功能，请移除注册表值 [HKLM\Software\Microsoft\Fusion!EnableLog]。
+
+2013-12-02 13:43:37,248 [9] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(96): error CS0103: 当前上下文中不存在名称“GetDefaulControlState”；对象：System.Web；方法：System.Web.Compilation.BuildResult CompileWebFile(System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(96): error CS0103: 当前上下文中不存在名称“GetDefaulControlState”
+   在 System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 13:44:02,598 [8] - EpCacheValidFlowModel==>false
+2013-12-02 13:45:03,088 [8] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(57): error CS1061: “ASP.equipmentmanager_frm_extensionsedit2_aspx”不包含“dgPro_ProvideManage_ItemCommand”的定义，并且找不到可接受类型为“ASP.equipmentmanager_frm_extensionsedit2_aspx”的第一个参数的扩展方法“dgPro_ProvideManage_ItemCommand”(是否缺少 using 指令或程序集引用?)；对象：System.Web；方法：System.Web.Compilation.BuildResult PostProcessFoundBuildResult(System.Web.Compilation.BuildResult, Boolean, System.Web.VirtualPath)；其它：System.Web.HttpCompileException: d:\FeiFan_Document_Lib\SVN\svn_itsm\oracle\v7.0.1\trunk\Src\ITSM\Epower.ITSM\Epower.ITSM.Web\EquipmentManager\frm_ExtensionsEdit2.aspx(57): error CS1061: “ASP.equipmentmanager_frm_extensionsedit2_aspx”不包含“dgPro_ProvideManage_ItemCommand”的定义，并且找不到可接受类型为“ASP.equipmentmanager_frm_extensionsedit2_aspx”的第一个参数的扩展方法“dgPro_ProvideManage_ItemCommand”(是否缺少 using 指令或程序集引用?)
+   在 System.Web.Compilation.BuildManager.PostProcessFoundBuildResult(BuildResult result, Boolean keyFromVPP, VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetBuildResultFromCacheInternal(String cacheKey, Boolean keyFromVPP, VirtualPath virtualPath, Int64 hashCode)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultFromCacheInternal(VirtualPath virtualPath)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile)
+   在 System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.Compilation.BuildManager.CreateInstanceFromVirtualPath(VirtualPath virtualPath, Type requiredBaseType, HttpContext context, Boolean allowCrossApp, Boolean noAssert)
+   在 System.Web.UI.PageHandlerFactory.GetHandlerHelper(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.UI.PageHandlerFactory.System.Web.IHttpHandlerFactory2.GetHandler(HttpContext context, String requestType, VirtualPath virtualPath, String physicalPath)
+   在 System.Web.HttpApplication.MapHttpHandler(HttpContext context, String requestType, VirtualPath path, String pathTranslated, Boolean useAppConfig)
+   在 System.Web.HttpApplication.MapHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+2013-12-02 13:45:34,623 [7] - EpCacheValidFlowModel==>false
+2013-12-02 14:03:48,286 [9] - EpCacheValidFlowModel==>false
+2013-12-02 14:11:05,101 [8] - EpCacheValidFlowModel==>false
+2013-12-02 14:31:21,580 [7] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：“System.Web.UI.WebControls.DataGridColumnCollection”内不允许包含文字内容(“<!--编号->”)。；对象：System.Web；方法：Void AppendLiteralString(System.String)；其它：System.Web.HttpException: “System.Web.UI.WebControls.DataGridColumnCollection”内不允许包含文字内容(“<!--编号->”)。
+   在 System.Web.UI.CollectionBuilder.AppendLiteralString(String s)
+   在 System.Web.UI.TemplateParser.ProcessLiteral()
+2013-12-02 14:31:26,461 [3] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：“System.Web.UI.WebControls.DataGridColumnCollection”内不允许包含文字内容(“<!--编号->”)。；对象：System.Web；方法：Void AppendLiteralString(System.String)；其它：System.Web.HttpException: “System.Web.UI.WebControls.DataGridColumnCollection”内不允许包含文字内容(“<!--编号->”)。
+   在 System.Web.UI.CollectionBuilder.AppendLiteralString(String s)
+   在 System.Web.UI.TemplateParser.ProcessLiteral()
+2013-12-02 14:31:50,958 [8] - EpCacheValidFlowModel==>false
+2013-12-02 14:38:35,797 [13] - EpCacheValidFlowModel==>false
+2013-12-02 14:40:52,934 [13] - EpCacheValidFlowModel==>false
+2013-12-02 14:43:16,317 [12] - EpCacheValidFlowModel==>false
+2013-12-02 15:06:30,232 [9] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：不能以声明的方式设置“SelectedValue”属性。；对象：System.Web；方法：Void ValidatePersistable(System.Reflection.PropertyInfo, Boolean, Boolean, Boolean, System.String)；其它：System.Web.HttpException: 不能以声明的方式设置“SelectedValue”属性。
+   在 System.Web.UI.ControlBuilder.ValidatePersistable(PropertyInfo propInfo, Boolean usingSetAttribute, Boolean mainDirectiveMode, Boolean simplePropertyEntry, String filter)
+   在 System.Web.UI.ControlBuilder.AddProperty(String filter, String name, String value, Boolean mainDirectiveMode)
+   在 System.Web.UI.ControlBuilder.PreprocessAttribute(String filter, String attribname, String attribvalue, Boolean mainDirectiveMode)
+   在 System.Web.UI.ControlBuilder.PreprocessAttributes(ParsedAttributeCollection attribs)
+   在 System.Web.UI.ControlBuilder.Init(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs)
+   在 System.Web.UI.ControlBuilder.CreateBuilderFromType(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs, Int32 line, String sourceFileName)
+   在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 15:06:54,837 [13] - ::1 | http://localhost/Product2/EquipmentManager/frm_ExtensionsEdit2.aspx | 0 |  | 实例：；错误信息：不能以声明的方式设置“SelectedValue”属性。；对象：System.Web；方法：Void ValidatePersistable(System.Reflection.PropertyInfo, Boolean, Boolean, Boolean, System.String)；其它：System.Web.HttpException: 不能以声明的方式设置“SelectedValue”属性。
+   在 System.Web.UI.ControlBuilder.ValidatePersistable(PropertyInfo propInfo, Boolean usingSetAttribute, Boolean mainDirectiveMode, Boolean simplePropertyEntry, String filter)
+   在 System.Web.UI.ControlBuilder.AddProperty(String filter, String name, String value, Boolean mainDirectiveMode)
+   在 System.Web.UI.ControlBuilder.PreprocessAttribute(String filter, String attribname, String attribvalue, Boolean mainDirectiveMode)
+   在 System.Web.UI.ControlBuilder.PreprocessAttributes(ParsedAttributeCollection attribs)
+   在 System.Web.UI.ControlBuilder.Init(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs)
+   在 System.Web.UI.ControlBuilder.CreateBuilderFromType(TemplateParser parser, ControlBuilder parentBuilder, Type type, String tagName, String id, IDictionary attribs, Int32 line, String sourceFileName)
+   在 System.Web.UI.ControlBuilder.CreateChildBuilder(String filter, String tagName, IDictionary attribs, TemplateParser parser, ControlBuilder parentBuilder, String id, Int32 line, VirtualPath virtualPath, Type& childType, Boolean defaultProperty)
+   在 System.Web.UI.TemplateParser.ProcessBeginTag(Match match, String inputText)
+   在 System.Web.UI.TemplateParser.ParseStringInternal(String text, Encoding fileEncoding)
+2013-12-02 16:01:18,984 [6] - EpCacheValidFlowModel==>false
+2013-12-02 16:19:30,271 [9] - EpCacheValidFlowModel==>false
+2013-12-02 16:54:10,313 [8] - EpCacheValidFlowModel==>false
+2013-12-02 17:00:46,763 [7] - EpCacheValidFlowModel==>false
+2013-12-02 17:02:45,180 [11] - EpCacheValidFlowModel==>false
+2013-12-02 17:04:52,071 [7] - EpCacheValidFlowModel==>false
+2013-12-02 17:07:10,653 [3] - EpCacheValidFlowModel==>false
+2013-12-02 17:12:23,507 [7] - EpCacheValidFlowModel==>false
+2013-12-02 17:18:22,614 [7] - EpCacheValidFlowModel==>false
+2013-12-02 17:36:18,045 [8] - EpCacheValidFlowModel==>false
+2013-12-02 17:40:31,804 [8] - EpCacheValidFlowModel==>false
+2013-12-02 18:17:06,443 [3] - EpCacheValidFlowModel==>false

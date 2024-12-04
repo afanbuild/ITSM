@@ -1,0 +1,87 @@
+﻿#div-tabs-container { cursor:pointer; }
+#div-tabs-head { float:left;}
+#div-tabs-foot { float:left;}
+.div-tabs-content  
+{
+	float:left; 
+	background-image: url(../Images/lm-a.gif) White repeat-x center top;	
+	width:115px;
+	height:29px;
+	text-align:center;	
+}
+
+.div-tabs-content span 
+{
+	float:left;
+	margin-top: 7px;
+	margin-left: 30px;
+}
+
+.div-tabs-opend 
+{
+    background-image: url("../Images/lm-2b.gif");
+}
+
+.div-tabs-opend2
+{
+    font-family: "宋体";
+    font-weight: bold;
+    font-size: 12px;
+    color: #1885C0;
+    line-height: 20px;
+}
+
+.table-layout 
+{
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.table-layout td 
+{
+	width:200px;     
+}
+
+.alert 
+{
+	color:Red;
+	font-weight:bold;
+}
+
+.div-tr 
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.big-input 
+{
+	width:400px;    	
+	padding:5px;
+	text-align:center;
+}
+
+
+
+.alert-float-panel-tpl-head
+{
+	font-weight:bold;
+	color: Green;	
+}
+
+.alert-float-panel-tpl-item-key
+{
+	color:Blue;
+}
+
+.alert-float-panel-tpl-item-preset
+{
+	color:Navy;
+	font-weight:bold;
+}
+
+.alert-float-panel-tpl-item-normalvalue
+{
+	color:Maroon;
+	font-weight:bold;
+}

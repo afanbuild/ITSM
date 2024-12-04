@@ -1,0 +1,77 @@
+﻿
+ -- 插入事件常用类别
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('001058',1,'1058',1,'变更场所',3,0,0);
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('00105801059',1,'1059',1058,'机房一',3,0,0);
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('00105801060',1,'1060',1058,'机房二',3,0,0);
+commit;
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('001061',1,'1061',1,'操作窗口',3,0,0);
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('00106101062',1,'1062',1061,'1:00~3:00',3,0,0);
+insert into es_catalog (fullid,orgid,catalogid,parentid,catalogname,sortid,deleted,isshowschema) 
+values('00106101063',1,'1063',1061,'23:00~1:00',3,0,0);
+commit;
+--修改变更表
+alter table EQU_CHANGESERVICE add IS_PLAN_CHANGE number;
+alter table EQU_CHANGESERVICE add ChangeNeedPeopleID number;
+alter table EQU_CHANGESERVICE add ChangeNeedPeople NVARCHAR2(50);
+alter table EQU_CHANGESERVICE add Isplan nvarchar2(500);
+alter table EQU_CHANGESERVICE add CHANGE_PLACE_ID nvarchar2(500);
+alter table EQU_CHANGESERVICE add CHANGE_PLACE_NAME nvarchar2(500);
+alter table EQU_CHANGESERVICE add BUS_EFFECT NVARCHAR2(500);
+alter table EQU_CHANGESERVICE add DATA_EFFECT nvarchar2(500);
+alter table EQU_CHANGESERVICE add PLAN_BEGIN_TIME date;
+alter table EQU_CHANGESERVICE add PLAN_END_TIME date;
+alter table EQU_CHANGESERVICE add IS_BUS_EFFECT number;
+alter table EQU_CHANGESERVICE add IS_DATA_EFFECT number;
+alter table EQU_CHANGESERVICE add CHANGE_WINDOW_ID number;
+alter table EQU_CHANGESERVICE add CHANGE_WINDOW_NAME nvarchar2(500);
+alter table EQU_CHANGESERVICE add CHANGE_WINDOW_REMARK nvarchar2(500);
+alter table EQU_CHANGESERVICE add IS_STOP_SERVER number;
+alter table EQU_CHANGESERVICE add STOP_SERVER_REMARK NVARCHAR2(500);
+
+--添加信息项
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380119,6481,'change_place_id','变更场所',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380120,6481,'changeneedpeopleid','变更需求人',10,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380121,6481,'isplan','应急回退方案',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380122,6481,'is_bus_effect','是否业务影响',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380123,6481,'is_data_effect','是否数据影响',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380124,6481,'is_stop_server','是否停用服务',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380125,6481,'is_plan_change','是否计划性变更',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380126,6481,'change_window_id','变更窗口',10,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380127,6481,'plan_begin_time','计划开始时间',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380129,6481,'plan_end_time','计划结束时间',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380130,6481,'real_begin_time','实际开始时间',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) VALUES(6380131,6481,'real_end_time','实际结束时间',30,0,0,0);
+commit;
+
+--修改变更表
+alter table Equ_ChangeService add  real_begin_time date;
+alter table Equ_ChangeService add  real_end_time  date;
+--更新视图
+CREATE OR REPLACE VIEW V_EQU_CHANGESERVICE AS
+SELECT a.*,case when nvl(IS_PLAN_CHANGE,0)=1 then '是' else '否' end as isplanchange,
+case when nvl(IS_BUS_EFFECT,0)=1 then '是' else '否' end as isbuseffect,
+case when nvl(IS_DATA_EFFECT,0)=1 then '是' else '否' end as isdataeffect,
+case when nvl(IS_STOP_SERVER,0)=1 then '是' else '否' end as isstopserver,
+       nvl(b.status, 0) status,
+       case
+         when b.status = 30 then
+          datediff('Minute',
+                   nvl(b.endtime, sysdate),
+                   nvl(b.expectendtime, sysdate))
+         else
+          datediff('Minute', sysdate, nvl(b.expectendtime, sysdate))
+       end FlowDiffMinute,
+       d.MastCustName,
+       D.CustDeptName,
+       D.Email,
+       D.MastCustName as MastCust,
+       D.job,
+       nvl(a.IssuesFlowID, 0) as AssociateFlowID
+  from es_flow b, Equ_ChangeService a
+  left join br_ecustomer d on a.custid = d.id
+ WHERE a.FlowID = b.FlowID;

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EmailConfig>
+  <Items Name="SetMail" Title="邮件服务器设置" ConfigContent="邮件服务器设置,可实现电子邮件通知功能">
+    <Item Name="smtpserver" Value="smtp.qq.com" Desc="邮件SMTP服务器" ControlType="TEXT" ItemContent="">
+    </Item>
+    <Item Name="smtpfrom" Value="sunshaoz@foxmail.com" Desc="邮件地址" ControlType="TEXT" ValidationExpression="^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$">
+    </Item>
+    <Item Name="smtpDisplayName" Value="深圳非凡信息科技（ITSM系统）" Desc="显示名称" ControlType="TEXT" ItemContent="注意事项，有些邮件服务器设置了防伪拒发功能，带上【显示名称】参数发不出邮件，可以对邮件服务器设置，或设置【显示名称】为空">
+    </Item>
+    <Item Name="smtpUserName" Value="" Desc="帐户" ControlType="TEXT">
+    </Item>
+    <Item Name="smtppsd" Value="" Desc="密码" ControlType="TEXT" TextMode="Password">
+    </Item>
+    <Item Name="smtpSSL" Value="false" Desc="是否SSL" ControlType="CHECKBOX">
+    </Item>
+    <Item Name="smtpPort" Value="25" Desc="端口" ControlType="TEXT" ValidationExpression="\d{0,9}">
+    </Item>
+    <Item Name="smtpLinkRoot" Value="http://localhost/Product3" Desc="连接地址" ControlType="TEXT">
+    </Item>
+    <Item Name="IsEmailService" Value="0" Desc="是否显示服务单邮件通知" ControlType="DROPLIST" Dict="0|是,1|否">
+    </Item>
+    <Item Name="IsEmailFeedBack" Value="0" Desc="是否显示邮件回访" ControlType="DROPLIST" Dict="0|是,1|否">
+    </Item>
+    <Item Name="ServiceAutoFeedBack" Value="0" Desc="服务单是否自动回访" ControlType="DROPLIST" Dict="0|自动回访,1|不需要自动回访">
+    </Item>
+    <Item Name="ServiceAutoFeedBackTitle" Value="服务回访--" Desc="服务单回访标题前缀" ControlType="TEXT">
+    </Item>
+    <Item Name="ServiceAutoFeedBackUserID" Value="26326" Desc="服务单自动回访系统用户ID" ControlType="TEXT">
+    </Item>
+  </Items>
+  <Items Name="SystemName" Title="系统名称" ConfigContent="配置系统名称,系统名称将在浏览器的窗口上显示">
+    <Item Name="SystemName" Value="E8ITSM服务管理系统" Desc="系统名称" ControlType="TEXT" ItemContent="">
+    </Item>
+    <Item Name="PersonServiceName" Value="非凡IT服务管理平台" Desc="自助服务名称" ControlType="TEXT" ItemContent="">
+    </Item>
+    <Item Name="AutoCheckNewItemsEnable" Value="false" Desc="是否检测" ControlType="CHECKBOX" UserEnable="false">
+    </Item>
+    <Item Name="AutoCheckNewItems" Value="5000" Desc="检测时间（毫秒）" ControlType="TEXT" UserEnable="false">
+    </Item>
+  </Items>
+  <Items Name="TempCataLog" Title="文件存储路径" ConfigContent="配置附件的存储路径">
+    <Item Name="TempCataLog" Value="d:\attachments\TempUpload\" Desc="文件临时存储路径(系统会清除临时路径，请谨慎操作！)" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="FileCataLog" Value="d:\attachments\TempUpload2\" Desc="文件正式存储路径" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="logPath" Value="d:\log" Desc="导入HR数据日志存储路径" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="MaxFileSize" Value="4" Desc="上传附件大小设置（M）" ControlType="TEXT">
+    </Item>
+    <Item Name="E8CustNo" Value="00001" Desc="E8引擎客户编号" ControlType="TEXT" UserEnable="false">
+    </Item>
+  </Items>
+  <Items Name="WorkTimeType" Title="工时" ConfigContent="配置工作时间,系统将根据工作时间计算各种待办事项的时限">
+    <Item Name="WorkTimeType" Value="55" Desc="工作类型" ControlType="DROPLIST" Dict="50|五天工作制,55|五天半工作制,60|六天工作制">
+    </Item>
+    <Item Name="OnDutyTime1" Value="8:30" Desc="上班时间1" ControlType="TEXT">
+    </Item>
+    <Item Name="OffDutyTime1" Value="12:00" Desc="下班时间1" ControlType="TEXT">
+    </Item>
+    <Item Name="OnDutyTime2" Value="13:30" Desc="上班时间2" ControlType="TEXT">
+    </Item>
+    <Item Name="OffDutyTime2" Value="18:00" Desc="下班时间2" ControlType="TEXT">
+    </Item>
+    <Item Name="OverTimeLimit" Value="3" Desc="超时警示时间(小时)" ControlType="TEXT">
+    </Item>
+  </Items>
+  <Items Name="PrintMode" Title="报表设置" ConfigContent="设置报表相关设置">
+    <Item Name="PrintMode" Value="0" Desc="报表方式" ControlType="DROPLIST" Dict="0|正常方式,1|Report Service方式">
+    </Item>
+    <Item Name="VisitReportMode" Value="1" Desc="Report Service访问方式" ControlType="DROPLIST" Dict="0|URL直接访问方式,1|摸拟登录访问方式">
+    </Item>
+    <Item Name="ReportUser" Value="administrator" Desc="Report Service服务器登录用户名" ControlType="TEXT">
+    </Item>
+    <Item Name="ReportPwd" Value="servicesys" Desc="Report Service服务器登录用户密码" ControlType="TEXT" TextMode="Password">
+    </Item>
+    <Item Name="ReportDomain" Value="media" Desc="Report Service服务器登录域名" ControlType="TEXT">
+    </Item>
+    <Item Name="ReportServer" Value="http://10.16.64.191/ReportServer" Desc="Report Service服务器地址" ControlType="TEXT">
+    </Item>
+    <Item Name="ReportPath" Value="/Reports/" Desc="Report Service报表路径" ControlType="TEXT">
+    </Item>
+  </Items>
+  <Items Name="LogConfig" Title="日志设置" ConfigContent="">
+    <Item Name="VisitLog" Value="1" Desc="是否记录登录日志" ControlType="DROPLIST" Dict="0|不记录登录日志,1|记录登录日志">
+    </Item>
+    <Item Name="AppID" Value="101" Desc="当前系统的ID" ControlType="Text" UserEnable="false">
+    </Item>
+    <Item Name="OperatetLog" Value="1" Desc="是否记录操作日志" ControlType="DROPLIST" Dict="0|不记录操作日志,1|记录操作日志" UserEnable="false">
+    </Item>
+    <Item Name="ExceptionLog" Value="1" Desc="是否记录错误日志" ControlType="DROPLIST" Dict="0|不记录错误日志,1|记录错误日志" UserEnable="false">
+    </Item>
+  </Items>
+  <Items Name="ErrorNode" Title="系统出错语设置" ConfigContent="设置当系统出错时，展示给客户出错语句">
+    <Item Name="SessionError" Value="系统登录时间超期，5秒钟之后将会带您进入登录页，谢谢！" Desc="登录时间超期语" ControlType="TEXT">
+    </Item>
+    <Item Name="SystemError" Value="系统出现异常,请联系系统管理员，谢谢！" Desc="系统出现异常语" ControlType="TEXT">
+    </Item>
+  </Items>
+  <Items Name="Call" Title="呼叫中心设置" ConfigContent="呼叫中心设置">
+    <Item Name="CallTel" Value="1" Desc="呼叫中心启用" ControlType="DROPLIST" Dict="0|启用,1|禁用">
+    </Item>
+    <Item Name="CallAppID" Value="1026" Desc="应用ID" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="CallServerIP" Value="192.168.8.120" Desc="呼叫中心服务器IP" ControlType="TEXT">
+    </Item>
+  </Items>
+  <!--<Items Name="EmaiSendlTime" Title="邮件发送时间设置" ConfigContent="邮件发送时间设置">
+    <Item Name="EmailTime" Value="30" Desc="间隔时间" ControlType="TEXT" ></Item>
+  </Items>-->
+  <Items Name="UEditorSet" Title="UEditor设置" ConfigContent="UEditor设置">
+    <Item Name="UEditorURL" Value="/Product2/ueditor2/" Desc="UEditor的路径" ControlType="TEXT">
+    </Item>
+    <Item Name="UEditorServer" Value="192.168.8.138" Desc="截图上传时服务器IP或域名" ControlType="TEXT">
+    </Item>
+    <Item Name="UEditorPort" Value="80" Desc="截图上传时的端口号" ControlType="TEXT">
+    </Item>
+    <Item Name="UEditorImageMaxSize" Value="1" Desc="图片上传最大限制MB" ControlType="TEXT">
+    </Item>
+  </Items>
+  <Items Name="Other" Title="其它设置" ConfigContent="">
+    <Item Name="isOrderBy" Value="1" Desc="选人列表是否排序，0表示否，1表示是" ControlType="TEXT">
+    </Item>
+    <Item Name="QueryBeginDate" Value="2012-01-01" Desc="查询起始日期" ControlType="TEXT">
+    </Item>
+    <Item Name="ItsmCustomerMode" Value="0" Desc="应用模式" ControlType="DROPLIST" Dict="0|内部模式,1|外部模式" UserEnable="false">
+    </Item>
+    <Item Name="ContactAuto" Value="2" Desc="智能感知设置" ControlType="DROPLIST" Dict="0|OUTLOOK CONTACT,1|QQ,2|两者全部">
+    </Item>
+    <Item Name="DataLimit" Value="0" Desc="客户资料范围限制" ControlType="DROPLIST" Dict="0|不控制,1|控制">
+    </Item>
+    <Item Name="IsSynchrCustom" Value="1" Desc="是否同步客户" ControlType="DROPLIST" Dict="0|否,1|是">
+    </Item>
+    <Item Name="InformationLimit" Value="1" Desc="知识分级控制" ControlType="DROPLIST" Dict="0|不分级,1|分级">
+    </Item>
+    <Item Name="EquPreWar" Value="2" Desc="资产预警时限(天)" ControlType="TEXT" ValidationExpression="\d{0,9}">
+    </Item>
+    <Item Name="QuickNewCust" Value="1" Desc="事件登单快速添加客户/资产" ControlType="DROPLIST" Dict="0|不允许,1|允许">
+    </Item>
+    <Item Name="E8Online" Value="0" Desc="是否E8在线接入" ControlType="DROPLIST" Dict="0|不接入,1|接入E8在线" UserEnable="false">
+    </Item>
+    <Item Name="E8OnlineCust" Value="A1001" Desc="接入的客户编号" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="E8OnlineSystem" Value="B1001" Desc="接入的系统编号" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="E8OnlineLogin" Value="http://www.onlinee8.net/Apps/E8Member/frmdefault.aspx" Desc="在线接入登录地址" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="E8OnlineService" Value="http://feifanit-server/SSOService/E8OnlineService.asmx" Desc="在线单点登录服务地址" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="PageRow" Value="25" Desc="设置初始页列的个数" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="OftenPageRow" Value="8" Desc="常用功能列的个数" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="RadioOrDDL" Value="4" Desc="RadioButtonList数量设置" ControlType="TEXT">
+    </Item>
+    <Item Name="AutoRefreshTime" Value="30000" Desc="刷新时间（毫秒）" ControlType="TEXT">
+    </Item>
+    <Item Name="RadioNum" Value="3" Desc="单选按钮数量设置" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="ListNum" Value="10" Desc="下拉框数量设置" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="Get-Resource-State-Interval" Value="2000" Desc="资源监控状态刷新频率, 单位: 毫秒" ControlType="TEXT">
+    </Item>
+    <Item Name="Resource-State-CacheLayer-Address" Value="tcp://localhost:18099/ResourceState" Desc="资源监控状态缓冲层地址" ControlType="TEXT">
+    </Item>
+    <Item Name="systemversion" Value="V6.0.0.3" Desc="系统版本号" ControlType="TEXT" UserEnable="false">
+    </Item>
+    <Item Name="weixinURL" Value="http://localhost:2188/" Desc="微信链接URL" ControlType="TEXT">
+    </Item>
+  </Items>
+</EmailConfig>

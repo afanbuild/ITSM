@@ -1,0 +1,236 @@
+-- 创建常用类别相关配置项信息表 余向前 2013-04-10
+create table BR_CatalogSchemaItems
+(
+  ID        NUMBER(18,0) not null,
+  FIELDID   NVARCHAR2(50),
+  CHNAME    NVARCHAR2(100),
+  ITEMTYPE  NUMBER,
+  DELETED   NUMBER,
+  CATALOGID NUMBER(18,0)
+)
+
+--增加常用类别配置项管理权限 余向前 2013-04-10
+insert into ts_operates (OPERATEID, SYSID, OPNAME, OPDESC, OPTYPE, SQLSTATEMENT, PARAMATERS, CONNECTSYSTEM, OPCATALOG)
+values (209, 101, '常用类别配置项', '常用类别配置项', 30, '', '', '', '配置管理');
+commit;
+
+--增加常用类别配置项的系统系列号 余向前 2013-04-10
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_CatalogSchemaItemsID', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+--常用类别表增加两个字段 存储配置信息是否展示扩展功能 余向前 2013-04-10
+alter table es_catalog add configureSchema clob;
+alter table es_catalog add IsShowSchema Number(18,0);
+update es_catalog set IsShowSchema=0;
+commit;
+
+--增加配置值保存表  余向前 2013-04-15
+create table BR_Schema_Deploy
+(
+  ID         NUMBER not null,  --标示ID
+  RelateID   NUMBER,           --关联ID
+  RelateType NUMBER,           --关联类型
+  FIELDID    NUMBER,           --配置项ID
+  CHNAME     NVARCHAR2(500),   --配置项名称
+  VALUE      NVARCHAR2(500)    --保存值
+)
+
+
+--增加配置项保存表的系统系列号 余向前 2013-04-15
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_Schema_DeployID', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+--请求模板配置表增加应用ID字段，用于区分   余向前 2013-04-18
+alter table EA_ShortCutTemplate add AppID number(18,0);
+
+--服务目录表增加应用ID字段，用于区分   余向前 2013-04-18
+alter table EA_ServicesTemplate add AppID Number(18,0);
+
+--创建查询我登记事项视图 余向前 2013-04-19
+create or replace view v_myRegEvent as
+SELECT b.flowid, b.subject, b.starttime, b.AppID,a.ReceiverID
+  FROM es_message a, es_flow b
+ WHERE a.senderid = 0
+   and a.flowid = b.flowid
+
+--删除会议室预订应用  余向前 2013-04-24
+delete from es_app where AppID = 1029;
+commit;
+
+--删除会议室预订对应的权限项  余向前 2013-04-24
+delete from ts_operates where operateid in (6677,6678,6679,6680);
+commit;
+
+--更新高级查询条件表Loginname字段长度 余向前 2013-04-24
+alter table CST_ISSUE_QUERYSAVE modify(LoginName varchar2(20));
+
+
+--修改全年服务满意度分析报表相关存储过程 余向前 2013-04-24
+create or replace procedure PROC_RPT_Satisfaction(nYear            in varchar2,
+                                              lngServiceTypeID in varchar2,
+                                              lngWTTypeID        in varchar2,
+                                              lngDeptID  in varchar2,
+                                              lngMastCustomer  in varchar2,
+                                              p_cursor         out GetDataSet.GETCUR) AS
+  sFullID varchar2(200);
+  STRSQL  varchar2(4000);
+begin
+  begin
+    select FullID
+      into sFullID
+      from Es_Catalog
+     where CatalogID = lngServiceTypeID;
+  exception
+    when no_data_found then
+      sFullID := ' ';
+  end;
+  STRSQL:='SELECT ''年度'||nYear||''' as 年度,
+              sum(case  when c.months=1 then c.sqtyRate else 0 end) 一月,
+              sum(case  when c.months=2 then c.sqtyRate else 0 end) 二月,
+              sum(case  when c.months=3 then c.sqtyRate else 0 end) 三月,
+              sum(case  when c.months=4 then c.sqtyRate else 0 end) 四月,
+              sum(case  when c.months=5 then c.sqtyRate else 0 end) 五月,
+              sum(case  when c.months=6 then c.sqtyRate else 0 end) 六月,
+              sum(case  when c.months=7 then c.sqtyRate else 0 end) 七月,
+              sum(case  when c.months=8 then c.sqtyRate else 0 end) 八月,
+              sum(case  when c.months=9 then c.sqtyRate else 0 end) 九月,
+              sum(case  when c.months=10 then c.sqtyRate else 0 end) 十月,
+              sum(case  when c.months=11 then c.sqtyRate else 0 end) 十一月,
+              sum(case  when c.months=12 then c.sqtyRate else 0 end) 十二月
+            FROM (SELECT   datepart(''month'',b.RegSysDate) as months,
+                           round(to_number(sum(case when a.feedback != 3  then 1 else 0 end)) / (sum(case when nvl(a.feedback,0) = 0 then 0 else 1 end))*100,2)  as sqtyRate
+                  FROM EA_Issues_FeedBack a,cst_issues b,Es_Catalog c
+                  WHERE a.flowid = b.flowid And servicetypeid=CatalogID AND a.appid=1026 AND  datepart(''year'',b.regsysdate)  = '|| nYear;
+
+                  STRSQL :=STRSQL || ' AND NOT exists (SELECT SUBFLOWID FROM  Pro_ProblemRel d WHERE d.SUBFLOWID=a.FLOWID ) ';
+                  STRSQL :=STRSQL || ' AND exists (SELECT FLOWID FROM  ES_MESSAGE m WHERE m.FLOWID=a.FLOWID and not (m.senderid=0 and m.status=20) GROUP BY FLOWID HAVING COUNT(*)>=1 ) ';
+
+                 -- IF lngWTTypeID NOT IN (0,-1) THEN
+                  --   STRSQL:=STRSQL||' AND b.ServiceLevelID ='||lngWTTypeID;
+                 -- END IF;
+                  IF lngDeptID NOT IN (0, -1) THEN
+                     STRSQL:=STRSQL||' AND b.orgid ='||lngDeptID;
+                  END IF;
+                  IF lngMastCustomer !=0 THEN
+                     STRSQL:=STRSQL||' And nvl(CustID,0) In (select ID from Br_ECustomer where MastCustID='||lngMastCustomer||')';
+                  END IF;
+                  IF lngServiceTypeID !=1001 THEN
+                     STRSQL:=STRSQL||' AND substr(c.FullID,0,length('||sFullID||')+1)='||sFullID;
+                  END IF ;
+                   STRSQL:=STRSQL||' GROUP BY datepart(''month'',b.RegSysDate)  ) c';
+                  OPEN p_cursor FOR STRSQL;
+                   dbms_output.put_line(STRSQL);
+                   --STRSQL := STRSQL || 'zz';
+                  --open p_cursor FOR select sysdate from dual;
+
+end;
+
+--客户满意度  余向前 2013-04-24
+create or replace procedure PROC_RPT_CustomerSatisfaction(nYear in varchar2,
+                                                      lngServiceTypeID in varchar2,
+                                                      lngWTTypeID in varchar2,
+                                                      lngDeptID in varchar2,
+                                                      lngMastCustomer in varchar2,
+                                                      p_cursor out GetDataSet.GETCUR) AS
+  sFullID varchar2(200);
+  STRSQL varchar2(4000);
+begin
+  begin
+    select FullID
+      into sFullID
+      from Es_Catalog
+     where CatalogID = lngServiceTypeID;
+  exception
+    when no_data_found then
+      sFullID := '';
+  end;
+  STRSQL := 'SELECT b.months as 月份,
+            sum(b.fsqty) as 满意次数,
+            sum(b.fqty) as 回访次数,
+            count(b.flowid) as 事件数量,
+            round(to_number(sum(b.yhfnum)) * 100 / count(b.flowid),2) as 回访率,
+            round(to_number(sum(b.fsqty)) * 100 / sum(b.fqty),2) as 满意度
+            FROM (SELECT datepart(''month'',a.regsysdate) as months,flowid,
+              (select count(flowid) from EA_Issues_FeedBack where flowid = a.flowid) as fqty,
+                (select
+                      sum(case when feedback!=3 then 1 else 0 end)
+                 from EA_Issues_FeedBack where flowid = a.flowid) as fsqty,
+                (select count(flowid) from (select distinct flowid from EA_Issues_FeedBack) feeback where flowid = a.flowid) as yhfnum
+              FROM cst_issues a,Es_Catalog c
+              WHERE servicetypeid=CatalogID and datepart(''year'',a.regsysdate) = ' ||
+            nYear;
+
+  STRSQL :=STRSQL || ' AND NOT exists (SELECT SUBFLOWID FROM Pro_ProblemRel d WHERE d.SUBFLOWID=a.FLOWID ) ';
+  STRSQL :=STRSQL || ' AND exists (SELECT FLOWID FROM ES_MESSAGE m WHERE m.FLOWID=a.FLOWID and not (m.senderid=0 and m.status=20) GROUP BY FLOWID HAVING COUNT(*)>=1 ) ';
+
+  --IF lngWTTypeID NOT IN (0, -1) THEN
+  -- STRSQL := STRSQL || ' AND a.ServiceLevelID =' || lngWTTypeID;
+  --END IF;
+  IF lngDeptID NOT IN (0, -1) THEN
+    STRSQL := STRSQL || ' AND a.orgid =' || lngDeptID;
+  END IF;
+  IF lngMastCustomer != 0 THEN
+    STRSQL := STRSQL ||
+              ' And nvl(CustID,0) In (select ID from Br_ECustomer where MastCustID=' ||
+              lngMastCustomer||')';
+  END IF;
+  IF lngServiceTypeID != 1001 THEN
+    --STRSQL := STRSQL || ' AND substr(c.FullID,0,length(' || sFullID ||')+1)=' || sFullID;
+    STRSQL:=STRSQL|| ' AND c.fullID like ''' || sFullID ||'%''';
+  END IF;
+  STRSQL := STRSQL || ' ) b GROUP BY b.months order by b.months';
+  OPEN p_cursor FOR STRSQL;
+end;
+
+-----------------------------------------------------------------------------------------------------
+--修改 es_catalog 备注字段长度 余向前 2013-05-02
+alter table es_catalog modify(Remark nvarchar2(150));
+
+
+-- 增加一些系统系列号 取消了原来的Oracle本身自增长列的方式 余向前 2013-05-02
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Br_Send_EmailID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_MessageRulInstall_ID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_ExtendsFieldsID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Br_ExtensionsItemsID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_MeetingScheduledID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_RPT_ENGINEER_SEQ', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Cst_ServiceStaffList_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('ea_idiom_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('EA_Issues_FeedBack_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('EA_Monitor_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Equ_PatrolItemData_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Equ_Rel_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('GS_ENGINEER_SCHEDULES_SEQ', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('GS_PRESCHEDULES_SEQ', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('OA_SMS_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Pro_ProblemAnalyse_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Pro_ProblemRel_ID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Pro_ProblemRel_SEQUENCE', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('TS_MOBILELOGINHISTORYID', 10000, 9999999999, 20000, 1, 0);
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('GS_SCHEDULES_BASE_SEQ', 10000, 9999999999, 20000, 1, 0);
+commit;
+
+
+

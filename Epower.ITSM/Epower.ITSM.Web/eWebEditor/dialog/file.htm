@@ -1,0 +1,329 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script language=javascript src="dialog.js"></script>
+<link href='dialog.css' type='text/css' rel='stylesheet'>
+<TITLE>文件属性</TITLE>
+
+<script language="javascript">
+function ReturnValue(){
+	var url = d_fromurl.value;
+	if (url == "")
+	{
+		url = document.all.Hurl.value;
+	}
+	var sFilePic = getFilePic(url);
+	var sPicSrc = relativePath2setPath("sysimage/file/"+sFilePic);
+	dialogArguments.insertHTML("<img id=eWebEditor_TempElement_Img border=0 src='"+sPicSrc+"'><a id=eWebEditor_TempElement_Href href='"+url+"' target=_blank>"+ url +"</a>");
+
+	var oTempElement = dialogArguments.eWebEditor.document.getElementById("eWebEditor_TempElement_Img");
+	oTempElement.src = sPicSrc;
+	oTempElement.removeAttribute("id");
+	
+	oTempElement = dialogArguments.eWebEditor.document.getElementById("eWebEditor_TempElement_Href");
+	oTempElement.href = url;
+	oTempElement.removeAttribute("id");
+	
+	window.returnValue = null;
+	window.close();
+}
+
+function ok(){
+	GetFileName(d_fromurl.value, "/");
+	ReturnValue();
+}
+
+function getFilePic(url){
+	var sExt;
+	sExt=url.substr(url.lastIndexOf(".")+1);
+	sExt=sExt.toUpperCase();
+	var sPicName;
+	switch(sExt){
+	case "TXT":
+		sPicName = "txt.gif";
+		break;
+	case "CHM":
+	case "HLP":
+		sPicName = "hlp.gif";
+		break;
+	case "DOC":
+		sPicName = "doc.gif";
+		break;
+	case "PDF":
+		sPicName = "pdf.gif";
+		break;
+	case "MDB":
+		sPicName = "mdb.gif";
+		break;
+	case "GIF":
+		sPicName = "gif.gif";
+		break;
+	case "JPG":
+		sPicName = "jpg.gif";
+		break;
+	case "BMP":
+		sPicName = "bmp.gif";
+		break;
+	case "PNG":
+		sPicName = "pic.gif";
+		break;
+	case "ASP":
+	case "JSP":
+	case "JS":
+	case "PHP":
+	case "PHP3":
+	case "ASPX":
+		sPicName = "code.gif";
+		break;
+	case "HTM":
+	case "HTML":
+	case "SHTML":
+		sPicName = "htm.gif";
+		break;
+	case "ZIP":
+		sPicName = "zip.gif";
+		break;
+	case "RAR":
+		sPicName = "rar.gif";
+		break;
+	case "EXE":
+		sPicName = "exe.gif";
+		break;
+	case "AVI":
+		sPicName = "avi.gif";
+		break;
+	case "MPG":
+	case "MPEG":
+	case "ASF":
+		sPicName = "mp.gif";
+		break;
+	case "RA":
+	case "RM":
+		sPicName = "rm.gif";
+		break;
+	case "MP3":
+		sPicName = "mp3.gif";
+		break;
+	case "MID":
+	case "MIDI":
+		sPicName = "mid.gif";
+		break;
+	case "WAV":
+		sPicName = "audio.gif";
+		break;
+	case "XLS":
+		sPicName = "xls.gif";
+		break;
+	case "PPT":
+	case "PPS":
+		sPicName = "ppt.gif";
+		break;
+	case "SWF":
+		sPicName = "swf.gif";
+		break;
+	default:
+		sPicName = "unknow.gif";
+		break;
+	}
+	return sPicName;
+
+}
+
+function GetFileName(url, opt){
+	d_filename.value=url.substr(url.lastIndexOf(opt)+1);
+}
+
+
+function InitDocument(){
+	adjustDialog();
+}
+
+// 图片来源单选点击事件
+function RadioClick(what){
+	if (what=="url"){
+		d_checkfromfile.checked=false;
+		d_fromurl.disabled=false;
+		d_checkfromurl.checked=true;
+		d_file.myform.uploadfile.disabled=true;
+		d_file.myform.ButUpload.disabled=true;
+	}else{
+		d_checkfromurl.checked=false;
+		d_file.myform.uploadfile.disabled=false;
+		d_file.myform.ButUpload.disabled=false;
+		d_checkfromfile.checked=true;
+		d_fromurl.disabled=true;
+	}
+}
+
+function doPreview(){
+	var url;
+	url = d_fromurl.value;
+	var upurl=imgPreview.src;//d_file.myform.Himgurl.value;
+	
+	if(upurl)
+	{
+	 setPreview();
+	}
+	var s  = url.substring(url.lastIndexOf("/")+1);
+	s = s.substring(s.lastIndexOf(".")+1);
+		var t  = upurl.substring(upurl.lastIndexOf("/")+1);
+	t = t.substring(t.lastIndexOf(".")+1);	
+		if(s.length==3)
+		{
+           imgPreview.src = url;		
+ 		   setPreview();
+		}	
+		else if(t.length==3)
+		{
+		 imgPreview.src = upurl;		
+ 		   setPreview();
+		}
+//if(HUpdae.value = "update")
+//	{
+//        imgPreview.src = upurl;		
+//		setPreview()
+//	}
+	
+//	else if (HUpdae.value = "insert"){
+//	    
+//		imgPreview.src = url;		
+//		setPreview()
+//	}
+	
+	else{
+		tdPreview.innerHTML = "";
+	}
+}
+
+function setPreview(){
+//alert(imgPreview.src);
+divProcessing.style.display="none";
+	var width = imgPreview.width;
+	var height = imgPreview.height;
+	if (imgPreview.src){
+		var boxWidth = tdPreview.offsetWidth;
+		var boxHeight = tdPreview.offsetHeight;
+		if ((width>boxWidth)||(height>boxHeight)){
+			var nw = boxWidth/width;
+			var nh = boxHeight/height;
+			if (nw>nh){
+				height = boxHeight;
+				width = width*nh;
+			}else{
+				width = boxWidth;
+				height = height*nw;
+			}
+		}
+		var mytempimg="";
+		var fileurl=imgPreview.src;
+		
+            fileurl = fileurl.substring(fileurl.lastIndexOf("/")+1);
+			fileurl = fileurl.substring(fileurl.lastIndexOf(".")+1);
+			fileurl = fileurl.toLowerCase();
+			//alert(fileurl);
+			if(fileurl=="swf")
+			{
+				var sFromUrl=imgPreview.src;
+				mytempimg = "<OBJECT codeBase=http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0 classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000";
+				 mytempimg+=" width=200";
+				 mytempimg+=" height=200";
+				mytempimg+="><PARAM NAME=movie VALUE='"+sFromUrl+"'><PARAM NAME=quality VALUE=high><embed src='"+sFromUrl+"' quality=high pluginspage='http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash'";
+				mytempimg+=" width=200";
+				 mytempimg+=" height=200";
+				mytempimg+=">"+sFromUrl+"</embed></OBJECT>";
+			}
+			else if((fileurl=="3gp")||(fileurl=="wma")||(fileurl=="wmv")||(fileurl=="avi")||(fileurl=="asf")||(fileurl=="rm")||(fileurl=="rmvb")||(fileurl=="wmf"))
+			{
+				mytempimg = '<EMBED src="' + imgPreview.src + '" width=200 height=200 type="audio/x-pn-realaudio-plugin" autostart="true" controls="IMAGEWINDOW,ControlPanel,StatusBar" console="Clip1"></EMBED>';
+
+			}
+			else			
+			{
+			//((fileurl=="jpg")||(fileurl=="gif")||(fileurl=="png")||(fileurl=="jpeg"))
+				var tempimg = "";
+				
+				sAlt = d_alt.value;
+			    sBorder = d_border.value;
+			    sBorderColor = d_bordercolor.value;
+			    sFilter = d_filter.options[d_filter.selectedIndex].value;
+				 
+		        if (sFilter!=""){
+					tempimg+=' filter:'+sFilter+'; ';
+				}
+				if (sBorderColor!=""){
+					tempimg+=' border-color:'+sBorderColor+'; ';
+					//BORDER-BOTTOM-COLOR: #ff0000; BORDER-TOP-COLOR: #ff0000; BORDER-RIGHT-COLOR: #ff0000
+				}
+				if (tempimg!=""){
+					tempimg=' style="'+tempimg+'"';
+				}
+				
+				mytempimg = "<img  border=0 src='"+imgPreview.src+"' width='"+width+"' height='"+height+"' "+tempimg;		 
+				if (sBorder!=""){
+					mytempimg+=' border='+sBorder+' ';
+				}
+				if (sAlt!=""){
+					mytempimg+=' alt="'+sAlt+'" ';
+				}
+				mytempimg+=">";
+		
+		}
+		
+		alert(mytempimg);
+		tdPreview.innerHTML=mytempimg;
+		tdPreviewSize.innerHTML = imgPreview.width+" * "+imgPreview.height;
+	}
+}
+</script>
+
+
+<BODY onload="InitDocument()">
+<table border=0 cellpadding=0 cellspacing=5 id=tabDialogSize><tr><td>
+
+
+<table border=0 cellpadding=0 cellspacing=0 align=center>
+<tr>
+	<td>
+	<fieldset>
+	<legend>文件来源</legend>
+	<table border=0 cellpadding=5 cellspacing=0 width="100%">
+	<tr><td>
+
+		<table border=0 cellpadding=0 cellspacing=2 width="100%">
+		<tr>
+			<td noWrap width="20%"><input type=radio id="d_checkfromfile" value="1" onClick="RadioClick('file')" checked><label for=d_checkfromfile>本地</label>:</td>
+			<td noWrap width="80%">
+				<Script Language=JavaScript>
+				document.write('<iframe id=d_file frameborder=0 src="../upload/" width="100%" height="22" scrolling=no ></iframe>');
+				</Script>
+			</td>
+		</tr>
+		<tr>
+			<td noWrap width="20%"><input type=radio id="d_checkfromurl" value="1"  onClick="RadioClick('url')"><label for=d_checkfromurl>网络</label>:</td>
+			<td noWrap width="80%"><input type=text id='d_fromurl' size=40 value='http://'></td>
+		</tr>
+		</table>
+
+	</td></tr>
+	</table>
+	</fieldset>
+	</td>
+</tr>
+<tr><td height=5></td></tr>
+<tr><td noWrap align=right><input type=submit value='确定' id=Ok onclick="ok()">&nbsp;&nbsp;<input type=button value='取消' onclick="window.close();"></td></tr>
+</table>
+
+
+</td></tr></table>
+
+<input type=hidden id=d_filename value="">
+
+<img id=imgPreview src='' border=0 style="visibility:hidden" onload="setPreview()">
+    <input id="HUpdae" name="HUpdae" type="hidden" />
+    
+    <div id=divProcessing style="width:200px;height:30px;position:absolute;left:20%;top:40%;display:none;">
+<table border=0 cellpadding=0 cellspacing=1 bgcolor="#000000" width="100%" height="100%"><tr><td bgcolor=#3A6EA5 style="height: 28px"><marquee align="middle" behavior="alternate" scrollamount="5"><font color=#FFFFFF>...文件上传中...请等待...</font></marquee></td></tr></table>
+</div>
+    <input id="Hurl" type="hidden" />
+</body>
+</html>

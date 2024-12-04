@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="AddWXMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isNews" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddWXMessageResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddWXMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:AddWXMessage" />
+  </wsdl:message>
+  <wsdl:message name="AddWXMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:AddWXMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="E8WXServiceSoap">
+    <wsdl:operation name="AddWXMessage">
+      <wsdl:input message="tns:AddWXMessageSoapIn" />
+      <wsdl:output message="tns:AddWXMessageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="E8WXServiceSoap" type="tns:E8WXServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddWXMessage">
+      <soap:operation soapAction="http://tempuri.org/AddWXMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="E8WXServiceSoap12" type="tns:E8WXServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddWXMessage">
+      <soap12:operation soapAction="http://tempuri.org/AddWXMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="E8WXService">
+    <wsdl:port name="E8WXServiceSoap" binding="tns:E8WXServiceSoap">
+      <soap:address location="http://app.onlinee8.net/e8weixin/E8WXService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="E8WXServiceSoap12" binding="tns:E8WXServiceSoap12">
+      <soap12:address location="http://app.onlinee8.net/e8weixin/E8WXService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

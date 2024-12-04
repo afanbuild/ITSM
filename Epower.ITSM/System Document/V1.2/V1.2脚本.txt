@@ -1,0 +1,131 @@
+--余向前 2013-03-20
+
+--附件配置表，用来保存各个环节必须上传附件的配置信息
+create table BR_Attachment_Config
+(
+  ID                NUMBER(18) not null,  --标识列
+  AppID             NUMBER(18),           --应用ID
+  OFLOWMODELID      NUMBER(18),           --流程模型ID
+  NodeModelID       NUMBER(18),			  --环节模型ID
+  NODENAME          NVARCHAR2(50),        --环节名称
+  Operators         NUMBER(18),           --比较符
+  AttachmentName    NVARCHAR2(200),       --必填附件名称
+  AttachmentType    NVARCHAR2(100)        --必填附件类型
+)
+
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('BR_Attachment_ConfigID', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+insert into ts_operates (OPERATEID, SYSID, OPNAME, OPDESC, OPTYPE, SQLSTATEMENT, PARAMATERS, CONNECTSYSTEM, OPCATALOG)
+values (109, 101, '附件必填配置', '附件必填配置', 30, '', '', '', '配置管理');
+commit;
+
+
+--增加附件配置表的查询视图
+create or replace view v_BR_Attachment_Config as
+select distinct a.AppID,a.OFlowModelID,b.appname,c.flowname from BR_Attachment_Config a
+inner join es_app b on a.appid = b.appid
+inner join es_flowmodel c on a.oflowmodelid = c.oflowmodelid
+where c.status =1
+
+-- 孙绍棕 2013-04-01
+
+-- 动态查询条件表
+create table BR_CONDITIONSAVE
+(
+  ID            NUMBER(18),
+  USERID        NUMBER(18),
+  TABLENAME     NVARCHAR2(50),
+  CONDITION     CLOB,
+  CONDITIONNAME NVARCHAR2(100)
+)
+
+-- 动态查询条件表
+create table BR_CONDITION
+(
+  ID         NUMBER(18),
+  COLUMNNAME NVARCHAR2(50),
+  COLREMARK  NVARCHAR2(100),
+  COLTYPE    NVARCHAR2(50),
+  TABLENAME  NVARCHAR2(50),
+  CATAROOTID NUMBER(18)
+)
+
+-- 动态查询条件 的 系统序列号
+INSERT INTO TS_SEQUENCE(NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+VALUES('Br_ConditionSaveID', 10000, 9999999999, 10000, 1, 0);
+commit;
+-- 动态查询条件 的 查询字段
+
+INSERT INTO BR_CONDITION(ID, Columnname, Colremark, Coltype, tablename, Catarootid)
+VALUES(1, 'problem_subject','主题','CHAR','Pro_Problemdeal',0);
+
+INSERT INTO BR_CONDITION(ID, Columnname, Colremark, Coltype, tablename, Catarootid)
+VALUES(2, 'state','问题状态','CATA','Pro_Problemdeal',0);
+commit;
+
+-- 排班的序列号
+create sequence GS_SCHEDULES_BASE_SEQ
+minvalue 1
+maxvalue 99999999999999
+start with 1000
+increment by 1
+cache 20;
+
+--更新全年服务量统计报表的存储过程 余向前 2013-04-02
+create or replace procedure PROC_RPT_CustomerSatisfaction(nYear in varchar2,
+                                                      lngServiceTypeID in varchar2,
+                                                      lngWTTypeID in varchar2,
+                                                      lngDeptID in varchar2,
+                                                      lngMastCustomer in varchar2,
+                                                      p_cursor out GetDataSet.GETCUR) AS
+  sFullID varchar2(200);
+  STRSQL varchar2(4000);
+begin
+  begin
+    select FullID
+      into sFullID
+      from Es_Catalog
+     where CatalogID = lngServiceTypeID;
+  exception
+    when no_data_found then
+      sFullID := '';
+  end;
+  STRSQL := 'SELECT b.months as 月份,
+            sum(b.fsqty) as 满意次数,
+            sum(b.fqty) as 回访次数,
+            count(b.flowid) as 事件数量,
+            round(to_number(sum(b.yhfnum)) * 100 / count(b.flowid),2) as 回访率,
+            to_number(sum(b.fsqty)) * 100 / sum(b.fqty) as 满意度
+            FROM (SELECT datepart(''month'',a.regsysdate) as months,flowid,
+              (select count(flowid) from EA_Issues_FeedBack where flowid = a.flowid) as fqty,
+                (select
+                      sum(case when feedback!=3 then 1 else 0 end)
+                 from EA_Issues_FeedBack where flowid = a.flowid) as fsqty,
+                (select count(flowid) from (select distinct flowid from EA_Issues_FeedBack) feeback where flowid = a.flowid) as yhfnum
+              FROM cst_issues a,Es_Catalog c
+              WHERE servicetypeid=CatalogID and datepart(''year'',a.regsysdate) = ' ||
+            nYear;
+
+  STRSQL :=STRSQL || ' AND NOT exists (SELECT SUBFLOWID FROM Pro_ProblemRel d WHERE d.SUBFLOWID=a.FLOWID ) ';
+  STRSQL :=STRSQL || ' AND exists (SELECT FLOWID FROM ES_MESSAGE m WHERE m.FLOWID=a.FLOWID and not (m.senderid=0 and m.status=20) GROUP BY FLOWID HAVING COUNT(*)>=1 ) ';
+
+  --IF lngWTTypeID NOT IN (0, -1) THEN
+  -- STRSQL := STRSQL || ' AND a.ServiceLevelID =' || lngWTTypeID;
+  --END IF;
+  IF lngDeptID NOT IN (0, -1) THEN
+    STRSQL := STRSQL || ' AND a.orgid =' || lngDeptID;
+  END IF;
+  IF lngMastCustomer != 0 THEN
+    STRSQL := STRSQL ||
+              ' And nvl(CustID,0) In (select ID from Br_ECustomer where MastCustID=' ||
+              lngMastCustomer||')';
+  END IF;
+  IF lngServiceTypeID != 1001 THEN
+    --STRSQL := STRSQL || ' AND substr(c.FullID,0,length(' || sFullID ||')+1)=' || sFullID;
+    STRSQL:=STRSQL|| ' AND c.fullID like ''' || sFullID ||'%''';
+  END IF;
+  STRSQL := STRSQL || ' ) b GROUP BY b.months order by b.months';
+  OPEN p_cursor FOR STRSQL;
+end;

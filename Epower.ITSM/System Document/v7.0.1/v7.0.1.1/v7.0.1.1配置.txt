@@ -1,0 +1,17 @@
+
+-- Web.sitemap 中删除以下菜单项 - 2013-12-02 @孙绍棕
+<siteMapNode title="扩展项管理" resourceKey="5029" url="~\EquipmentManager\frm_Extensions.aspx" description="扩展项管理"/>
+
+-- 然后, 在同一位置添加以下菜单项 - 2013-12-02 @孙绍棕      
+<siteMapNode title="扩展项配置管理" resourceKey="5032" url="~\EquipmentManager\frm_Extensions2.aspx" description="扩展项管理" visible="false"/>     
+<siteMapNode title="扩展项配置编辑" resourceKey="5032" url="~\EquipmentManager\frm_ExtensionsEdit2.aspx" description="扩展项编辑" visible="false"/>
+
+<siteMapNode title="扩展项显示方式管理" resourceKey="5033" url="~\EquipmentManager\frm_ExtensionDisplayWay.aspx" description="扩展项显示方式管理"/>
+<siteMapNode title="扩展项显示方式编辑" resourceKey="5033" url="~\EquipmentManager\frm_ExtensionDisplayWayEdit.aspx" description="扩展项显示方式管理" visible="false"/>
+
+
+
+
+-- Web.sitemap 中做以下更改 - 2013-12-27 @孙绍棕
+<siteMapNode title="扩展项显示方式管理" resourceKey="5033" url="~\EquipmentManager\frm_ExtensionDisplayWay.aspx" description="扩展项显示方式管理" visible="false"/>
+<siteMapNode title="扩展项配置管理" resourceKey="5032" url="~\EquipmentManager\frm_Extensions2.aspx" description="扩展项管理" />     

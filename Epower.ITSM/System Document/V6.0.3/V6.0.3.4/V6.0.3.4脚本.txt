@@ -1,0 +1,2 @@
+--修改问题管理原因分析字段长度 余向前 2013-06-09
+alter table pro_problemdeal modify(DealContent nvarchar2(1000));

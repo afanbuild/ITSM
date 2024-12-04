@@ -1,0 +1,2 @@
+--在知识管理大菜单下增加
+<siteMapNode title="知识转移设置" resourceKey="3092" url="~\InformationManager\frmInf_Shift.aspx" description="知识转移设置"/>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Settings  >
+  <!--id表示上传编号,Type上传类型0表单1文档,SpsWebSite上传地址,SpsWeb子站点,SpsForm目录-->
+  <Setting id="testfile" Type="1" SpsWebSite="http://sps.chinae8.net/" SpsWeb="test1" SpsForm="共享文档"></Setting>
+  <Setting id="test" Type="0" SpsWebSite="http://sps.chinae8.net/" SpsWeb="test" SpsForm="bdtest"></Setting>
+</Settings>

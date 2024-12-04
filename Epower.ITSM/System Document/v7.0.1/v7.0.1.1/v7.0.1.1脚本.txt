@@ -1,0 +1,243 @@
+-- 通用表单(app_pub_normal_head), 增加四个日期字段，三个备注字段 - 2013-11-21 @孙绍棕
+
+alter table app_pub_normal_head add date5 date;
+alter table app_pub_normal_head add date6 date;
+alter table app_pub_normal_head add date7 date;
+alter table app_pub_normal_head add date8 date;
+alter table app_pub_normal_head add remark2 NVARCHAR2(500);
+alter table app_pub_normal_head add remark3 NVARCHAR2(500);
+alter table app_pub_normal_head add remark4 NVARCHAR2(500);
+
+-- 通用表单模块, 增加四个日期信息项，三个备注信息项 - 2013-11-21 @孙绍棕
+
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960142,2061,'date5','日期5',20,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960143,2061,'date6','日期6',20,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960144,2061,'date7','日期7',20,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960145,2061,'date8','日期8',20,0,0,0);
+
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960146,2061,'remark2','备注2',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960147,2061,'remark3','备注3',30,0,0,0);
+INSERT INTO Es_Fields (FieldID,FormID,FieldName,CName,FieldType,RefID,isSet,isKey) 
+VALUES(1960148,2061,'remark4','备注4',30,0,0,0);
+commit;       
+
+
+-- 通用表单模块, 增加若干日期和备注的字段 - 2013-11-21 @孙绍棕
+
+alter table Es_FMFields add  DATE5           VARCHAR2(20);
+alter table Es_FMFields add  DATE6           VARCHAR2(20);  
+alter table Es_FMFields add  DATE7           VARCHAR2(20);
+alter table Es_FMFields add  DATE8           VARCHAR2(20);
+   
+alter table Es_FMFields add  REMARK2         VARCHAR2(20);
+alter table Es_FMFields add  REMARK3         VARCHAR2(20);
+alter table Es_FMFields add  REMARK4         VARCHAR2(20);
+  
+alter table Es_FMFields add  DATE5VALIDATE   NUMBER;
+alter table Es_FMFields add  DATE6VALIDATE   NUMBER;
+alter table Es_FMFields add  DATE7VALIDATE   NUMBER;
+alter table Es_FMFields add  DATE8VALIDATE   NUMBER;
+    
+alter table Es_FMFields add  REMARK2VALIDATE NUMBER;
+alter table Es_FMFields add  REMARK3VALIDATE NUMBER;
+alter table Es_FMFields add  REMARK4VALIDATE NUMBER;
+  
+alter table Es_FMFields add  DATE5MUST       NUMBER;
+alter table Es_FMFields add  DATE6MUST       NUMBER;
+alter table Es_FMFields add  DATE7MUST       NUMBER;
+alter table Es_FMFields add  DATE8MUST       NUMBER; 
+ 
+  
+alter table Es_FMFields add  DATE5SHOW       NUMBER;
+alter table Es_FMFields add  DATE6SHOW       NUMBER;
+alter table Es_FMFields add  DATE7SHOW       NUMBER;
+alter table Es_FMFields add  DATE8SHOW       NUMBER;
+  
+alter table Es_FMFields add  REMARK2MUST      NUMBER;
+alter table Es_FMFields add  REMARK3MUST      NUMBER;
+alter table Es_FMFields add  REMARK4MUST      NUMBER;
+
+
+-- 通用表单，字段排序表 - 2013-11-22 @孙绍棕
+
+create table APP_PUB_NORMAL_FIELD
+(
+  FLOWMODELID NUMBER(18,2),
+  GROUPID     NUMBER(18,2),
+  FIELDNAME   VARCHAR2(20),
+  ORDERBY     INTEGER,
+  ADDTIME     DATE
+)
+
+
+-- 短信邮件模板增加 流程模型编号(FlowModelID) 字段 - 2013-11-27 @孙绍棕
+alter table MailAndMessageTemplate add flowmodelid nvarchar2(10);
+
+
+-- 通用表单配置 - 菜单分组要使用到常用类别 - 2013-11-28 @孙绍棕
+insert into es_catalog (FULLID, ORGID, CATALOGID, PARENTID, CATALOGNAME, SORTID, REMARK, UPDATETIME, DELETED, CONFIGURESCHEMA, ISSHOWSCHEMA)
+values ('001012010262', 1, 10262, 1012, '通用表单菜单', 3, '', to_date('22-11-2013 14:11:14', 'dd-mm-yyyy hh24:mi:ss'), 0, '', 0);
+
+commit;
+
+-- 流程自定义扩展项 - 2013-12-2 @孙绍棕
+alter table br_extensionsitems add AppID NUMBER(18,2);
+alter table br_extendsfields add AppID NUMBER(18,2);
+
+-- 流程自定义扩展项可见可编辑表 - 2013-12-2 @孙绍棕
+create table Br_ExtensionDisplayStatus
+(
+  ID            NUMBER(18,2),
+  FlowModelID   NUMBER(18,2),
+  NodeModelID   NUMBER(18,2),
+  FieldID       NUMBER(18,2),
+  DisplayStatus integer,
+  AddTime       date
+)
+
+-- 流程自定义扩展项操作项 - 2013-12-02 @孙绍棕
+insert into ts_operates (OPERATEID, SYSID, OPNAME, OPDESC, OPTYPE, SQLSTATEMENT, PARAMATERS, CONNECTSYSTEM, OPCATALOG)
+values (5032, 101, '流程自定义扩展项', '配置管理', 30, '', '', '', '配置管理');
+commit;
+
+
+-- 扩展项所属流程模型查询视图 - 2013-12-03 @孙绍棕
+create or replace view v_ex_item_flowmodel as
+SELECT t1.appid as appid, t1.groupid as flowmodelid, t2.appname, t3.flowname as flowmodelname, count(t1.groupid) as extcount, t1.deleted FROM Br_ExtensionsItems t1
+left join es_app t2
+on t1.appid = t2.appid
+left join es_flowmodel t3
+on t1.groupid = t3.flowmodelid
+group by t1.appid,t1.groupid, t2.appname, t3.flowname, t1.deleted
+order by t1.appid, t1.groupid desc
+
+
+-- 流程自定义扩展项显示方式操作项 - 2013-12-03 @孙绍棕
+insert into ts_operates (OPERATEID, SYSID, OPNAME, OPDESC, OPTYPE, SQLSTATEMENT, PARAMATERS, CONNECTSYSTEM, OPCATALOG)
+values (5033, 101, '流程自定义扩展项显示方式', '配置管理', 30, '', '', '', '配置管理');
+commit;
+
+
+
+
+-- br_extensiondisplaystatus 表的自增长序列号 - 2013-12-04 @孙绍棕
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('br_ext_displayway', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+
+-- br_extendsfields 和 br_extensionsitems 表的自增长序列号 - 2013-12-04 @孙绍棕
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('br_ex_fieldid', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+
+-- 扩展项显示方式管理界面查询视图 - 2013-12-05 @孙绍棕
+create or replace view v_ex_display_nodemodel as
+select t2.appid, t1.flowmodelid, t1.nodemodelid
+from br_extensiondisplaystatus t1
+left join es_flowmodel t2
+on t1.flowmodelid = t2.flowmodelid
+GROUP BY t2.appid,t1.flowmodelid, t1.nodemodelid
+order by t2.appid asc, t1.flowmodelid asc, t1.nodemodelid asc
+
+
+
+
+
+
+-- 高级查询，事件，问题，变更等的时间字段 - 2013-12-30 @孙绍棕
+
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5013, 'CustTime', '发生时间', 'DATE', 'cst_issue', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5014, 'ReportingTime', '报告时间', 'DATE', 'cst_issue', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5015, 'RegSysDate', '登记时间', 'DATE', 'cst_issue', 0);
+
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5016, 'RegTime', '登记时间', 'DATE', 'Pro_Problemdeal', 0);
+
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5017, 'RegTime', '登记时间', 'DATE', 'Equ_ChangeService', 0);
+INSERT INTO BR_CONDITION (ID, Columnname, COLREMARK, COLTYPE, TABLENAME, CATAROOTID) 
+VALUES(5018, 'ChangeTime', '变更时间', 'DATE', 'Equ_ChangeService', 0);
+
+commit;
+
+
+
+-- 事件管理，高级查询，更新查询视图，增加 dealstatusid 字段。解决bug#805 - 2014-02-07 @孙绍棕 
+CREATE OR REPLACE VIEW V_CST_ISSUE_FOR_EXCEL AS
+SELECT nvl(buildCode,'')||nvl(a.ServiceNo,'') ServiceNo,a.smsid,a.flowid,a.regsysdate,a.subject,a.email,a.reguserid,a.Content,a.DealContent,a.CustAddress,a.ServiceTypeID,a.ServiceType,a.Sjwxr,
+                      a.regusername,a.RegDeptID,a.RegDeptName,a.CustTime,a.CustName,a.contact,a.ctel,b.status,b.endtime,a.EquipmentCatalogName,a.EquipmentName,a.ReportingTime,a.FinishedTime,a.ServiceKind,
+                      a.ServiceLevel,a.EffectName,a.InstancyName,a.CloseReasonName,a.ReSouseName,a.Outtime,a.ServiceTime,
+                      datediff('Minute',sysdate,nvl(b.expectendtime,sysdate)) as FlowDiffMinute,a.dealstatus,
+                      a.dealstatusid,
+                      a.ChangeProblemFlowID,
+                d.customcode,(case when nvl(a.MastCust,'')='' then d.MastCustName
+            else a.mastCust end ) as MastCustName    FROM es_flow b,Cst_Issues a left join br_ecustomer d on a.custid = d.id  WHERE a.FlowID = b.FlowID;
+
+
+
+
+
+-- 事件管理，更新查询视图，增加与 br_ecustomer 表的关联，新增 mastcustname 字段。解决bug#1924 - 2014-02-21 @孙绍棕 
+CREATE OR REPLACE VIEW V_CST_ISSUE AS
+SELECT     t2.mastcustname,nvl(a.BuildCode, '') || nvl(a.ServiceNo, '') AS ServiceNo, a.EquipmentName, a.SMSID, a.FlowID, a.RegSysDate, a.Subject, a.RegUserID,
+                      a.RegUserName, a.DealContent, a.Sjwxr, a.ServiceTypeID, a.ServiceType, a.RegDeptID, a.RegDeptName, a.CustTime, a.Content, b.Status, b.EndTime,
+                      DATEDIFF('Minute', sysdate, nvl(b.ExpectEndTime, sysdate)) AS FlowDiffMinute, a.DealStatusID, a.CustName, a.ChangeProblemFlowID,
+                      a.MastCust, a.CustAddress, a.CustCode, a.Contact, a.CTel, a.Email,
+                      nvl(a.EquipmentID, 0) AS Equipmentid, a.EquPositions, a.EquCode, a.EquSN,
+                      a.EquModel, a.EquBreed, nvl(a.CustID, 0) AS CustID, a.ServiceKindID, a.DealStatus, a.InstancyID,
+                      a.ServiceLevelID, nvl(a.EmailState, 0)
+                      AS EmailState, a.EffectID, a.SjwxrID, b.ExpectEndTime, a.AssociateFlowID,
+                         a.EquSN AS EquipmentSN, c.Suggest,a.ServiceLevel,a.ServiceKind,
+                         a.EffectName,a.InstancyName,a.EquipmentCatalogName,a.Outtime,
+                         a.ServiceTime,a.FinishedTime,
+                 a.CloseReasonName,a.ReSouseName,a.ReportingTime
+FROM  Es_Flow  b
+INNER JOIN  Cst_Issues  a ON b.FlowID = a.FlowID
+left join br_ecustomer t2 on a.custid = t2.id
+left JOIN  EA_Monitor  c ON a.SMSID = c.FlowID;
+
+
+
+
+-- 资产导入，创建扩展项功能相关的存储过程和序列号 - 2014-03-13 @孙绍棕 
+
+create sequence EQU_ADDEQU_SCHEMAITEMS
+minvalue 1
+maxvalue 999999999999999999999999999
+start with 1
+increment by 1
+cache 10;
+
+CREATE OR REPLACE PROCEDURE proc_addEqu_schemaItems
+(
+    p_key nvarchar2
+)
+AS
+p_lastSeqNum number(9);
+p_lastField number(9);
+BEGIN
+
+select  EQU_ADDEQU_SCHEMAITEMS.NEXTVAL into p_lastField from Equ_SchemaItems;
+
+select  nvl(currentValue,0)+nvl(step,1) into p_lastSeqNum from Ts_Sequence where name='Equ_SchemaItemsID';
+
+update Ts_Sequence set currentValue=p_lastSeqNum where  name='Equ_SchemaItemsID';
+
+insert into Equ_SchemaItems(id,Fieldid,ChName,itemType,deleted)
+values(p_lastSeqNum,p_lastField,p_key,0,0);
+
+COMMIT;
+
+END;
+														 

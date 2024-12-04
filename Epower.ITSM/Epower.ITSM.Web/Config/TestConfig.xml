@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestConfig>
+  <Item Name="Test1" Value="中国u奥运55555" Desc="测试" ControlType="TEXT">
+  </Item>
+  <Item Name="smtpDateTest" Value="2008-09-10" Desc="测试日期" ControlType="DATETIME">
+  </Item>
+  <Item Name="smtpListTest" Value="0" Desc="测试列表" ControlType="DROPLIST" Dict="0|值1,1|值2,2|值3">
+  </Item>
+</TestConfig>

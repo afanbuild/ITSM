@@ -1,0 +1,372 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="EpowerMasterPage" CodeBehind="MasterPage.master.cs" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>无标题页</title>
+    <base target="_self" />
+</head>
+<link type="text/css" rel="stylesheet" href ="<%=sApplicationUrl %>/Js/css/ui-lightness/jquery-ui-1.8.20.custom.css"  />
+<script  type="text/javascript" src="<%=sApplicationUrl %>/Controls/Calendar/Popup.js"></script>
+
+<script  type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Common.js"> </script>
+
+<script type="text/javascript" src="<%=sApplicationUrl %>/Js/App_Base.js"> </script>
+
+<script  type="text/javascript" src="<%=sApplicationUrl %>/Js/jquery-1.7.2.min.js"> </script>
+
+
+<script  type="text/javascript" src="<%=sApplicationUrl %>/Js/jquery-ui-1.8.20.custom.min.js"> </script>
+
+<script  type="text/javascript" src="<%=sApplicationUrl %>/Js/jUtility.js"> </script>
+
+
+<link type="text/css" href="<%=sApplicationUrl %>/App_Themes/NewOldMainPage/css.css" rel="stylesheet" />
+<!--[if lte IE 7]>
+<link type="text/css" href="<%=sApplicationUrl %>/JS/uploadify/uploadify_ie8.css" rel="stylesheet" />
+<![endif]-->
+<!--#include file="~/Js/tableSort.js" -->
+
+
+<script type="text/javascript" language="javascript">
+function loadCss(file){
+    var cssTag = document.getElementById('loadCss');
+    var head = document.getElementsByTagName('head').item(0);
+    if(cssTag) head.removeChild(cssTag);
+    css = document.createElement('link');
+    css.href = file;
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    css.id = 'loadCss';
+    head.appendChild(css);
+}   
+
+function IsRightIEVersion(version) {
+    return  version == '6.0' || version == '7.0' ||  version == '8.0';                 
+}
+
+function IsNotIE6() {
+    return !$.browser.msie || $.browser.version != '6.0';
+}
+
+if (IsNotIE6()) {
+    if ($.browser.msie && IsRightIEVersion($.browser.version) ) {
+     loadCss("<%=sApplicationUrl %>/JS/uploadify/uploadify_ie8.css");
+    }else {
+     loadCss("<%=sApplicationUrl %>/JS/uploadify/uploadify_ie9chrome.css"); 
+    }
+}
+</script>
+
+
+<body style="margin: 0px;">
+    <form id="form1" runat="server" defaultbutton="btn_query">
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+        <!---->
+        <tr>
+            <td valign="top" colspan="4">
+                <table width="100%" height="100%" valign="top" border="0" cellpadding="0" cellspacing="0">
+                    <tr runat="server" id="tbtop">
+                        <td valign="top" style="height: 10px">
+                            <table id="ctrtabbuttons" align="center" cellspacing="0" cellpadding="0" width="98%"
+                                border="0" class="dbt_xuxian">
+                                <tbody>
+                                    <tr runat="server" id="btlbutton">
+                                        <td class="dbt">
+                                            <span></span><span>
+                                                <asp:SiteMapPath ID="SiteMapPath1" ForeColor="#103F85" runat="server" PathSeparator=" >> "
+                                                    EnableTheming="False" Enabled="false">
+                                                </asp:SiteMapPath>
+                                            </span>
+                                        </td>
+                                        <td align="right">
+                                            <input type="text" class="bian" id="txtKeyName" width="199px" onmouseover="this.style.backgroundColor='#FFFBE8'"
+                                                onmouseout="this.style.backgroundColor='#FFFFFF'" onblur="txtKeyNameBack();"
+                                                value="" runat="server" visible="false" />
+                                            <asp:Button ID="btn_query" runat="server" Text="查询" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_Query_Click" OnClientClick="Query_confirm();" />
+                                            <!--------- 查询--------->
+                                            <asp:Button ID="btn_new" runat="server" Text="新增" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_New_Click" OnClientClick="Add_confirm();" />
+                                            <!--------- 新增 --------->
+                                            <asp:Button ID="btn_edit" runat="server" Text="修改" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_Edit_Click" OnClientClick="Edit_confirm();" />
+                                            <!--------- 修改 --------->
+                                            <asp:Button ID="btn_save" runat="server" Text="保存" Visible="false" CssClass="btnClass"
+                                                OnClick="Button_Save_Click" OnClientClick="Save_confirm();" />
+                                            <!--------- 保存 --------->
+                                            <asp:Button ID="btn_delete" runat="server" Text="删除" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_Delete_Click" OnClientClick="delete_confirmMast();" />
+                                            <!--------- 删除 --------->
+                                            <asp:Button ID="btn_print" runat="server" Text="打印" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_Print_Click" OnClientClick="Print_confirm();" />
+                                            <!--------- 打印--------->
+                                            <asp:Button ID="btn_exportExcel" runat="server" Text="导出" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Button_ExportExcel_Click" OnClientClick="Export_confirm();" />
+                                            <!--------- 导出Excel文件--------->
+                                            <asp:Button ID="btn_back" runat="server" Text="返回" Visible="false" CssClass="btnClass" CausesValidation="false"
+                                                OnClick="Btn_Back" OnClientClick="Back_confirm();" />
+                                            <!--------- 返回 --------->
+                                            <asp:Button ID="btn_back_home" runat="server" Text="返回主页" Visible="false" CssClass="btnClass" CausesValidation="false" OnClientClick="Back_home_confirm();" />
+                                            <!--------- 返回主页 --------->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" align="center">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" id="hidID" runat="server" />
+    <input type="hidden" id="hidarrvalidlist" runat="server" />
+    </form>
+
+    <script language="javascript" type="text/javascript">
+    function delete_confirmMast()     //删除前执行脚本
+	{
+	    if(document.all.<%=hidID.ClientID%>.value!="")
+	    {
+		    if(confirm("确认要删除吗?"))
+		    {
+		        if(typeof(DeleteValidate) != "undefined")
+	            {
+	                  event.returnValue = DeleteValidate();
+	            }
+		        else   //没有脚本
+		        {
+		            event.returnValue = true;
+		        }
+		    }
+		    else
+		    {
+		        event.returnValue = false;
+		    }
+		}
+		else
+		{
+		    alert("请选择删除的数据！");
+		    event.returnValue = false;
+		}
+	}
+	function Save_confirm()          //保存前执行脚本
+	{
+	    if(!DoMasterPublicValidate())
+	    {
+	        event.returnValue = false;
+	    }
+	    else
+	    {
+	        if(typeof(SubmitValidate) != "undefined")
+	        {
+	              event.returnValue = SubmitValidate();
+	        }
+		    else   //没有脚本
+		    {
+		        event.returnValue = true;
+		    }
+		}
+	}
+	function Add_confirm()          //新增前执行脚本
+	{
+	    if(typeof(AddValidate) != "undefined")
+	    {
+	          event.returnValue = AddValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Edit_confirm()          //修改前执行脚本
+	{
+	    if(typeof(EditValidate) != "undefined")
+	    {
+	          event.returnValue = EditValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Query_confirm()          //查询前执行脚本
+	{
+	    if(typeof(QueryValidate) != "undefined")
+	    {
+	          event.returnValue = QueryValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Print_confirm()          //打印前执行脚本
+	{
+	    if(typeof(PrintValidate) != "undefined")
+	    {
+	          event.returnValue = PrintValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Export_confirm()          //导出前执行脚本
+	{
+	    if(typeof(ExportValidate) != "undefined")
+	    {
+	          event.returnValue = ExportValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Back_confirm()          //返回前执行脚本
+	{
+	    if(typeof(BackValidate) != "undefined")
+	    {
+	          event.returnValue = BackValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	function Back_home_confirm()          //返回主页前执行脚本
+	{
+	    if(typeof(BackHomeValidate) != "undefined")
+	    {
+	          event.returnValue = BackHomeValidate();
+	    }
+		else   //没有脚本
+		{
+		    event.returnValue = true;
+		}
+	}
+	
+	function txtKeyNameClear()
+    {
+        if(document.getElementById('<%=txtKeyName.ClientID%>').value=='<%=KeyValue%>')
+        {
+            document.getElementById('<%=txtKeyName.ClientID%>').value="";
+        }
+    }
+    function txtKeyNameBack() 
+        {
+            if (document.getElementById('<%=txtKeyName.ClientID%>').value == '')
+            {
+                document.getElementById('<%=txtKeyName.ClientID%>').value = '<%=KeyValue%>';
+            }
+        }
+    </script>
+
+    <script language="javascript" type="text/javascript">
+        if(typeof(sarrvalidlist)!="undefined")
+	    {
+	        document.all.<%=hidarrvalidlist.ClientID%>.value = sarrvalidlist[0];
+	    }
+        //必填项判断
+
+       function DoMasterPublicValidate()
+		{
+            var t_ValidateList = document.all.<%=hidarrvalidlist.ClientID%>.value;
+            
+            if(t_ValidateList == "")
+            {
+			    return true;
+			}
+			else
+			{
+			    //开始验证
+                
+			    t_ValidateList = t_ValidateList.substring(1);
+			    var   t_sarray=new Array();   
+                t_sarray=t_ValidateList.split('|');
+                var t_nullControls;
+                t_nullControls = "";
+                var i;
+                for(i= 0;i<t_sarray.length;i++)
+                {
+                    
+                    t_nullControls += ValidateSubControls(t_sarray[i],i);
+                }
+                
+                if(t_nullControls != "")
+                {
+                    alert(t_nullControls + "不能为空,请录入");
+                    return false
+                }
+                else
+                {
+                   return true;
+                }   
+
+			}
+		}
+		
+		function ValidateSubControls(sControl,i)
+		{
+		   var   t_control=new   Array();   
+           t_control=sControl.split('>');
+           
+          var obj = document.getElementById(t_control[0]);
+          if(obj != null)
+          {
+              var strvalue = "";
+              if(t_control.length==3)   //DropDownList
+              {
+                  strvalue = t_control[2];
+              }
+              else if(t_control.length==4)  //RadioButtonList
+              {
+                    var itemlen=t_control[3]; 
+                    var sreturn = "false";
+                    for(var i=0;i<itemlen;i++)
+                    {
+                          var sID=obj.id + "_" + i;
+                          if(document.getElementById(sID).checked)
+                          {
+                                sreturn = "";
+                          }
+                    }
+                    if(sreturn=="")
+                    {
+                        return "";
+                    }
+                    else 
+                    {
+                        return t_control[1] + " ";
+                    }
+                    
+              }
+              if(obj.value == strvalue)
+              {
+                 if(i==0)
+                 {
+                    obj.focus();
+                 }
+                 return t_control[1] + " ";
+              }
+              else
+              {
+                 return "";
+              }
+          }
+          else
+          {
+             return "";
+          }       
+		}
+    </script>
+</body>
+</html>
+
+
+<script language="javascript" type="text/javascript" src="<%=sApplicationUrl %>/Controls/My97DatePicker/WdatePicker.js"></script>

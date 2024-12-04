@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Untitled Page</title>
+</head>
+<script language="javascript" type="text/javascript" src="../Js/App_Droplst.js"> </script>
+<body>
+    <table>
+        <tr>
+            <td style="width: 100px">
+            </td>
+            <td style="width: 100px">
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100px">
+            </td>
+            <td style="width: 100px">
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100px">
+                <input name='itemname' onfocus="setInputID('itemname');" onblur="setInputIDNone();" autocomplete="off" id='itemname' value='' onkeydown="focusToDropDown('itemsForDropdown')" onkeyup="getItemsForDropdown('itemsForDropdownLayer','itemsForDropdown','itemname','hidXml',this);" /> 
+                <div id='itemsForDropdownLayer'  onmouseover="MoverToDropDownLayer('itemsForDropdown');" style='display: none; position:absolute; width:120px; left: 120; top: 90; z-index:2'
+                 onmouseout="hideMe('itemsForDropdownLayer','none');"> 
+                <select id='itemsForDropdown'  class="combo-list"  onkeydown="selectOnReturn('itemsForDropdownLayer','itemname',this);" onclick="getSelectedLabel('itemsForDropdownLayer','itemname',this);" 
+                style='width: 100%;' size='16'> <option value=''></option> </select> </div>
+            </td>
+            <td style="width: 100px">
+              <select id='Select1' class="combo-list" style='width: 100%;' size='16'> 
+                      <option class="combo-item" value='aaa'>1111</option> 
+                       <option class="combo-item" value='bbb'>1111</option>
+                </select> 
+             
+            </td>
+        </tr>
+    </table>
+   
+    <input id="hidXml" type="hidden" value="<AllFields><Field Text='日nsdfabc' /><Field Text='你1238abc' /><Field Text='法国456abc' /><Field Text='家了副123abc' /><Field Text='yrtyabc' /><Field Text='asdfdabc' /><Field Text='gsabc' /><Field Text='eeabc' /><Field Text='abc' /><Field Text='abcdef' /><Field Text='ghte' /><Field Text='aber' /><Field Text='beaber' /><Field Text='中' /><Field Text='中国aber' /><Field Text='日aber' /><Field Text='aber' /></AllFields>" />
+    
+</body>
+</html>

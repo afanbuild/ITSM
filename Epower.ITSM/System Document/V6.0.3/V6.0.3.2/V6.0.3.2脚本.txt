@@ -1,0 +1,40 @@
+
+-- 变更查询, 设置的某些显示字段, 在 V_EQU_CHANGESERVICE 中并不存在. 该脚本
+-- 修正了该问题. 
+-- 新增了 CustDeptName,Email, MastCustName as MastCust, job 四个字段.
+-- 2013-05-22 @孙绍棕
+
+CREATE OR REPLACE VIEW V_EQU_CHANGESERVICE AS
+SELECT a.*,
+       nvl(b.status, 0) status,
+       case
+         when b.status = 30 then
+          datediff('Minute',
+                   nvl(b.endtime, sysdate),
+                   nvl(b.expectendtime, sysdate))
+         else
+          datediff('Minute', sysdate, nvl(b.expectendtime, sysdate))
+       end FlowDiffMinute,
+       d.MastCustName,
+       D.CustDeptName,
+       D.Email,
+       D.MastCustName as MastCust,
+       D.job,
+       nvl(a.IssuesFlowID, 0) as AssociateFlowID
+  from es_flow b, Equ_ChangeService a
+  left join br_ecustomer d on a.custid = d.id
+ WHERE a.FlowID = b.FlowID;
+  
+  
+--变更单增加 登单人信息项控制 余向前 2013-05-24
+insert into EA_DEFINELANGUAGE(ID,KeyName,KeyValue,Groups,Column_Name,IsValid) Values(EA_DEFINELANGUAGEID.NEXTVAL,'Change_RegUserName','登单人','变更单','RegUserID',0);
+commit;
+
+--修改我登记事项查询视图 余向前 2013-05-24
+CREATE OR REPLACE VIEW V_MYREGEVENT AS
+SELECT b.flowid, b.subject, b.starttime,b.name, b.AppID,a.ReceiverID
+  FROM es_message a, es_flow b
+ WHERE a.senderid = 0
+   and a.flowid = b.flowid;
+
+ 

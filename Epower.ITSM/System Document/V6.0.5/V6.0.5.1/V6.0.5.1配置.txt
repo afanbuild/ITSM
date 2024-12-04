@@ -1,0 +1,3 @@
+
+-- 请在 Web.sitemap 中将以下配置项从 变更管理 节点移动到 配置管理 节点下。 - 2013-11-13 @孙绍棕
+<siteMapNode title="客户资料" url="~\Common\frmDRMUserSelectajax.aspx" description="客户资料" visible="false"/>

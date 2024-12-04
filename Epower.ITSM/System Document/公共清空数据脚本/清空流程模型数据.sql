@@ -1,0 +1,13 @@
+TRUNCATE TABLE es_flowmodel;
+TRUNCATE TABLE es_nodemodel;
+TRUNCATE TABLE es_f_actors;
+TRUNCATE TABLE es_n_m_actor;
+TRUNCATE TABLE es_n_m_action;
+TRUNCATE TABLE es_n_m_field;
+TRUNCATE TABLE es_n_m_link;
+TRUNCATE TABLE es_n_m_flow;
+TRUNCATE TABLE es_actorCond;
+TRUNCATE TABLE es_n_m_specactor;
+TRUNCATE TABLE es_fmfields;
+TRUNCATE TABLE es_userflow;
+commit;

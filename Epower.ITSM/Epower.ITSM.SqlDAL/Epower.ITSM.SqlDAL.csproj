@@ -1,0 +1,373 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78BF8B34-0172-48FB-89C6-AAAB3FD47669}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Epower.ITSM.SqlDAL</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Epower.ITSM.SqlDAL</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>http://localhost/Epower.ITSM.SqlDAL/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Epower.PassportVise.SqlDAL.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Epower.ITSM.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Epower.ITSM.Web\Lib\Epower.ITSM.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="EpowerCom, Version=1.0.5259.26586, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\EpowerCom.dll</HintPath>
+    </Reference>
+    <Reference Include="EpowerGlobal, Version=1.0.5258.25386, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\EpowerGlobal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="MyComponent, Version=1.0.4125.32024, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\MyComponent.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RemoteObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\RemoteObject.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\StandardObject.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachmentManager\BR_Attachment_ConfigDP.cs" />
+    <Compile Include="Common\Br_ConditionDP.cs" />
+    <Compile Include="Common\Br_ConditionSaveDP.cs" />
+    <Compile Include="Common\BR_CatalogSchemaItemsDP.cs" />
+    <Compile Include="Common\BR_ProgressBarDP.cs" />
+    <Compile Include="Common\BR_Schema_Deploy.cs" />
+    <Compile Include="Common\RefreshPage .cs" />
+    <Compile Include="Common\SeleteTableColumn.cs" />
+    <Compile Include="Customer\Br_ContactDP.cs" />
+    <Compile Include="Customer\BR_ExtendsFieldsDP.cs" />
+    <Compile Include="Customer\Br_ExtensionDisplayWayDP.cs" />
+    <Compile Include="Customer\Br_ExtensionsItems.cs" />
+    <Compile Include="Customer\Br_ExtensionsItemsDP.cs" />
+    <Compile Include="Customer\Br_OrderClassDP.cs" />
+    <Compile Include="Customer\Br_OrderClassTypeDP.cs" />
+    <Compile Include="Customer\BR_RPT_EngineerDP.cs" />
+    <Compile Include="Customer\Br_SarrDP.cs" />
+    <Compile Include="Customer\Cst_ServiceStaffDP.cs" />
+    <Compile Include="Customer\ECustomerDP.cs" />
+    <Compile Include="Demand\ReqDemandDP.cs" />
+    <Compile Include="EquipmentManager\EquipmentServiceDP.cs" />
+    <Compile Include="EquipmentManager\Equ_DeskDefineItemDP.cs" />
+    <Compile Include="EquipmentManager\Equ_PatrolDataDP.cs" />
+    <Compile Include="EquipmentManager\Equ_PatrolPlanDP.cs" />
+    <Compile Include="EquipmentManager\Equ_PatrolPlanItemDP.cs" />
+    <Compile Include="EquipmentManager\Equ_RelNameDP.cs" />
+    <Compile Include="EquipmentManager\Equ_RelPreference.cs" />
+    <Compile Include="InformationManager\Inf_BBSDP.cs" />
+    <Compile Include="InformationManager\Inf_OrderDealDP.cs" />
+    <Compile Include="InformationManager\Inf_RelDP.cs" />
+    <Compile Include="InformationManager\Inf_ScoreDP.cs" />
+    <Compile Include="InformationManager\Inf_transfer_setDP.cs" />
+    <Compile Include="MailAndMessageRule\BR_MessageRulInstallDP.cs" />
+    <Compile Include="MailAndMessageRule\MailMessageTemManagerDP.cs" />
+    <Compile Include="Mobile\HasProcessedDP.cs" />
+    <Compile Include="Mobile\MobileDP.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceMoniter\DataInterpreterFactory.cs" />
+    <Compile Include="ResourceMoniter\PriorityOfRuleComparer.cs" />
+    <Compile Include="ResourceMoniter\Utility.cs" />
+    <Compile Include="ResourceMoniter\EQU_KeyValuePair.cs" />
+    <Compile Include="ResourceMoniter\IDataInterpreter.cs" />
+    <Compile Include="ResourceMoniter\JSONOfResourceState.cs" />
+    <Compile Include="ResourceMoniter\ResourceState.cs" />
+    <Compile Include="ResourceMoniter\ResourceStateDP.cs" />
+    <Compile Include="ResourceMoniter\RuleDP.cs" />
+    <Compile Include="ResourceMoniter\WrapperJSONResult.cs" />
+    <Compile Include="ResourceMoniter\OPPair.cs" />
+    <Compile Include="ResourceMoniter\Rule.cs" />
+    <Compile Include="ResourceMoniter\StandardData.cs" />
+    <Compile Include="Schedules\EngineerIssuesDP.cs" />
+    <Compile Include="Schedules\GS_CurSchedulesRuleDP.cs" />
+    <Compile Include="Schedules\GS_Engineer_SchedulesDP.cs" />
+    <Compile Include="CommonUtil\SerialNumber.cs" />
+    <Compile Include="Common\AppFieldConfigDP.cs" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\App_DefinePageDP.cs" />
+    <Compile Include="Common\APTokenDP.cs" />
+    <Compile Include="Common\AttachmentEntity.cs" />
+    <Compile Include="Common\CalenderDP.cs" />
+    <Compile Include="Common\CHandler.cs" />
+    <Compile Include="Common\EA_DefinePersonOpinionDP.cs" />
+    <Compile Include="Common\EA_ExtendRightsDP.cs" />
+    <Compile Include="Common\EA_FlowRelDP.cs" />
+    <Compile Include="Common\Ea_MailTempleteDP.cs" />
+    <Compile Include="Common\EA_ShortCutTemplateDP.cs" />
+    <Compile Include="Common\FC_BILLZLDP.cs" />
+    <Compile Include="Common\httpAjaxSC.cs" />
+    <Compile Include="Common\MClass.cs" />
+    <Compile Include="Common\RuleCodeDP.cs" />
+    <Compile Include="Common\SMSSendDeal.cs" />
+    <Compile Include="Common\Ts_User_FlowDP.cs" />
+    <Compile Include="Common\EA_ServicesTemplateDP.cs" />
+    <Compile Include="Customer\Br_SchemaItemsDP.cs" />
+    <Compile Include="Customer\Br_SubjectDP.cs" />
+    <Compile Include="EquipmentManager\Equ_CateListsDP.cs" />
+    <Compile Include="EquipmentManager\Equ_DeskChangeDeploy.cs" />
+    <Compile Include="ES_TBLCS\ES_TBL.cs" />
+    <Compile Include="ES_TBLCS\ES_TBLFileds.cs" />
+    <Compile Include="ES_TBLCS\EQU_deploy.cs" />
+    <Compile Include="ES_TBLCS\EQU_deployHistory.cs" />
+    <Compile Include="Excel\Excel.cs" />
+    <Compile Include="Flash\FlashCS.cs" />
+    <Compile Include="Flow\AttentionDP.cs" />
+    <Compile Include="Common\CommonDP.cs" />
+    <Compile Include="Common\CommSqlCacheHelper.cs" />
+    <Compile Include="Common\EA_DefineLanguageDP.cs" />
+    <Compile Include="Common\EA_ExcelInportDP.cs" />
+    <Compile Include="Flow\FlowReceiveList.cs" />
+    <Compile Include="MailAndMessageRule\MailAndMessageRuleDP.cs" />
+    <Compile Include="Print\PRINTRULE.cs" />
+    <Compile Include="QuestHouse\EA_OperateObjectDP.cs" />
+    <Compile Include="QuestHouse\Flow_QuestHouse.cs" />
+    <Compile Include="ReleaseIT\ReleaseManagementDP.cs" />
+    <Compile Include="Schedules\GS_PRESCHEDULESDP.cs" />
+    <Compile Include="Schedules\GS_SchedulesAreaDP.cs" />
+    <Compile Include="Schedules\GS_Schedules_BaseDP.cs" />
+    <Compile Include="Schedules\GS_TURN_RULEDP.cs" />
+    <Compile Include="Service\App_pub_BR_MEETINGSCHEDULED_DP.cs" />
+    <Compile Include="Service\BYTSDP.cs" />
+    <Compile Include="Service\Cst_BytsRelDP.cs" />
+    <Compile Include="Service\Cst_RecommendRuleDP.cs" />
+    <Compile Include="Service\Cst_RequestDP.cs" />
+    <Compile Include="Service\Ea_SetdeskDP.cs" />
+    <Compile Include="Service\EmialIssue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\Equ_ServerDP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Service\FlowBusLimitDP.cs" />
+    <Compile Include="Common\IdiomDP.cs" />
+    <Compile Include="Common\MailBodyDeal.cs" />
+    <Compile Include="Common\MailSendDeal.cs" />
+    <Compile Include="Common\RiseDP.cs" />
+    <Compile Include="Customer\Br_MastCustomerDP.cs" />
+    <Compile Include="EquipmentManager\Equ_PatrolItemDataDP.cs" />
+    <Compile Include="EquipmentManager\ChangeDealDP.cs" />
+    <Compile Include="EquipmentManager\Equ_RelDP.cs" />
+    <Compile Include="EquipmentManager\Equ_SchemaItemsDP.cs" />
+    <Compile Include="InformationManager\Inf_InformationDP.cs" />
+    <Compile Include="InformationManager\Inf_SubjectDP.cs" />
+    <Compile Include="PlanDetail\EA_PlanDetailDP.cs" />
+    <Compile Include="PlanDetail\PlanDetailSet.cs" />
+    <Compile Include="ProblemDP\ProblemDealDP.cs" />
+    <Compile Include="ProblemDP\ProblemDealEntity.cs" />
+    <Compile Include="Common\CatalogControl.cs" />
+    <Compile Include="Common\CatalogDP.cs" />
+    <Compile Include="Common\CatalogEntity.cs" />
+    <Compile Include="Common\ConfigTool.cs" />
+    <Compile Include="Common\EA_DefineMainPageDP.cs" />
+    <Compile Include="Customer\Br_ECustomerDP.cs" />
+    <Compile Include="EquipmentManager\Equ_DeskDP.cs" />
+    <Compile Include="EquipmentManager\Equ_SubjectDP.cs" />
+    <Compile Include="Flow\FlowDP.cs" />
+    <Compile Include="Flow\HistoryFlowListDP.cs" />
+    <Compile Include="Flow\MessageBookMarkDP.cs" />
+    <Compile Include="News\NewsDp.cs" />
+    <Compile Include="News\NewsEntity.cs" />
+    <Compile Include="News\NewsTypeEntity.cs" />
+    <Compile Include="Common\NormalAppDP.cs" />
+    <Compile Include="Flow\ProcessDP.cs" />
+    <Compile Include="Provide\Pro_ProvideManageDP.cs" />
+    <Compile Include="Service\Cst_GuidDefinitionDP.cs" />
+    <Compile Include="Service\Cst_ServiceLevelDP.cs" />
+    <Compile Include="Service\Cst_SLGuidDP.cs" />
+    <Compile Include="Common\SMSDp.cs" />
+    <Compile Include="Common\UIMethod.cs" />
+    <Compile Include="Service\DRMUserDP.cs" />
+    <Compile Include="Service\ReportDP.cs" />
+    <Compile Include="Service\RptConstracts.cs" />
+    <Compile Include="Service\Services_List.cs" />
+    <Compile Include="Service\Services_Template.cs" />
+    <Compile Include="Service\ZHServiceDP.cs" />
+    <Compile Include="Common\MonitorDP.cs" />
+    <Compile Include="SystemFileList\SystemFileList.cs" />
+    <Compile Include="Service\TestDP.cs" />
+    <Compile Include="WeiXin\WeiXinDP.cs" />
+    <Compile Include="WeiXin\WeiXinModel.cs" />
+    <Compile Include="XmlHttp\XmlHttpTable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Epower.DevBase.BaseTools\Epower.DevBase.BaseTools.csproj">
+      <Project>{B83538F3-C570-4754-A00C-E53403D93A89}</Project>
+      <Name>Epower.DevBase.BaseTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.DevBase.Organization.Base\Epower.DevBase.Organization.Base.csproj">
+      <Project>{819E9420-42DA-4D60-822C-5B6C917BC5FF}</Project>
+      <Name>Epower.DevBase.Organization.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.DevBase.Organization.SqlDAL\Epower.DevBase.Organization.SqlDAL.csproj">
+      <Project>{226E78B7-1EEF-482F-A9B9-B3E2EB943468}</Project>
+      <Name>Epower.DevBase.Organization.SqlDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.DevBase.Organization\Epower.DevBase.Organization.csproj">
+      <Project>{76E1952C-7481-4D29-BAFB-0B5FBF3F35CA}</Project>
+      <Name>Epower.DevBase.Organization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.ITSM.Base\Epower.ITSM.Base.csproj">
+      <Project>{C4EACFEC-758B-45CD-A410-DA7A152CFD84}</Project>
+      <Name>Epower.ITSM.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FeifanE8.Framework\FeifanE8.Framework.csproj">
+      <Project>{E890944A-3ADE-43ED-BF62-B30C3B06FB8B}</Project>
+      <Name>FeifanE8.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

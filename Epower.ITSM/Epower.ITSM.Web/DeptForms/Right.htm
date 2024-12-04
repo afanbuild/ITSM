@@ -1,0 +1,162 @@
+﻿
+
+    
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>无标题页</title>
+    <link href="../App_Themes/NewOldMainPage/css.css" type="text/css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="../Js/jquery-1.7.2.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../JS/jquery-ui-1.8.20.custom.min.js"></script>
+    <link type="text/css" href="../JS/css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
+        
+</head>
+<body>
+			<input id="hidSelect" type="hidden" runat="server" value="0" />
+    <table height="29" border="0" cellpadding="0" cellspacing="0">
+        <tr style="CURSOR: hand">
+            <td width="7" valign="top"><img src="../Images/lm-left.gif" width="7" height="29" /></td>
+            <td width="95" height="29" align="center" valign="middle" id="name0" class="td_3" onclick="chang_Class('name',2,0)" background="../Images/lm-b.gif" onmouseover="chang(this,'lm-c.gif')" onmouseout="chang(this,'lm-a.gif')">
+            
+                                                <div style="color:#1885C0;" > 操作项
+                                   
+                                    </div>
+            </td>
+            <td width="95" height="29" align="center" valign="middle" id="name1" class="STYLE4" onclick="chang_Class('name',2,1)" background="../Images/lm-a.gif" onmouseover="chang(this,'lm-c.gif')" onmouseout="chang(this,'lm-a.gif')">
+            
+                   <div style="color:#1885C0;" > 全部
+                                   
+                                    </div>
+            
+            </td>            
+            <td width="7" valign="top"><img src="../Images/lm-right.gif" width="7" height="29" /></td>
+        </tr>
+    </table>
+    
+    
+    
+
+                        
+         <table id="Table2" width="100%" align="center" class="listContent" style="display:none;" >
+        <tr>
+            <td align="right" class="listTitle">
+                <iframe id='Iframe2' name="Iframe0" src="" width='100%' height='500' scrolling='auto'
+                    frameborder='no'></iframe>
+            </td>
+        </tr>
+                </table>
+                <table id="Table3" width="100%" align="center" class="listContent" style="display:none;"  >
+                    <tr>
+                        <td align="right" class="listTitle">
+                            <iframe id='Iframe3' name="Iframe1" src="" width='100%' height='500' scrolling='auto'
+                                frameborder='no'></iframe>
+                        </td>
+                    </tr>
+                </table>
+                	
+                
+    <script type="text/javascript" language="javascript">
+        var selectobj = $("#name0");
+    
+        function chang(obj,img){
+                if(obj!=selectobj)	    
+		            obj.background="../Images/"+img;
+        }
+        
+        function chang_Class(name,num,my)
+        {
+
+	        
+	       for(i=0;i<num;i++){
+		        if(i!=my){
+			        $("#"+name+i).className="STYLE4";
+		            $("#" + name + i).css("background-image", "url(../Images/lm-a.gif)");
+			        //$("#a"+i).className="STYLE4";
+		        }
+	        }
+	        selectobj = $("#"+name+my);
+	        $("#"+name+my).className="td_3";	
+	        $("#" + name + my).css("background-image", "url(../Images/lm-b.gif)");
+	        //$("#a"+my).className="td_3";
+	        
+            $("#hidSelect").value=my;
+            
+                 
+	        switch(my)
+	        {
+                case 0:     //基本信息
+	                $("#Table2").css('display','');   
+
+	                $("#Table3").css('display','none');   
+
+                    Iframe0.location="right/pageRight.aspx";   
+	                break;
+	            case 1:    //处理信息
+ 
+	                $("#Table2").css('display','none');   
+
+	                $("#Table3").css('display','');   
+
+                    Iframe1.location="frmright.aspx";   
+	            break;	 
+	         }
+	     }
+        
+        
+//        function chang_Class(name,num,my)
+//        {
+
+//	        for(i=0;i<num;i++){
+//		        if(i!=my){
+//			        document.getElementById(name+i).className="STYLE4";
+//			        document.getElementById(name+i).background="../Images/lm-a.gif";
+//			        document.getElementById("a"+i).className="STYLE4";
+//		        }
+//	        }
+//	        selectobj = document.getElementById(name+my);
+//	        document.getElementById(name+my).className="td_3";	
+//	        document.getElementById(name+my).background="../Images/lm-b.gif";
+//	        document.getElementById("a"+my).className="td_3";
+//	        
+//            document.getElementById("hidSelect").value=my;
+//       
+//	        switch(my)
+//	        {
+//                case 0:     //基本信息
+//                    document.getElementById("Tables0").style.display ="";
+//	                document.getElementById("Table1").style.display ="none";	        
+//                    Iframe0.location="right/pageRight.aspx";   
+//                    
+//	                break;
+//	            case 1:    //处理信息
+//                    document.getElementById("Tables0").style.display ="none";
+//	                document.getElementById("Table1").style.display ="";	        
+//                    Iframe1.location="frmright.aspx";   
+//                    
+//        	        
+//	            break;	 
+//	         }
+//        }
+
+    var temp = 0;
+    for(i=0;i<2;i++){
+		if(i!=temp){
+		        $("#"+name+i).className="STYLE4";
+		        $("#" + name + i).css("background-image", "url(../Images/lm-a.gif)");
+
+		}
+	}	   
+		        $("#"+name+temp).className="";	
+	        $("#" + name + temp).css("background-image", "url(../Images/lm-b.gif)");
+
+	                $("#Table2").css('display','');   
+
+                    Iframe0.location="right/pageRight.aspx";   
+			    
+			    
+    </script>
+</body>
+</html>

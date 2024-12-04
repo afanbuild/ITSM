@@ -1,0 +1,94 @@
+<html>
+	<Style Type="text/css"> a:link {text-decoration:none; cursor: hand}
+	a:visited {text-decoration:none}
+	a:hover {text-decoration:underline}
+	body,table { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 9pt}
+	</Style>
+	<link type="text/css" rel="stylesheet" href="../App_Themes/StandardThemes/css.css"/>
+	<body leftmargin="0" topmargin="0">
+		<form action="--WebBOT-SELF--" name="fmSubmit" method="post">
+			<!--webbot bot="SaveResults" u-file="fpweb:///_private/form_results.csv" s-format="TEXT/CSV" s-label-fields="TRUE" -->
+			<table border="0" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse" bordercolor="#ffffff"
+				width="99%" id="AutoNumber1" height="96">
+				<tr>
+					<td class="default" height="18"><div align="center"><strong>已选择</strong> 
+						</div>
+					</td>
+					
+					<TD class="default" width="89" height="18"></TD>
+				</tr>
+				<tr>
+					<td class="default" height="137">
+						<div align="center">
+							<select size="6" id="List1" name="List1"  style="WIDTH: 250px; HEIGHT: 137px" ondblclick="remove_List1()">
+							</select>
+						</div>
+					</td>
+					<TD class="default" align="center" width="89" height="137">
+						<P>&nbsp;<input type="button" value="确 认" name="Bsend" onClick="sendmail();" id="Button1" class="btnClass"></P>
+						<P><FONT color="#ff0000">* 双击名称便可从列表中删除。</FONT></P>
+					</TD>
+				</tr>
+				
+			</table>
+		</form>
+		<SCRIPT language="JScript">
+		function sendmail()
+		{
+			var i;
+			var strto;
+			var strtoname;
+			var j;
+			var e1;
+				e1 ="";
+				
+			var el1 = document.fmSubmit.List1;
+			strto="";
+			strtoname="";
+			for (i=0; i<el1.options.length; i++) 
+				{
+				if (el1.options(j).value.length!=0)
+					strto=strto +el1.options(i).value + ",";
+				}
+				
+			for (i=0; i<el1.options.length; i++) 
+				{
+				if (el1.options(j).value.length!=0)
+					strtoname=strtoname +el1.options(i).text + ",";
+				}
+			
+
+
+
+			if(strto!="") 
+                        {
+			    strto=strto.substr(0,strto.length-1);
+			    strtoname=strtoname.substr(0,strtoname.length-1);
+                            ApplyEmail(strtoname,strto);
+			}
+			
+			            
+
+		}
+		function ApplyEmail(strtoname,strTo)
+        {
+           window.returnValue = strtoname + "@" + strTo;
+		   window.parent.close();
+        }
+   
+   
+		function remove_List1()
+		{
+			var i
+			i=document.fmSubmit.List1.selectedIndex;
+			if (i!=-1)
+			{
+				document.fmSubmit.List1.remove(i);
+			}
+		}
+		     
+        
+		</SCRIPT>
+		
+	</body>
+</html>

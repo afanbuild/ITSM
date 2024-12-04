@@ -1,0 +1,52 @@
+--创建异步服务日志表  余向前 2013-05-28
+create table EPOWER_SERVER_LOG
+(
+  ADDTIME DATE,
+  REMARK  NVARCHAR2(2000),
+  SOURCES NVARCHAR2(100)
+)
+
+--添加未处理请求cst_Request系统系列号 余向前 2013-05-28
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('cst_RequestID', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+--添加判断是否暂存记录的查询函数 余向前 2013-05-31
+CREATE OR REPLACE FUNCTION isSaveFlow
+  (
+  lngFlowID in Number
+  )
+return number
+AS
+/*
+判断是否是起草暂存流程
+iResult=1 表示起草环节暂存的记录，反之则不是
+*/
+iResult int;
+BEGIN
+  iResult:=0;
+  select count(1) into iResult from es_message where flowid = lngFlowID;
+RETURN iResult;
+END;
+
+
+--创建知识转移设置表  余向前 2013-06-03
+create table inf_transfer_set
+(
+  ID               NUMBER(18,2),  --标示ID
+  APPID            NUMBER(18,2),  --应用ID
+  OFLOWMODELID     NUMBER(18,2),  --流程模型ID(OFlowModelID)
+  FIELDDESCRIPTION NVARCHAR2(200),--转移字段描述
+  FLOWFIELD        NVARCHAR2(100),--需要转移表对应的字段名称
+  INFOFIELD        NVARCHAR2(100) --转入对应的知识表字段名称
+)
+
+--添加知识转移相关系统系列号 余向前 2013-06-03
+insert into ts_sequence (NAME, MINVALUE, MAXVALUE, CURRENTVALUE, STEP, RECYCLE)
+values ('Inf_transfer_setID', 10000, 9999999999, 10000, 1, 0);
+commit;
+
+--添加知识转移权限项  余向前 2013-06-03
+insert into ts_operates (OPERATEID, SYSID, OPNAME, OPDESC, OPTYPE, SQLSTATEMENT, PARAMATERS, CONNECTSYSTEM, OPCATALOG)
+values (3092, 101, '知识转移设置', '知识转移设置', 30, '', '', '', '知识管理');
+commit;

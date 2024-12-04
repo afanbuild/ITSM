@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D5E7A680-EB4A-4C00-AE8B-20D1CA7E2177}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>System_Document</RootNamespace>
+    <AssemblyName>System Document</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.TeamSystem.Data.UnitTesting, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="V1.2\V1.2脚本.txt" />
+    <Content Include="V1.2\V1.2配置.txt" />
+    <Content Include="V1.2\V1.2版本说明.txt" />
+    <Content Include="V6.0.3\V6.0.3.1\V6.0.3.1脚本.txt" />
+    <Content Include="V6.0.3\V6.0.3.1\V6.0.3.1配置.txt" />
+    <Content Include="V6.0.3\V6.0.3.1\V6.0.3.1版本说明.txt" />
+    <Content Include="V6.0.3\V6.0.3.2\V6.0.3.2版本说明.txt" />
+    <Content Include="V6.0.3\V6.0.3.2\V6.0.3.2脚本.txt" />
+    <Content Include="V6.0.3\V6.0.3.2\V6.0.3.2配置.txt" />
+    <Content Include="V6.0.3\V6.0.3.3\V6.0.3.3脚本.txt" />
+    <Content Include="V6.0.3\V6.0.3.3\V6.0.3.3配置.txt" />
+    <Content Include="V6.0.3\V6.0.3.3\V6.0.3.3版本说明.txt" />
+    <Content Include="V6.0.3\V6.0.3.4\V6.0.3.4脚本.txt" />
+    <Content Include="V6.0.3\V6.0.3.4\V6.0.3.4配置.txt" />
+    <Content Include="V6.0.3\V6.0.3.4\V6.0.3.4版本说明.txt" />
+    <Content Include="V6.0.3\V6.0.3脚本.txt" />
+    <Content Include="V6.0.3\V6.0.3配置.txt" />
+    <Content Include="V6.0.3\V6.0.3版本说明.txt" />
+    <Content Include="V6.0.4\V6.0.4.1\V6.0.4.1脚本.txt" />
+    <Content Include="V6.0.4\V6.0.4.1\V6.0.4.1配置.txt" />
+    <Content Include="V6.0.4\V6.0.4.1\V6.0.4.1版本说明.txt" />
+    <Content Include="V6.0.5\V6.0.5.1\V6.0.5.1脚本.txt" />
+    <Content Include="V6.0.5\V6.0.5.1\V6.0.5.1配置.txt" />
+    <Content Include="v7.0.1\v7.0.1.1\v7.0.1.1测试注意事项.txt" />
+    <Content Include="v7.0.1\v7.0.1.1\v7.0.1.1脚本.txt" />
+    <Content Include="v7.0.1\v7.0.1.1\v7.0.1.1配置.txt" />
+    <Content Include="V7.0.2\v7.0.2脚本.txt" />
+    <Content Include="weixin\微信脚本.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HR初始数据导入\HR组织架构同步步骤.docx" />
+    <None Include="HR初始数据导入\用户数据模板格式.csv" />
+    <None Include="HR初始数据导入\部门数据模板格式.csv" />
+    <None Include="产品数据字典.doc" />
+    <None Include="公共清空数据脚本\ITSM清空业务数据脚本.sql" />
+    <None Include="公共清空数据脚本\清空流程实例数据.sql" />
+    <None Include="公共清空数据脚本\清空流程模型数据.sql" />
+    <None Include="公共清空数据脚本\清空组织架构的数据.sql" />
+    <None Include="常用用户控件说明文档.doc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,176 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8F955287-DE16-48CA-8BCC-27FB2BCF4DD2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>E8ITSM_Phone</RootNamespace>
+    <AssemblyName>E8ITSM_Phone</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Epower.DevBase.BaseTools, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Epower.DevBase.BaseTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Epower.DevBase.Organization.Base, Version=1.0.4615.27645, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Epower.DevBase.Organization.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Epower.DevBase.Organization.SqlDAL, Version=1.0.4615.28652, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Epower.DevBase.Organization.SqlDAL.dll</HintPath>
+    </Reference>
+    <Reference Include="EpowerCom, Version=1.0.5081.17167, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\EpowerCom.dll</HintPath>
+    </Reference>
+    <Reference Include="EpowerGlobal, Version=1.0.5081.17167, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\EpowerGlobal.dll</HintPath>
+    </Reference>
+    <Reference Include="IappDataprocess, Version=1.0.4125.32025, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\IappDataprocess.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epower.ITSM.Web\Lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebServiceITSM\FlowDP.asmx" />
+    <Content Include="WebServiceITSM\LoginInterface.asmx" />
+    <Content Include="WebServiceITSM\PDAMainList.asmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\FormValueGenerator.cs" />
+    <Compile Include="Proxy\frm_service_list_wrapper.cs" />
+    <Compile Include="Proxy\message_object_wrapper.cs" />
+    <Compile Include="Toos\CommonTool.cs" />
+    <Compile Include="Toos\JsonToos.cs" />
+    <Compile Include="WebServiceITSM\FlowDP.asmx.cs">
+      <DependentUpon>FlowDP.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServiceITSM\HasProcessedService.asmx.cs">
+      <DependentUpon>HasProcessedService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServiceITSM\LoginInterface.asmx.cs">
+      <DependentUpon>LoginInterface.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServiceITSM\PDAMainList.asmx.cs">
+      <DependentUpon>PDAMainList.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServiceITSM\SelfServiceMode.asmx.cs">
+      <DependentUpon>SelfServiceMode.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\SystemConfig.xml" />
+    <Content Include="MailTemplate\FeedBack.htm" />
+    <Content Include="Web.config" />
+    <Content Include="WebServiceITSM\HasProcessedService.asmx" />
+    <Content Include="WebServiceITSM\SelfServiceMode.asmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\appDataProcess\appDataProcess.csproj">
+      <Project>{342A4D36-6CC9-4D25-9946-84150F924125}</Project>
+      <Name>appDataProcess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.DevBase.Organization\Epower.DevBase.Organization.csproj">
+      <Project>{76E1952C-7481-4D29-BAFB-0B5FBF3F35CA}</Project>
+      <Name>Epower.DevBase.Organization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.ITSM.Base\Epower.ITSM.Base.csproj">
+      <Project>{C4EACFEC-758B-45CD-A410-DA7A152CFD84}</Project>
+      <Name>Epower.ITSM.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Epower.ITSM.SqlDAL\Epower.ITSM.SqlDAL.csproj">
+      <Project>{78BF8B34-0172-48FB-89C6-AAAB3FD47669}</Project>
+      <Name>Epower.ITSM.SqlDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>9888</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/newsj2</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

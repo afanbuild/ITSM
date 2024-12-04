@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IappDataprocess</name>
+    </assembly>
+    <members>
+        <member name="T:IappDataProcess.IActorExtend">
+            <summary>
+            IActorExtend 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:IappDataProcess.IActorExtend.GetActors(System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.String)">
+            <summary>
+             获取人员集合的接口,业务系统可以根据起草人编号 发送人编号  流程模型编号 环节模型编号等参数自定义人员获取逻辑
+            </summary>
+            <param name="lngStarterID"></param>
+            <param name="lngSenderID"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="strFormValues"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IappDataProcess.IDataProcess">
+            <summary>
+            用户自定义数据处理接口
+            
+            </summary>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.GetFieldValues(System.Int64,System.Int64)">
+            <summary>
+             获取字段的值的字符串（XML）
+            </summary>
+            <param name="lngID"></param>
+            <param name="lngAppID"></param>
+            <param name="lngOpID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.GetBussinessShotValues(System.Int64)">
+            <summary>
+             获取业务快照数据（XML）
+            </summary>
+            <param name="lngFlowID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.GetFieldsDataSet(System.Int64,System.Int64)">
+            <summary>
+            返回业务数据结果集(DataSet)
+            </summary>
+            <param name="lngFlowID"></param>
+            <param name="lngOpID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.GetFieldsDataTable(System.Int64,System.Int64)">
+            <summary>
+            返回业务数据信息(DataTable)
+            </summary>
+            <param name="lngFlowID"></param>
+            <param name="lngOpID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.SaveFieldValuesForCommunic(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.Int64)">
+            <summary>
+             沟通时保存表单信息的接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngActionID"></param>
+            <param name="lngOpID"></param>
+            <param name="strXMlFieldValue"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.SaveFieldValues(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.Int64)">
+            <summary>
+            保存应用中的信息值
+            2007-09-17 增加 处理动作接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngActionID"></param>
+            <param name="lngOpID"></param>
+            <param name="strXMlFieldValue"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DealFlowContinue(System.Data.OracleClient.OracleTransaction,System.Int64,System.DateTime,System.DateTime,System.DateTime,System.Int64)">
+            <summary>
+            恢复流程执行的业务接口
+            2009-02-05 增加
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="flowStartTime">流程启动时间</param>
+            <param name="flowPauseTime">流程暂停时间</param>
+            <param name="lngUserID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DealFlowPause(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.String)">
+            <summary>
+            暂停流程执行的业务接口
+            2009-02-05增加
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngUserID"></param>
+            <param name="strRemark"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.NotifyMessage(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.String,System.Int64)">
+            <summary>
+            流程发送处理通知接口(在流程发送/新增处理的提交前执行)
+            </summary>
+            <param name="trans"></param>
+            <param name="lngID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngOpID"></param>
+            <param name="strXMlFieldValue"></param>
+            <param name="strReceivers">接收者和消息值列字符串 格式: 接收者ID|消息ID,接收者ID|消息ID,... (仅主办的消息)</param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.SendFlowFinish(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            添加和发送流程后用户开发接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngOpID"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.SaveFieldValuesForRead(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.Int64)">
+            <summary>
+            阅知状态下保存应用中的信息值
+            </summary>
+            <param name="lngID"></param>
+            <param name="lngAppID"></param>
+            <param name="lngOpID"></param>
+            <param name="strXMlFieldValue"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.SendBackUserProcess(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64)">
+            <summary>
+            退回时应用执行的具体实现的接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.TakeBackUserProcess(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64)">
+            <summary>
+            回收时应用执行的具体实现的接口
+            由于回收操作需要删除一些内容，所以用户自定义操作会在前段执行
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DoFlowEnd(System.Data.OracleClient.OracleTransaction,System.Int64)">
+            <summary>
+            统一的归档处理接口
+            </summary>
+            <param name="lngID">流程ID就可以找到全部相关的要进行归档的资料</param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DoFlowAbort(System.Data.OracleClient.OracleTransaction,System.Int64)">
+            <summary>
+            终止时统一的归档处理接口[新]
+            </summary>
+            <param name="lngID">流程ID就可以找到全部相关的要进行归档的资料</param>
+            <param name="blnAbort">是否为终止</param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DeleteFieldValues(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64)">
+            <summary>
+            删除应用相关的信息。
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngOpID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.UserInterfaceReceivers(System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.String,System.Xml.XmlDocument@)">
+            <summary>
+             实现用户自定义二次开发 接收人员 结果
+                      如:  自动分配 (根据工作量)
+                           从表单上提取  等
+            </summary>
+            <param name="lngAppID"></param>
+            <param name="lngOpID"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngNodeID"></param>
+            <param name="lngMessageID"></param>
+            <param name="lngFlowModelID"></param>
+            <param name="lngNodeModelID"></param>
+            <param name="lngUserID"></param>
+            <param name="strFormXMLValue"></param>
+            <param name="xmlDoc"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.AfterMessageAddedForAddOrSend(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64,System.Int64,System.Int32,System.String)">
+            <summary>
+            新增和发送时产生MESSAGE时,用户自定义处理接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngFlowID"></param>
+            <param name="lngNodeID"></param>
+            <param name="lngMessageID"></param>
+            <param name="intActorType"></param>
+            <param name="sFActor"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.DeleteMessage(System.Data.OracleClient.OracleTransaction,System.Int64)">
+            <summary>
+            删除消息（协办/阅知/转发/传阅/沟通【非主办】）用户接口
+            </summary>
+            <param name="trans"></param>
+            <param name="lngMessageID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.AfterReceiveMessage(System.Data.OracleClient.OracleTransaction,System.Int64,System.Int64)">
+            <summary>
+            用户接收事项后自定义处理
+            </summary>
+            <param name="trans"></param>
+            <param name="lngMessageID"></param>
+            <param name="lngUserID"></param>
+        </member>
+        <member name="M:IappDataProcess.IDataProcess.IsInfluxMessageFinished(System.Data.OracleClient.OracleTransaction,System.Int64)">
+            <summary>
+            判断会签环节是否可以结束
+            </summary>
+            <param name="trans"></param>
+            <param name="lngMessageID"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

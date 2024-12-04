@@ -1,0 +1,177 @@
+<html>
+	<Style Type="text/css"> a:link {text-decoration:none; cursor: hand}
+	a:visited {text-decoration:none}
+	a:hover {text-decoration:underline}
+	body,table { font-family: "Arial", "Helvetica", "sans-serif"; font-size: 9pt}
+	</Style>
+	<body leftmargin="0" topmargin="0">
+		<form action="--WebBOT-SELF--" name="fmSubmit" method="post">
+			<!--webbot bot="SaveResults" u-file="fpweb:///_private/form_results.csv" s-format="TEXT/CSV" s-label-fields="TRUE" -->
+			<table border="0" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse" bordercolor="#ffffff"
+				width="99%" id="AutoNumber1" height="96">
+				<tr>
+					<td class="default" height="18"><div align="center"><strong>收件人</strong> 
+							<!--object id="DHTMLPage1" classid="clsid:C432F67E-7809-11D4-9F59-006008A52F6E" width=0 height=0></object-->
+						</div>
+					</td>
+					<td height="18" class="default"><div align="center"><strong>抄 送</strong>
+						</div>
+					</td>
+					<td class="default" height="18"><div align="center"><strong>密 送</strong>
+						</div>
+					</td>
+					<TD class="default" width="89" height="18"></TD>
+				</tr>
+				<tr>
+					<td class="default" height="97">
+						<div align="center">
+							<select size="6" id="List1" name="List1" style="WIDTH: 100px; HEIGHT: 100px" ondblclick="remove_List1()">
+							</select>
+						</div>
+					</td>
+					<td height="97" class="default">
+						<div align="center">
+							<SELECT id="List2" name="List2" size="6" style="WIDTH: 100px; HEIGHT: 100px" ondblclick="remove_List2()">
+							</SELECT>
+						</div>
+					</td>
+					<td class="default" height="97"><div align="center">
+							<SELECT id="List3" name="List3" size="6" style="WIDTH: 100px; HEIGHT: 100px" ondblclick="remove_List3()">
+							</SELECT>
+						</div>
+					</td>
+					<TD class="default" align="center" width="89" height="97">
+						<P>&nbsp;<input type="button" value="确 认" name="Bsend" onClick="sendmail();" id="Button1"></P>
+						<P><FONT color="#ff0000">* 双击名称便可从列表中删除。</FONT></P>
+					</TD>
+				</tr>
+				<TR>
+					<TD class="default" colSpan="4" height="24"><FONT face="宋体"><FONT class="default">&nbsp;&nbsp;*点击右边的部门列表，下面将显示该部门下人员的电子邮件，请点击[发送]加入收件人列表，点击[抄送]加入抄送列表，点击[密送]加入密送列表，点击“发送”按钮通过邮件客户端发送电子邮件。</FONT></FONT></TD>
+				</TR>
+			</table>
+		</form>
+		<SCRIPT language="JScript">
+		function sendmail()
+		{
+			var i
+			var strto
+			var strcc
+			var strbcc
+			var j
+			var e1,e2,e3;
+				e1 ="";
+				e2 ="";
+				e3 ="";
+			var el1 = document.fmSubmit.List1;
+			var el2 = document.fmSubmit.List2;
+			var el3 = document.fmSubmit.List3;
+			strto="";
+			strcc="";
+			strbcc="";
+			for (i=0; i<el1.options.length; i++) 
+				{
+				if (el1.options(j).value.length!=0)
+					strto=strto +el1.options(i).value+";";
+				}
+			for (j=0; j<el2.options.length; j++) 
+				{
+					if (el2.options(j).value.length!=0)
+					strcc=strcc +el2.options(j).value+";";
+				}
+			for (j=0; j<el3.options.length; j++) 
+				{
+					if (el3.options(j).value.length!=0)
+					strbcc=strbcc +el3.options(j).value+";";
+				} 
+
+
+            if(strto!="") 
+            {
+			    strto=strto.substr(0,strto.length-1);
+                ApplyEmail(0,strto);
+			}
+			if(strcc!="")
+			{
+                strcc=strcc.substr(0,strcc.length - 1);
+                ApplyEmail(1,strcc);
+			}
+			
+			if(strbcc!="") 
+			{
+                strbcc = strbcc.substr(0,strbcc.length-1);
+                ApplyEmail(2,strbcc);
+			}
+			if(typeof(window.parent.opener)!="undefined" )
+            {
+                window.parent.close();
+            }
+            else
+            {            
+			    if(strcc!="") strcc="?cc="+strcc;
+			    if(strbcc!="") strbcc="&bcc="+strbcc;
+			
+			    location.href= "mailto:"+strto+strcc+strbcc;
+			}
+
+		}
+		
+		function ApplyEmail(iswitch,strTo)
+        {
+           if(typeof(window.parent.opener)=="undefined" )
+           {
+                return;
+           }
+           if(iswitch == 0)
+              AddMsgValues(window.parent.opener.document.all.MsgTo,strTo);
+          if(iswitch == 1)
+              AddMsgValues(window.parent.opener.document.all.MsgCc,strTo);
+          if(iswitch == 2)
+              AddMsgValues(window.parent.opener.document.all.MsgBcc,strTo);
+           
+        }
+        
+        function AddMsgValues(obj,strTo)
+        {
+           //下一步检测重复项  还没有做
+           if(obj.value!="")
+           {
+              obj.value = obj.value + ";" + strTo;
+           }
+           else
+           {
+              obj.value = strTo;
+           }
+        }
+		</SCRIPT>
+		<script language="javascript">
+   
+		function remove_List1()
+		{
+			var i
+			i=document.fmSubmit.List1.selectedIndex;
+			if (i!=-1)
+			{
+				document.fmSubmit.List1.remove(i);
+			}
+		}
+		function remove_List2()
+		{
+			var i
+			i=document.fmSubmit.List2.selectedIndex;
+			if (i!=-1)
+			{
+				document.fmSubmit.List2.remove(i);
+			}
+		}  
+		function remove_List3()
+		{
+			var i
+			i=document.fmSubmit.List3.selectedIndex;
+			if (i!=-1)
+			{
+				document.fmSubmit.List3.remove(i);
+			}
+		}    
+		</script>
+	</body>
+</html>

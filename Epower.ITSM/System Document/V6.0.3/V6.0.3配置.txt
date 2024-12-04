@@ -1,0 +1,21 @@
+--在SystemConfig.xml里的<Items Name="Other" Title="其它设置" ConfigContent="">下增加
+    <Item Name="systemversion" Value="V6.0.3" Desc="系统版本号" ControlType="TEXT" UserEnable="false">
+    </Item>
+    
+--在配置管理大菜单下增加
+<siteMapNode title="常用类别配置项管理"  resourceKey="209" url="~\Forms\frm_BR_CatalogSchemaItemsMain.aspx" description="常用类别配置项管理"/>
+<siteMapNode title="常用类别配置项编辑"  resourceKey="209" url="~\Forms\frm_BR_CatalogSchemaItemsEdit.aspx" description="常用类别配置项编辑" visible="false"/>
+
+
+--Images文件夹下增加 tb_001.gif图片 作为默认服务目录图片展示
+
+
+--把web.sitemap里的资产监控规则配置、手机远程消息管理、会议室预定 这几个菜单屏蔽.产品里不再含有这几个菜单的功能
+   
+      
+-- 在 ExcelTemplate 文件夹下增加模板文件.
+Rpt_ReqDemandList.xls
+
+
+--在排班管理菜单下增加
+<siteMapNode title="排班班次编辑" url="~\AppSchedules\frm_SchedulesArea_BaseSet.aspx" description="排班班次编辑"  visible="false"/>
